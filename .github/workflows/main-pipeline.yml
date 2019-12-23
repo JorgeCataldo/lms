@@ -27,9 +27,9 @@ jobs:
         
     - uses: actions/setup-dotnet@v1
     - name: Build Server
-      working-directory: ./backend/src/Api
       run:  |
-        dotnet build  --configuration Release
+        dotnet build ./backend/src/Api  --configuration Release
+        echo 'AQUI'
         apt-get update
         apt-get install -y rsync            
         rsync -rvP --del --exclude 'wwwroot*' /${{ env.PROJECT_NAME }}/dist/ ubuntu@54.236.7.239:///var/aspnetcore/academia-api-staging
