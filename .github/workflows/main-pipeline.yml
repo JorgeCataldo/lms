@@ -10,7 +10,7 @@ on:
 env:
   NODE_VERSION: '10.13.0'                # set this to the node version to use
   DOTNET_VERSION: 2.2.108                # set this to the dotnet version to use
-  PROJECT_NAME: '/backend/src/Api/Api.csproj'                    # project name to be built
+  PROJECT_NAME: './backend/src/Api/Api.csproj'                    # project name to be built
 
 jobs:
   build:
