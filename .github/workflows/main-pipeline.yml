@@ -18,8 +18,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/setup-dotnet@v1
+    
     - name: Setting .net version
+      uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 2.2.108
         ssh-private-key: ${{ secrets.LightsailKey }}
@@ -34,10 +35,8 @@ jobs:
         rsync -rvP --del --exclude 'wwwroot*' ./backend/src/${{ env.PROJECT_NAME }}/dist/ ubuntu@54.236.7.239:///var/aspnetcore/academia-api-staging
         ssh ubuntu@dev.academia.tg4.com.br sudo systemctl restart academia-api-staging.service    
             
-
-    
-    - uses: actions/setup-node@v1
     - name: Set Node Version
+      uses: actions/setup-node@v1
       with:
         node-version: ${{ env.NODE_VERSION }}
         
