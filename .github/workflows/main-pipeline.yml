@@ -31,7 +31,7 @@ jobs:
         dotnet publish backend/src/${{ env.PROJECT_NAME }} -c Release -o ./dist
         apt-get update
         apt-get install -y rsync            
-        rsync -rvP --del --exclude 'wwwroot*' ./backend/src/${{ env.PROJECT_NAME }}/dist/ ubuntu@dev.academia.tg4.com.br:///var/aspnetcore/academia-api-staging
+        rsync -rvP --del --exclude 'wwwroot*' ./backend/src/${{ env.PROJECT_NAME }}/dist/ ubuntu@54.236.7.239:///var/aspnetcore/academia-api-staging
         ssh ubuntu@dev.academia.tg4.com.br sudo systemctl restart academia-api-staging.service    
             
 
@@ -46,7 +46,7 @@ jobs:
         npm run build:staging
         apt-get update
         apt-get install -y rsync
-        rsync -rvP --del ./dist/frontend/ ubuntu@dev.academia.tg4.com.br://var/www/academia/staging/
+        rsync -rvP --del ./dist/frontend/ ubuntu@54.236.7.239://var/www/academia/staging/
         
     #- name: 'Deploy Backend to Amazon'
     #  uses: azure/webapps-deploy@v1
