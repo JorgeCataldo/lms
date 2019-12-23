@@ -10,7 +10,7 @@ on:
 env:
   NODE_VERSION: '10.13.0'                # set this to the node version to use
   DOTNET_VERSION: 2.2.108                # set this to the dotnet version to use
-  PROJECT_NAME: 'Api'                    # project name to be built
+  PROJECT_NAME: '/backend/src/Api/Api.csproj'                    # project name to be built
 
 jobs:
   build:
@@ -28,10 +28,10 @@ jobs:
     - uses: actions/setup-dotnet@v1
     - name: Build Server
       run:  |
-        dotnet build backend/src/Api/Api.csproj --configuration Release
+        dotnet build ${{ env.PROJECT_NAME }} --configuration Release
         apt-get update
         apt-get install -y rsync            
-        rsync -rvP --del --exclude 'wwwroot*' ../../backend/src/${{ env.PROJECT_NAME }}/dist/ ubuntu@54.236.7.239:///var/aspnetcore/academia-api-staging
+        rsync -rvP --del --exclude 'wwwroot*' /${{ env.PROJECT_NAME }}/dist/ ubuntu@54.236.7.239:///var/aspnetcore/academia-api-staging
         ssh ubuntu@dev.academia.tg4.com.br sudo systemctl restart academia-api-staging.service    
             
     - name: Set Node Version
