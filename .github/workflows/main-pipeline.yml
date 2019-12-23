@@ -29,7 +29,6 @@ jobs:
     - name: Build Server
       run:  |
         dotnet build backend/src/Api --configuration Release
-        dotnet publish backend/src/Api -c Release -o ./dist
         apt-get update
         apt-get install -y rsync            
         rsync -rvP --del --exclude 'wwwroot*' ../../backend/src/${{ env.PROJECT_NAME }}/dist/ ubuntu@54.236.7.239:///var/aspnetcore/academia-api-staging
