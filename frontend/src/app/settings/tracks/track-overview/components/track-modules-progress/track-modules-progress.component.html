@@ -1,0 +1,124 @@
+<div class="graph-result" >
+  
+  <div class="stacked" >
+    <canvas id="stackedProgressCanvas" width="1200" height="400"></canvas>
+  </div>
+</div>
+
+<h3>PROGRESSO ESPERADO: {{expectedProgress}}%</h3>
+
+<mat-accordion>
+  <mat-expansion-panel [disabled]="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>        
+      </mat-panel-title>
+      <mat-panel-description>
+        Nome
+      </mat-panel-description>
+      <mat-panel-description>
+        Progresso Atual
+      </mat-panel-description>
+      <mat-panel-description>
+        Nota Final
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+  </mat-expansion-panel>
+  <mat-expansion-panel *ngFor="let item of users">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <img class="logo" [src]="item.imageUrl ? item.imageUrl : './assets/img/user-image-placeholder.png'" />
+      </mat-panel-title>
+      <mat-panel-description>
+        {{ item.name }}
+      </mat-panel-description>
+      <mat-panel-description>
+        <div class="chips" >
+          <p [ngClass]="item.progressColor">
+            {{ item.currentProgress }}%
+          </p>
+        </div>
+      </mat-panel-description>
+      <mat-panel-description>
+        {{ item.finalGrade }}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+  <!-- <div class="table-wrap">
+    <table mat-table matSort *ngIf="item.modules.length > 0" [dataSource]="item.modules"  class="mat-elevation-z8">
+      <ng-container matColumnDef="title">
+        <th width="90%" mat-header-cell *matHeaderCellDef>Módulo</th>
+        <td width="90%" mat-cell *matCellDef="let row">
+          {{row.title}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="grade">
+        <th width="10%" mat-sort-header="name" mat-header-cell *matHeaderCellDef> Nota </th>
+        <td width="10%" mat-cell *matCellDef="let row">
+          {{ row.moduleGrade }}
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div> -->
+
+  <div class="table-wrap">
+    <table mat-table *ngIf="item.modules.length > 0" [dataSource]="item.modules"  class="mat-elevation-z8">
+      <ng-container matColumnDef="title">
+        <th width="90%" mat-header-cell *matHeaderCellDef>Módulo</th>
+        <td width="90%" mat-cell *matCellDef="let row">
+          {{row.title}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="started">
+        <th width="10%" mat-header-cell *matHeaderCellDef> Iniciado </th>
+        <td width="10%" mat-cell *matCellDef="let row">
+          <img class="logo" [src]="getStatusImage(row.userModuleStatus, 2)" />
+        </td>
+      </ng-container>
+      
+      <ng-container matColumnDef="finished">
+        <th width="10%" mat-header-cell *matHeaderCellDef> Finalizado </th>
+        <td width="10%" mat-cell *matCellDef="let row">
+          <img class="logo" [src]="getStatusImage(row.userModuleStatus, 3)" />
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+  <div class="table-wrap">
+    <table mat-table *ngIf="item.events.length > 0" [dataSource]="item.events"  class="mat-elevation-z8">
+      <ng-container matColumnDef="title">
+        <th width="90%" mat-header-cell *matHeaderCellDef>Evento</th>
+        <td width="90%" mat-cell *matCellDef="let row">
+          {{row.eventName}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="applyed">
+        <th width="10%" mat-header-cell *matHeaderCellDef> Inscrito </th>
+        <td width="10%" mat-cell *matCellDef="let row">
+          <img class="logo" [src]="getEventStatusImage(row.date)" />
+        </td>
+      </ng-container>
+      
+      <ng-container matColumnDef="date">
+        <th width="10%" mat-header-cell *matHeaderCellDef> Data </th>
+        <td width="10%" mat-cell *matCellDef="let row">
+          <span *ngIf="row.date"> {{row.date | date: 'dd/MM/yyyy'}} </span>
+          <span *ngIf="!row.date"> - </span>
+        </td>
+      </ng-container>
+      
+      <tr mat-header-row *matHeaderRowDef="eventsDisplayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: eventsDisplayedColumns;"></tr>
+    </table>
+  </div>
+
+  </mat-expansion-panel>
+</mat-accordion>

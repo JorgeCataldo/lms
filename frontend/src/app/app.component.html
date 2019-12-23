@@ -1,0 +1,18 @@
+<app-header (OpenMenu)="toogleSideNav()"></app-header>
+
+<mat-sidenav-container class="side-nav-container" [hasBackdrop]="true">
+  <mat-sidenav [(opened)]="opened" mode="side">
+    <div id="SideMenuContainer" >
+      <app-menu
+        (closeMenu)="toogleSideNav()"
+      ></app-menu>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div id="Content">
+      <div [@animRoutes]="getPage(appOutlet)" style="position: relative;">
+        <router-outlet #appOutlet="outlet"></router-outlet>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

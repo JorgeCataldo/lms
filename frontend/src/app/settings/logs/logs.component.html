@@ -1,0 +1,59 @@
+<div class="inner-content" >
+  <h2>LOGS DE ACESSO</h2>
+
+  <div class="upper" >
+    <app-date-range-picker
+      (rangeSelected)="filterByDateRange($event)"
+    ></app-date-range-picker>
+  </div>
+
+  <table mat-table matSort [dataSource]="logs" (matSortChange)="sortData($event)" class="mat-elevation-z8">
+  
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th width="50%" class="title-table" mat-header-cell *matHeaderCellDef> ENTIDADES DE NEGÓCIO </th>
+      <td width="50%" class="bold" mat-cell *matCellDef="let row"> {{row.entityType}} </td>
+    </ng-container>
+  
+    <!-- Date Column -->
+    <ng-container matColumnDef="date">
+      <th width="15%" mat-sort-header="date" class="title-table" mat-header-cell *matHeaderCellDef> DATA </th>
+      <td width="15%" mat-cell *matCellDef="let row"> {{row.date | date: 'dd/MM/yyyy'}} </td>
+    </ng-container>
+
+    <!-- Action Column -->
+    <ng-container matColumnDef="logAction">
+      <th width="15%" mat-sort-header="logAction" class="title-table" mat-header-cell *matHeaderCellDef> AÇÃO </th>
+      <td width="15%" mat-cell *matCellDef="let row"> {{row.actionDescription}} </td>
+    </ng-container>
+  
+    <!-- Button Column -->
+    <ng-container matColumnDef="action">
+      <th width="20%" class="content-right" mat-header-cell *matHeaderCellDef>
+        <button class="btn-test btn-table" 
+          (click)="exportAllQuestions()">
+          <img src="./assets/img/download_branco.svg" >
+          EXPORTAR TODOS
+        </button>
+      </th>
+      <td width="20%" class="content-right" mat-cell *matCellDef="let row">
+        <button class="btn-test btn-table-in"
+          (click)="exportUpdatedQuestions(row.entityId, row.entityType)">
+          <img src="./assets/img/download_azul.svg" >
+          EXPORTAR
+        </button>
+       </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <app-pagination *ngIf="logsCount"
+    [setPagination]="{
+      'itemsCount': logsCount,
+      'pageSize': pageSize
+    }"
+    (goToPage)="goToPage($event)"
+  ></app-pagination>
+</div>

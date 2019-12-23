@@ -1,0 +1,28 @@
+form {
+  .product {
+    padding: 20px 15px 15px 15px;
+    background: #FCFCFC;
+    border-radius: 4px;
+    box-shadow: 0 3px 2px 0 rgba(0, 0, 0, 0.16);
+    margin-top: 15px;
+    position: relative;
+
+    img.trash {
+      cursor: pointer;
+      position: absolute;
+      right: 15px;
+      top: 0px;
+    }
+
+    p.obs {
+      font-style: italic;
+      color: rgb(150, 150, 150);
+      font-size: 14px;
+    }
+  }
+  .add-date {
+    margin-top: 15px;
+    width: 100%;
+    font-size: 16px;
+  }
+}

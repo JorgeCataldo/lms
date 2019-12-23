@@ -1,0 +1,22 @@
+div.concepts {
+  border-radius: 4px;
+
+  p.title {
+    background: #f7f7f7;
+    padding: 15px;
+    font-size: 17px;
+    color: #ff4376;
+    font-weight: 500;
+    border-radius: 4px 4px 0px 0px;
+  }
+  th, td{
+    text-align: center;
+  }
+}
+p.dismiss {
+  color: var(--primary-color);
+  text-align: center;
+  margin-top: 20px;
+  cursor: pointer;
+  font-weight: 500;
+}

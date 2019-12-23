@@ -1,0 +1,37 @@
+<div class="inner-content" >
+  <nav>
+    <a href="javascript:history.back()" >
+      <img src="./assets/img/arrow-back.png" />
+      Voltar
+    </a>
+    <h2 *ngIf="response">{{ response.userName }}</h2>
+    <h2 *ngIf="response">{{ response.userRegisterId || '--' }}</h2>
+  </nav>
+
+  <div class="middle" *ngIf="response">
+    <div class="actions">
+      <div>
+        <button class="btn-test"
+          (click)="exportAnswers()" >
+          Exportar Respostas
+        </button>
+      </div>
+    </div>
+    <div class="question" *ngFor="let item of response?.answers" >
+      <p>{{ item.question }} ({{ item.grade != null ? item.grade + '/' + item.percentage : 'valor: ' + item.percentage }})</p>
+      <p>{{ item.answer }}</p>
+      <mat-form-field *ngIf="item.type != 1">
+        <input matInput type="number" min="1"
+          placeholder="Nota da Questão"
+          [(ngModel)]="item.grade" required
+        />
+      </mat-form-field>
+    </div>
+    <div class="grade-actions"  >
+      <button class="btn-test primary"
+        (click)="gradeProfileTestAnswers()" >
+        Salvar
+      </button>
+    </div>
+  </div>
+</div>

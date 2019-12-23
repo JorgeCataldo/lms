@@ -1,0 +1,91 @@
+<div class="inner-content" >
+  <nav>
+    <div class="header" >
+      <h2>OPORTUNIDADES</h2>
+    </div>
+  </nav>
+
+  <div class="content">
+
+    <div class="app-manage-team-filters">
+      <div>
+        <app-manage-team-filters
+          [title]="''"
+          [secondTitle]="'MINHAS OPORTUNIDADES'"
+          [filters]="customFilters"
+          [userActive]="false"
+          [dateActive]="false"
+          (updateFilters)="updateFilters($event)"
+          (search)="triggerFilterSearch($event)"
+          (setUserTermFilter)="triggerSearch($event)"
+        ></app-manage-team-filters>
+      </div>
+      <div class="second-filters">
+        <app-manage-team-filters
+          [title]="''"
+          [secondTitle]="'BUSCAR OPORTUNIDADES'"
+          [filters]="regularFilters"
+          [userActive]=true
+          [dateActive]=false
+          (updateFilters)="updateFilters($event)"
+          (search)="triggerFilterSearch($event)"
+          (setUserTermFilter)="triggerSearch($event)"
+        ></app-manage-team-filters>
+      </div>
+    </div>
+
+    <div class="list">
+      <!--app-list-search
+        placeholder="Digite o nome da empresa/oportunidade"
+        (triggerSearch)="triggerSearch($event)"
+      ></app-list-search-->
+
+      <div class="selected" >
+        <p class="down">
+          <span>
+            <b>{{jobsCount ? jobsCount : 0}}</b> oportunidades encontradas
+          </span>
+        </p>
+      </div>
+      <div class="students">
+        <ul>
+          <li *ngFor="let job of jobs">
+            <img class="photo"
+              [src]="'./assets/img/user-image-placeholder.png'"
+              (click)="viewJobDetails(job.jobPositionId)"
+            />
+            <div class="item-title" (click)="viewJobDetails(job.jobPositionId)">
+              <span class="job">{{job.jobTitle}}<br></span>
+              <span>{{job.employment && job.employment.record ? job.employment.record.function : 'X'}} - {{job.recruitingCompanyName}}<br></span>
+              <span class="money">R$:{{job.employment && job.employment.benefits ? job.employment.benefits.salary : '-'}}<br></span>
+            </div>
+            <div>
+              <button class="btn-test primary"
+                *ngIf="checkUserId(job.userApplicationCreatedBy) === null"
+                (click)="applyToJob(job)">
+                Candidatar-se
+              </button>
+              <button class="btn-test primary"
+                *ngIf="checkUserId(job.userApplicationCreatedBy) === false"
+                (click)="approveUserJob(job.jobPositionId)">
+                Aceitar Convite
+              </button>
+              <button class="btn-test primary buttonWait"
+                *ngIf="checkUserId(job.userApplicationCreatedBy) === true">
+                Aguardando Aceite
+              </button>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <app-pagination *ngIf="jobsCount"
+        [setPagination]="{
+          'itemsCount': jobsCount,
+          'pageSize': pageSize
+        }"
+        (goToPage)="goToPage($event)"
+      ></app-pagination>
+    </div>
+  </div>
+</div>
+  

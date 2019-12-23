@@ -1,0 +1,110 @@
+<h1>
+  {{ newEvent && newEvent.title ? newEvent.title : 'NOVO EVENTO' }}
+</h1>
+<div class="subheader" >
+  <div class="draft-title" [ngClass]="{ 'opened': showDraftOptions }" >
+    <span (click)="showDraftOptions = !showDraftOptions" >
+      MODIFICAÇÕES EM RASCUNHO &nbsp;&nbsp;&nbsp;&nbsp;
+      <img src="./assets/img/arrow-back-white.png" />
+    </span>
+
+    <ul class="draft-options" *ngIf="showDraftOptions" >
+      <li (click)="publishDraftChanges()" >
+        PUBLICAR ALTERAÇÕES
+      </li>
+      <li (click)="rejectDraftChanges()" >
+        REJEITAR ALTERAÇÕES
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="new-module inner-content" >
+  <mat-horizontal-stepper #stepper
+    [ngClass]="{ 'no-action': !allowEditing }"
+    (selectionChange)="stepChanged($event, false)"
+  >
+    <mat-step [completed]="allowEditing" >
+      <ng-template matStepLabel>
+        Informações
+      </ng-template>
+      <app-new-event-event-info
+        #eventInfo
+        [event]="newEvent"
+        (setEventInfo)="setEventInfo($event)"
+      ></app-new-event-event-info>
+    </mat-step>
+
+    <mat-step [completed]="allowEditing" >
+      <ng-template matStepLabel>
+        Datas
+      </ng-template>
+      <app-new-event-date
+        #eventDate
+        [event]="newEvent"
+        (setEventDates)="setEventDates($event)"
+      ></app-new-event-date>
+    </mat-step>
+
+    <mat-step [completed]="allowEditing" >
+      <ng-template matStepLabel>
+        Vídeo
+      </ng-template>
+      <app-new-event-video
+        #eventVideo
+        [event]="newEvent"
+        (setEventVideo)="setEventVideo($event)"
+      ></app-new-event-video>
+    </mat-step>
+
+    <mat-step [completed]="allowEditing" >
+      <ng-template matStepLabel>
+        Materiais
+      </ng-template>
+      <app-new-event-support-materials
+        #eventMaterials
+        [event]="newEvent"
+        (addEventSupportMaterials)="addEventSupportMaterials($event)"
+      ></app-new-event-support-materials>
+    </mat-step>
+
+    <mat-step [completed]="allowEditing" >
+      <ng-template matStepLabel>
+        Requisitos
+      </ng-template>
+      <app-new-event-requirements
+        #eventRequirements
+        [event]="newEvent"
+        [levels]="levels"
+        (setRequirements)="setRequirements($event)"
+      ></app-new-event-requirements>
+    </mat-step>
+
+    <mat-step [completed]="allowEditing" >
+      <ng-template matStepLabel>
+        Perguntas
+      </ng-template>
+      <app-new-event-questions
+        #eventQuestions
+        [event]="newEvent"
+        (addEventQuestions)="addEventQuestions($event)"
+      ></app-new-event-questions>
+    </mat-step>
+
+  </mat-horizontal-stepper>
+
+  <div class="footer" >
+    <button class="previous" type="button" mat-button
+      [hidden]="stepIndex === 0" (click)="previousStep()" >
+      voltar
+    </button>
+    <button class="save" type="button" mat-button
+      (click)="saveContent()" >
+      Salvar {{ stepIndex === 5 ? 'e Finalizar' : '' }}
+    </button>
+    <button class="next" type="button" mat-button
+      [hidden]="stepIndex === 5" (click)="nextStep()" >
+      salvar e continuar
+    </button>
+  </div>
+</div>

@@ -1,0 +1,57 @@
+<div class="step" >
+  <h2>Assuntos deste Módulo</h2>
+
+  <div class="form" >
+    <div class="subjects" >
+      <div class="subject"
+        *ngFor="let subject of module?.subjects; let index = index"
+      >
+        <img class="trash"
+          src="./assets/img/trash.png"
+          (click)="removeSubject(index)"
+        />
+        <div class="two-columns" >
+          <div class="validation-field" >
+            <mat-form-field>
+              <input matInput placeholder="Nome"
+                [(ngModel)]="subject.title" required />
+            </mat-form-field>
+
+            <p class="subtitle" >
+              Aproveitamento Necessário para Conseguir Nível
+            </p>
+            <div class="percentages" >
+              <div>
+                <p class="level" *ngFor="let progress of subject.userProgresses" >
+                  {{ getLevelDescription(progress.level) }} (%)
+                </p>
+              </div>
+              <div>
+                <input *ngFor="let progress of subject.userProgresses"
+                  matInput type="number" required
+                  placeholder="Aproveitamento"
+                  [ngModel]="progress.percentage | asPercentage"
+                  (blur)="setProgressPercentage($event, progress)"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="validation-field" >
+            <mat-form-field style="width: 97%" >
+              <textarea matInput placeholder="Resumo (max 400 caracteres)" required
+                [(ngModel)]="subject.excerpt" ></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <app-concepts-register
+          [concepts]="subject.concepts"
+          (updateConcepts)="updateConcepts($event, subject)"
+        ></app-concepts-register>
+      </div>
+      <button type="button" class="btn-test add-subject" (click)="addSubject()" >
+        + Adicionar Assunto
+      </button>
+    </div>
+  </div>
+</div>

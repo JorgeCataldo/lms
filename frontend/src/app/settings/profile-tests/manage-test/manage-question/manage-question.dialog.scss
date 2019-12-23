@@ -1,0 +1,98 @@
+h3 {
+  color: var(--primary-color);
+  font-weight: 500;
+  font-size: 20px;
+  margin: 0;
+}
+
+div.concepts {
+  margin: 20px 0px;
+}
+
+div.text-inputs {
+  margin-top: 25px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 15px;
+}
+
+div.answers {
+  margin: 15px 0px;
+
+  table {
+    background: #FCFCFC;
+    border-radius: 6px;
+    width: 100%;
+    box-shadow: 0 3px 2px 0 rgba(0, 0, 0, 0.16);
+    text-align: left;
+    border-collapse: collapse;
+    margin: 10px 0px;
+
+    tr {
+      td, th {
+        padding: 10px 15px;
+      }
+    }
+
+    thead {
+      tr {
+        background: #89D2DC;
+        color: #868686;
+        text-align: center;
+
+        th {
+          font-size: 14px;
+
+          &:first-child {
+            border-radius: 6px 0px 0px 0px;
+            text-align: left;
+          }
+          &:last-child {
+            border-radius: 0px 6px 0px 0px;
+          }
+        }
+      }
+    }
+    tbody {
+      tr {
+        border-bottom: 1px solid #C3C3C3;
+
+        td {
+          color: #868686;
+          font-size: 16px;
+          padding-bottom: 10px;
+          text-align: center;
+
+          &:first-child {
+            text-align: left;
+          }
+          .mat-select {
+            width: 50%;
+          }
+          textarea {
+            height: 60px;
+          }
+          img {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
+
+div.actions {
+  text-align: right;
+  border-top: 1px solid lightgray;
+  padding-top: 20px;
+  margin-top: 30px;
+
+  button {
+    width: 30%;
+    margin-right: 10px;
+    font-size: 16px;
+    padding: 12px 24px;
+    font-weight: 400;
+    border-radius: 10px;
+  }
+}

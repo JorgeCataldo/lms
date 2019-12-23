@@ -1,0 +1,43 @@
+.exam-footer {
+  background: var(--footer-background);
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  div.progress {
+    margin-right: 50%;
+    margin-right: 20px;
+    font-weight: 600;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    width: 70%;
+
+    .bar {
+      flex-grow: 1;
+      position: relative;
+    }
+
+    img {
+      width: 40px;
+      position: relative;
+      right: 10px;
+      margin-right: 3px;
+      background: #EDEDED;
+      border-radius: 50%;
+    }
+  }
+
+  a {
+    padding: 8px 0px 8px 24px;
+    border-left: 2px solid var(--primary-color);
+    cursor: pointer;
+    color: var(--primary-color);
+
+    &.disabled {
+      color: gray;
+      border-color: gray;
+    }
+  }
+}

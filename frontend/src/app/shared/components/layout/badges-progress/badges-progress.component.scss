@@ -1,0 +1,33 @@
+.unfilled {
+  background: #DBDBDB;
+  border-radius: 20px;
+  margin: 10px 0px;
+}
+.filled {
+  background: #99F900;
+  border-radius: 20px 0px 0px 20px;
+  position: relative;
+}
+
+.steps {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+
+  .step {
+    background: #DBDBDB;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.16);
+
+    &.filled {
+      background: transparent;
+      background-size: cover;
+      box-shadow: none;
+      width: 50px;
+      height: 50px;
+      bottom: 5px;
+    }
+  }
+}

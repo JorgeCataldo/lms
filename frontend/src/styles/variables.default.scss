@@ -1,0 +1,31 @@
+
+@import '~@angular/material/theming';
+@include mat-core();
+
+$my-app-primary: mat-palette($mat-cyan);
+$my-app-accent:  mat-palette($mat-cyan, 500, 900, A100);
+$my-app-theme: mat-light-theme($my-app-primary, $my-app-accent);
+@include angular-material-theme($my-app-theme);
+
+:root {
+  --primary-color: #23BCD1;
+  --alternate-primary-color: #239BD1;
+  --semi-primary-color: #89D2DC;
+  --card-primary-color: #23BCD1;
+  --third-primary-color: #1988c8;
+  --divider-color: #1c96df;
+  --selected-color: #43b3f3;
+  --progress-bar-uncompleted: #e8e8e8;
+  --progress-bar-completed: #80d1dc;
+  --danger-color: #FF8D9E;
+  --warn-color: #FFE08D;
+  --success-color: #A8F5B4;
+  --text-color: #5D5D5D;
+  --alt-text-color: #4f4f4f;
+  --box-shadow: 1px 2px 6px 0px rgba(180, 180, 180, 1);
+  --header-accent: #efefef;
+  --main-background: #ffffff;
+  --light-color: #1aAFc9;
+  --footer-background: #EDEDED;
+  font-family: 'Montserrat';
+}

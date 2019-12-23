@@ -1,0 +1,32 @@
+<div class="inner-content" >
+  <nav>
+    <a href="javascript:history.back()" >
+        <i class="logo icon-seta_direita" style="font-size: 26px;"></i>
+      voltar
+    </a>
+  </nav>
+  <div class="header" >
+    <h2>
+      <p>Nome do Módulo</p>
+      {{ track?.moduleTitle }}
+    </h2>
+  </div>
+
+  <app-track-overview-badges
+    [progresses]="track?.studentsProgress"
+  ></app-track-overview-badges>
+
+  <div class="content" *ngIf="track" >
+    <app-track-overview-content-views
+      [contents]="track?.viewedContents"
+      [fromTrack]="false"
+      [studentsCount]="track?.studentsCount"
+    ></app-track-overview-content-views>
+
+    <app-track-overview-wrong-concepts
+      [concepts]="track?.wrongConcepts"
+      [showAll]="false"
+      emptyStateEntity="módulo"
+    ></app-track-overview-wrong-concepts>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+<div class="text-content" [ngClass]="{ 'resumed': resumedView }" >
+  <div class="inner-content" >
+
+    <div class="htmlContent"
+      [innerHTML]="content.value | MarkdownToHtml"
+      (scroll)="onScroll($event)"
+    ></div>
+
+    <div class="concepts" *ngIf="!resumedView" >
+      <p>Conceitos Abordados</p>
+      <ul>
+        <li class="concept"
+          *ngFor="let marker of markers"
+          (click)="goToAnchor(marker.anchor)"
+        >
+          {{ marker.concept }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

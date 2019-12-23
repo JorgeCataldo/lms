@@ -1,0 +1,92 @@
+<div class="step" >
+  <div class="video" >
+    <h2>Por que fazer esta trilha?</h2>
+    <form [formGroup]="formGroup" >
+      <div class="two-columns" >
+        <div class="validation-field" >
+          <mat-form-field>
+            <input matInput placeholder="ID do Video"
+              formControlName="videoId" />
+          </mat-form-field>
+          <control-messages
+            [control]="formGroup.get('videoId')"
+          ></control-messages>
+        </div>
+        <div class="validation-field" >
+          <mat-form-field>
+            <input matInput placeholder="Duração do Vídeo (hh:mm:ss)"
+              formControlName="videoDuration"
+              mask="00:00:00"
+            />
+          </mat-form-field>
+          <control-messages
+            [control]="formGroup.get('videoDuration')"
+          ></control-messages>
+        </div>
+      </div>
+    </form>
+    <div *ngIf="formGroup.get('videoId').value" >
+      <iframe
+        class="videoIframe"
+        [src]="'https://player.vimeo.com/video/' + formGroup.get('videoId').value | safeUrl"
+        height="400"
+        frameborder="0"
+        webkitallowfullscreen
+        mozallowfullscreen
+        allowfullscreen
+      ></iframe>
+      <p class="video-title" >
+        {{ formGroup.get('videoTitle').value }}
+      </p>
+    </div>
+  </div>
+  <div class="video" *ngIf="isCourse">
+    <h2>O que você precisa saber para fazer este curso!</h2>
+    <form [formGroup]="courseFormGroup" >
+      <div class="validation-field" >
+        <mat-form-field>
+          <mat-select placeholder="Obrigatoriedade" formControlName="mandatoryCourseVideo">
+            <mat-option [value]="true">Obrigatório</mat-option>
+            <mat-option [value]="false">Optativo</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="two-columns" >
+        <div class="validation-field" >
+          <mat-form-field>
+            <input matInput placeholder="ID do Video"
+              formControlName="courseVideoId" />
+          </mat-form-field>
+          <control-messages
+            [control]="courseFormGroup.get('courseVideoId')"
+          ></control-messages>
+        </div>
+        <div class="validation-field" >
+          <mat-form-field>
+            <input matInput placeholder="Duração do Vídeo (hh:mm:ss)"
+              formControlName="courseVideoDuration"
+              mask="00:00:00"
+            />
+          </mat-form-field>
+          <control-messages
+            [control]="courseFormGroup.get('courseVideoDuration')"
+          ></control-messages>
+        </div>
+      </div>
+    </form>
+    <div *ngIf="courseFormGroup.get('courseVideoId').value" >
+      <iframe
+        class="videoIframe"
+        [src]="'https://player.vimeo.com/video/' + courseFormGroup.get('courseVideoId').value | safeUrl"
+        height="400"
+        frameborder="0"
+        webkitallowfullscreen
+        mozallowfullscreen
+        allowfullscreen
+      ></iframe>
+      <p class="video-title" >
+        {{ courseFormGroup.get('courseVideoTitle').value }}
+      </p>
+    </div>
+  </div>
+</div>

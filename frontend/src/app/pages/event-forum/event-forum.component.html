@@ -1,0 +1,60 @@
+<div class="inner-content" >
+  <nav>
+    <a href="javascript:history.back()" >
+      <img src="./assets/img/arrow-back.png" />
+      Voltar
+    </a>
+    <h2>FÓRUM DE DÚVIDAS - {{ forum?.eventName }}</h2>
+    <a></a>
+  </nav>
+
+  <app-list-search
+    placeholder="Pesquise uma dúvida"
+    [noPadding]="true"
+    (triggerSearch)="triggerSearch($event)"
+  ></app-list-search>
+
+  <div class="content" >
+    <div class="main" >
+      <h3>Todas as Perguntas</h3>
+
+      <app-event-forum-question-card
+        *ngFor="let question of forum?.questions"
+        [question]="question"
+        [isInstructor]="forum.isInstructor"
+        (manageLike)="manageLike($event)"
+        (goToQuestion)="goToQuestion($event)"
+        (removeQuestion)="confirmRemoveQuestion($event)"
+      ></app-event-forum-question-card>
+
+      <p *ngIf="forum?.questions.length === 0" >
+        {{ 
+          searchValue && searchValue !== '' ?
+            'Não foram encontrados resultados para sua busca.' :
+            'Ainda não há perguntas neste fórum.'
+        }}
+      </p>
+
+      <app-pagination *ngIf="forum?.questions"
+        [hidden]="itemsCount === 0"
+        [setPagination]="{
+          'itemsCount': itemsCount,
+          'pageSize': 10
+        }"
+        (goToPage)="goToPage($event)"
+      ></app-pagination>
+    </div>
+
+    <div class="sidebar" *ngIf="itemsCount != 0" >
+      <p class="last-questions" >
+        Últimas Perguntas
+      </p>
+      <app-event-forum-last-question-card
+        *ngFor="let question of forum?.lastQuestions"
+        [question]="question"
+        (click)="goToQuestion(question)"
+      ></app-event-forum-last-question-card>
+
+    </div>
+  </div>
+</div>

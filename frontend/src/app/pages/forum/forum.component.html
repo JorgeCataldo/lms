@@ -1,0 +1,98 @@
+<div class="inner-content" >
+  <nav>
+    <a href="javascript:history.back()" >
+      <i class="logo icon-seta_direita" style="font-size: 26px;"></i>
+      Voltar
+    </a>
+    <h2>FÓRUM DE DÚVIDAS - {{ forum?.moduleName }}</h2>
+  </nav>
+
+  <app-list-search
+    placeholder="Pesquise uma dúvida"
+    [noPadding]="true"
+    (triggerSearch)="triggerSearch($event)"
+  ></app-list-search>
+
+  <div class="content" >
+    <div class="main" >
+      <h3>Todas as Perguntas</h3>
+
+      <app-forum-question-card
+        *ngFor="let question of forum?.questions"
+        [question]="question"
+        [isInstructor]="forum.isInstructor"
+        (manageLike)="manageLike($event)"
+        (goToQuestion)="goToQuestion($event)"
+        (removeQuestion)="confirmRemoveQuestion($event)"
+      ></app-forum-question-card>
+
+      <p *ngIf="forum?.questions.length === 0" >
+        {{
+          searchValue && searchValue !== '' ?
+            'Não foram encontrados resultados para sua busca.' :
+            'Ainda não há perguntas neste fórum.'
+        }}
+      </p>
+
+      <app-pagination *ngIf="forum?.questions"
+        [hidden]="itemsCount === 0"
+        [setPagination]="{
+          'itemsCount': itemsCount,
+          'pageSize': 10
+        }"
+        (goToPage)="goToPage($event)"
+      ></app-pagination>
+    </div>
+
+    <div class="sidebar" *ngIf="itemsCount != 0" >
+      <ng-container *ngIf="forum?.subjects.length > 0" >
+        <p class="subjects-title" >
+          {{ selectedSubject ? 'Assunto' : 'Assuntos' }}
+        </p>
+
+        <ng-container *ngIf="!selectedSubject" >
+          <ul class="subjects" >
+            <li *ngFor="let subject of forum?.subjects"
+              (click)="setSubjectFilter(subject)"
+            > {{ subject.title }} </li>
+          </ul>
+        </ng-container>
+
+        <ng-container *ngIf="selectedSubject" >
+          <p class="selectedSubject" >
+            {{ selectedSubject.title }}
+            <img
+              src="./assets/img/close.png"
+              (click)="setSubjectFilter(null)"
+            />
+          </p>
+          <p class="subjects-title" >
+            {{ selectedContent ? 'Conteúdo' : 'Conteúdos' }}
+          </p>
+          <ul class="subjects" *ngIf="!selectedContent" >
+            <li *ngFor="let content of selectedSubject.contents"
+              (click)="setContentFilter(content)"
+            > {{ content.title }} </li>
+          </ul>
+          <p class="selectedSubject" *ngIf="selectedContent" >
+            {{ selectedContent.title }}
+            <img
+              src="./assets/img/close.png"
+              (click)="setContentFilter(null)"
+            />
+          </p>
+        </ng-container>
+      </ng-container>
+
+      <p class="last-questions" >
+        Últimas Perguntas
+      </p>
+      <app-forum-last-question-card
+        *ngFor="let question of forum?.lastQuestions"
+        [question]="question"
+        (click)="goToQuestion(question)"
+      ></app-forum-last-question-card>
+
+    </div>
+  </div>
+</div>

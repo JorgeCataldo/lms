@@ -1,0 +1,107 @@
+<div class="content" >
+  <div class="side-content">
+    <h3>Filtros</h3>
+    <div class="filter">
+      <app-list-search
+        placeholder="Pesquisar módulo"
+        (triggerSearch)="triggerModuleSearch($event)"
+        [noPadding]="true"
+      ></app-list-search>
+      <div class="chips" >
+        <p *ngFor="let module of selectedModules" >
+          {{ module.title }}
+          <span (click)="removeSelectedModule(module.id)" >X</span>
+        </p>
+      </div>
+      <div class="tracks" >
+        <app-track-list-filter
+          *ngFor="let module of modules"
+          [track]="module"
+          (updateCollection)="updateModules()"
+        ></app-track-list-filter>
+      </div>
+    </div>
+  </div>
+  <div class="main-content">
+    <div class="table">
+      <div class="item" >
+        <div class="files">
+          <span>Estatísticas de Banco de Questões</span>
+        </div>
+        <div class="buttonExcel">
+          <button class="btn-test btn-table"
+                (click)="exportBdqStatistics()">
+                EXPORTAR
+              </button>
+        </div>
+      </div>
+      <div class="item" >
+        <div class="files">
+          <span>Alerta de Movimentações Atípicas</span>
+        </div>
+        <div class="buttonExcel">
+          <button class="btn-test btn-table"
+            (click)="exportAtypicalMovements()">
+            EXPORTAR
+          </button>
+        </div>
+      </div>
+      
+      <div class="item" >
+        <div class="files">
+          <span>Estatísticas de Execução - Módulos</span>
+        </div>
+        <div class="buttonExcel">
+          <button class="btn-test btn-table" disabled="true">
+            EXPORTAR
+          </button>
+        </div>
+      </div>
+      
+      <div class="item" >
+        <div class="files">
+          <span>Estatísticas de Execução - Eventos</span>
+        </div>
+        <div class="buttonExcel">
+          <button class="btn-test btn-table" disabled="true">
+            EXPORTAR
+          </button>
+        </div>
+      </div>
+            
+      <div class="item" >
+        <div class="files">
+          <span>Avaliações de Reação - Módulos</span>
+        </div>
+        <div class="buttonExcel">
+          <button class="btn-test btn-table" disabled="true">
+            EXPORTAR
+          </button>
+        </div>
+      </div>
+      
+      <div class="item" >
+        <div class="files">
+          <span>Avaliações de Reação - Eventos</span>
+        </div>
+        <div class="buttonExcel">
+          <button class="btn-test btn-table" disabled="true">
+            EXPORTAR
+          </button>
+        </div>
+      </div>
+      
+      <div class="item" >
+        <div class="files">
+          <span>Avaliações de Reação - Trilhas</span>
+        </div>
+        <div class="buttonExcel">
+          <button class="btn-test btn-table" disabled="true">
+            EXPORTAR
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

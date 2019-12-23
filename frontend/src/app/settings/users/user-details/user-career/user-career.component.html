@@ -1,0 +1,125 @@
+<ng-container *ngIf="career">
+  <ng-container *ngIf="career?.professionalExperiences?.length > 0">
+    <h4 class="exp">EXPERIÊNCIA PROFISSIONAL</h4>
+    <div style="border-bottom: 1px solid #999;"></div>
+    <div *ngFor="let professionalExperience of career?.professionalExperiences">
+      <h4 class="company">{{professionalExperience?.title}}</h4>
+      <p class="occupation">{{professionalExperience?.role}}</p>
+      <p class="period">
+        {{ professionalExperience.startDate | date: 'dd/MM/yyyy' }} - 
+        {{ professionalExperience.endDate ? (professionalExperience.endDate | date: 'dd/MM/yyyy') : 'até o momento' }}
+      </p>
+      <p class="description">{{professionalExperience?.description}}</p>
+      <br>
+      <div style="border-bottom: 1px solid #999;"></div>
+    </div>
+    <br>
+  </ng-container>
+
+  <ng-container *ngIf="career?.colleges?.length > 0">
+    <h4 class="exp">HISTÓRICO ACADÊMICO</h4>
+    <div style="border-bottom: 1px solid #999;"></div>
+    <div *ngFor="let college of career?.colleges">
+      <h4 class="company">{{ college.title }} {{ college.campus ? '(' + college.campus + ')' : '' }}</h4>
+      <p class="occupation">CR: {{ college.cr }}</p>
+      <p class="period">{{ college.startDate | date: 'MM/yyyy' }} - {{ college.endDate | date: 'MM/yyyy' }}</p>
+      <br>
+      <div style="border-bottom: 1px solid #999;"></div>
+    </div>
+    <br>
+  </ng-container>
+
+  <ng-container *ngIf="career?.rewards?.length > 0">
+    <h4 class="exp">PRÊMIO E RECONHECIMENTOS</h4>
+    <div style="border-bottom: 1px solid #999;"></div>
+    <div *ngFor="let reward of career?.rewards">
+      <div class="reward">
+        <div>
+          <h4 class="company">{{reward?.title}}</h4>
+          <p class="occupation">{{reward?.name}}</p>
+          <p class="period">{{reward?.date | date: 'dd/MM/yyyy'}}</p>
+        </div>
+        <ng-container *ngIf="reward?.link != null && reward?.link != ''">
+          <a [href]="reward?.link" target="_blank" style="height: fit-content; margin: auto 0px;">
+            <button class="btn-test">Ver</button>
+          </a>
+        </ng-container>
+      </div>
+      <br>
+      <div style="border-bottom: 1px solid #999;"></div>
+    </div>
+    <br>
+  </ng-container>
+
+  <ng-container *ngIf="career?.shortDateObjectives || career?.longDateObjectives">
+    <h4 class="exp">OBJETIVOS PROFISSIONAIS</h4>
+    <div style="border-bottom: 1px solid #999;"></div>
+    <br>
+
+    <ng-container *ngIf="career.shortDateObjectives" >
+      <p class="company">CURTO PRAZO</p>
+      <p class="period">
+        {{ career.shortDateObjectives }}
+      </p>
+      <br>
+    </ng-container>
+
+    <ng-container *ngIf="career.longDateObjectives" >
+      <p class="company">LONGO PRAZO</p>
+      <p class="period">
+        {{ career.longDateObjectives }}
+      </p>
+    </ng-container>
+    <br>
+    <div style="border-bottom: 1px solid #999;"></div>
+    <br>
+  </ng-container>
+
+  <ng-container *ngIf="career?.languages?.length > 0">
+    <h4 class="exp">IDIOMAS</h4>
+    <div class="cards-slider" >
+      <div class="slider-grid">
+      <div class="progress-card" *ngFor="let language of career?.languages">
+        <p class="title">{{language?.name}}</p>
+        <p style="color: rgba(0, 0, 0, 0.32);">{{language?.level}}</p>
+      </div>
+      </div>
+    </div>
+    <br>
+  </ng-container>
+
+  <ng-container *ngIf="career?.abilities?.length > 0">
+    <h4 class="exp">FORMAÇÃO COMPLEMENTAR</h4>
+    <div class="cards-slider" >
+      <div class="slider-grid">
+        <div class="progress-card" *ngFor="let skill of career?.abilities">
+            <p class="title">{{skill?.name}}</p>
+            <p style="color: rgba(0, 0, 0, 0.32);">{{skill?.level}}</p>
+        </div>
+      </div>
+    </div>
+    <br>
+  </ng-container>
+
+  <div class="travel-info" *ngIf=career?.travelAvailability>
+    <p>Disponível para Viagens</p>
+  </div>
+</ng-container>
+<ng-container *ngIf="!career">
+  <div style="text-align: center;">
+    <h4 class="exp">INFORMAÇÕES PROFISSIONAIS NÃO PREENCHIDAS</h4>
+    <p class="period">
+      * preencha seus dados em "Atualizar perfil profissional" no canto inferior esquerdo da pagina
+    </p>
+  </div>
+</ng-container>
+<!--br>
+<div class="cards-slider" >
+    <div class="slider">
+      <div class="progress-card" style="width: 100%; padding: 10px;">
+          <button class="btn-test" style="width: auto;
+          align-self: center; font-size: 17px;"
+          (click)="editUserCareer()">Editar Perfil Profissional</button>
+      </div>
+    </div>
+</div-->

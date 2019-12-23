@@ -1,0 +1,79 @@
+.next-event-card {
+  background: #FCFCFC;
+  box-shadow: 0 3px 2px 0 rgba(0, 0, 0, 0.16);
+  border-radius: 6px;
+
+  div.content {
+    padding: 12px;
+    color: #868686;
+
+    div.header {
+      display: flex;
+      justify-content: space-between;
+      color: #707070;
+      font-size: 20px;
+      font-weight: 600;
+
+      p.published {
+        background: #e0e0e0;
+        color: #777777;
+        font-weight: 600;
+        padding: 8px 12px;
+        border-radius: 5px;
+        font-size: 14px;
+        select {
+          border: none;
+          background: #e0e0e0; 
+          color: #777777;
+          font-weight: 600; 
+          font-size: 14px;
+        }
+      }
+    }
+    p.subscriptions {
+      font-size: 14px;
+      font-weight: 500;
+      margin: 10px 0px;
+
+      span {
+        font-size: 12px;
+        font-weight: 400;
+      }
+    }
+    div.status {
+      display: flex;
+      justify-content: space-between;
+
+      p {
+        font-size: 14px;
+
+        span {
+          font-size: 20px;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+  
+  div.actions {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 10px 0px;
+    border-top: 1px solid #d3d3d3;
+
+    button {
+      background: white;
+      font-weight: 500;
+      font-size: 12px;
+
+      &.primary {
+        color: var(--primary-color);
+      }
+      &.accent {
+        color: #239bd1;
+      }
+    }
+  }
+}
+

@@ -1,0 +1,133 @@
+nav {
+  margin: 20px 0px;
+  display: flex;
+  justify-content: space-between;
+
+  a {
+    color: var(--primary-color);
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+
+    img {
+      margin-right: 4px;
+    }
+  }
+
+  h2 {
+    color: var(--primary-color);
+    font-size: 22px;
+  }
+}
+
+div.top,
+div.middle,
+div.bottom {
+  background: white;
+  padding: 12px 20px;
+
+  ul {
+    margin: 10px 0px;
+    line-height: 24px;
+  }
+}
+
+h3 {
+  margin: 5px 0px 0px 0px;
+  font-size: 18px;
+  color: #505050;
+}
+
+div.top {
+  display: flex;
+
+  div {
+    flex: 1;
+
+    &:first-child {
+      margin-right: 15px;
+    }
+  }
+}
+
+div.middle {
+  div.actions {
+    margin: 10px 0px;
+    width: 100%;
+    text-align: right;
+
+    button:last-child {
+      margin-left: 10px;
+    }
+  }
+  div.question {
+    margin-bottom: 15px;
+
+    p:first-child {
+      font-weight: 600;
+      font-size: 18px;
+      color: #505050;
+      margin-bottom: 8px;
+    }
+    mat-form-field {
+      min-width: 250px;
+      margin-top: 15px
+    }
+  }
+  div.grade-actions {
+    text-align: center;
+    button {
+      margin-top: 10px;
+      margin-right: 10px;
+    }
+  }
+}
+
+div.bottom {
+  div.chips {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+
+    &.hide {
+      height: 47px;
+      overflow-y: hidden;
+    }
+    p {
+      background: var(--primary-color);
+      color: white;
+      border-radius: 20px;
+      padding: 4px 12px 4px 12px;
+      font-size: 13px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-right: 10px;
+
+      img {
+        margin-right: 8px;
+      }
+      span {
+        padding-left: 8px;
+        margin-left: 8px;
+        border-left: 1px solid white;
+        font-size: 20px;
+        font-weight: 500;
+        transform: scale(1.2, 1);
+        cursor: pointer;
+      }
+    }
+  }
+  div.tracks {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 15px;
+  }
+
+  div.action {
+    margin: 20px 0px 10px 0px;
+    width: 100%;
+    text-align: center;
+  }
+}

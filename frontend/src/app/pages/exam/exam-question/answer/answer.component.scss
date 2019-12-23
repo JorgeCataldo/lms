@@ -1,0 +1,34 @@
+.answer {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+  cursor: pointer;
+
+  .checkbox {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--primary-color);
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.selected {
+      background: var(--primary-color);
+    }
+    &.right {
+      background: #06E295;
+      border: 1px solid #06E295;
+    }
+    &.wrong {
+      background: #FF4671;
+      border: 1px solid #FF4671;
+    }
+  }
+  p {
+    font-size: 14px;
+  }
+}

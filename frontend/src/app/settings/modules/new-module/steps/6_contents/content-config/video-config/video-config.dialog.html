@@ -1,0 +1,80 @@
+<h3>{{ content.title }}</h3>
+<h4>{{ content.subjectTitle }}</h4>
+
+<div class="content" >
+  <div class="info" >
+    <mat-form-field>
+      <input matInput placeholder="Url"
+        [(ngModel)]="content.value" required />
+    </mat-form-field>
+
+    <mat-form-field>
+      <textarea matInput placeholder="Sobre (máx. MMM caracteres)"
+        [(ngModel)]="content.excerpt" required ></textarea>
+    </mat-form-field>
+
+    <p class="label" >
+      Referêcias Úteis
+    </p>
+    <div class="references" >
+      <input matInput placeholder="URL"
+        *ngFor="let ref of content.referenceUrls; let index = index; trackBy: referencesTrackBy"
+        [(ngModel)]="content.referenceUrls[index]" required
+      />
+    </div>
+    <button class="btn-test" (click)="addReference()" >
+      + Adicionar Referência
+    </button>
+  </div>
+
+  <div class="concepts" >
+    <p class="title" >Instruções</p>
+    <p>
+      Atualmente está sendo suportado apenas videos da plataforma <b>Vimeo</b>. Para configura-los, 
+      basta colar a URL do video no campo acima da esquerda e configurar os conceitos 
+      com a posição em que eles aparecem no vídeo para ativar a navegação por conceitos
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Conceitos</th>
+          <th>Tempo (hh:mm:ss)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="concept" *ngFor="let concept of content.concepts" >
+          <td>
+            <div class="checkbox"
+              [ngClass]="{ 'checked': concept.checked }"
+              (click)="setConcept(concept)"
+            ></div>
+            {{ concept.name }}
+          </td>
+          <td>
+            <ng-container *ngIf="concept['positions'] && concept['positions'].length > 0" >
+              <ng-container *ngIf="isString(concept)" >
+                <input matInput placeholder="00:00:00" mask="00:00:00"
+                  *ngIf="concept.checked" required
+                  [(ngModel)]="concept['positions'][0]"
+                />
+              </ng-container>
+              <ng-container *ngIf="!isString(concept)" >
+                {{ getFormattedByDuration(concept['positions'][0]) }}
+              </ng-container>
+            </ng-container>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="actions" >
+  <button class="btn-outline" (click)="dismiss()" >
+    Cancelar
+  </button>
+  <button class="btn-test" (click)="save()" >
+    Salvar
+  </button>
+</div>

@@ -1,0 +1,41 @@
+.step {
+  div.form {
+    .question {
+      padding: 20px 15px 5px 15px;
+      background: #FCFCFC;
+      border-radius: 4px;
+      box-shadow: 0 3px 2px 0 rgba(0, 0, 0, 0.16);
+      margin-top: 15px;
+      position: relative;
+
+      .trash {
+        cursor: pointer;
+        position: absolute;
+        right: 15px;
+        top: 15px;
+      }
+
+      .mat-form-field {
+        width: 98%;
+
+        textarea {
+          height: 64px;
+        }
+      }
+    }
+
+    .add-material {
+      margin-top: 15px;
+      width: 100%;
+      font-size: 16px;
+    }
+
+    div.checkbox {
+
+      p {
+        font-style: italic;
+        margin-bottom: 4px;
+      }
+    }
+  }
+}

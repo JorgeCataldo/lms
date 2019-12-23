@@ -1,0 +1,48 @@
+<div class="inner-content" >
+  <nav>
+    <a href="javascript:history.back()" >
+      <img src="./assets/img/arrow-back.png" />
+      voltar para o fórum
+    </a>
+    <h2>PERGUNTA</h2>
+  </nav>
+
+  <div class="question" >
+    <h3>{{ question?.title }}</h3>
+    <p style="margin-bottom: 20px;"
+    *ngIf="question != null && question.position != null">
+      Posição: {{question.position}}
+    </p>
+    <div>
+      <p
+        [innerHTML]="question?.description | MarkdownToHtml"
+      ></p>
+    </div>
+
+    <div id="htmlEditor" ></div>
+    <button class="btn-test" (click)="saveAnswer()" >
+      Enviar Resposta
+    </button>
+  </div>
+
+  <p class="answersCount" >
+    {{ itemsCount }} {{ itemsCount === 1 ? 'Resposta' : 'Respostas' }}
+  </p>
+  
+  <app-event-forum-answer-card
+    *ngFor="let answer of question?.answers"
+    [answer]="answer"
+    [isInstructor]="isInstructor"
+    (manageAnswerLike)="manageAnswerLike($event)"
+    (removeAnswer)="confirmRemoveAnswer($event)"
+  ></app-event-forum-answer-card>
+
+  <app-pagination *ngIf="question?.answers"
+    [hidden]="itemsCount === 0"
+    [setPagination]="{
+      'itemsCount': itemsCount,
+      'pageSize': 5
+    }"
+    (goToPage)="goToPage($event)"
+  ></app-pagination>
+</div>

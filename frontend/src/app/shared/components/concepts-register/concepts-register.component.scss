@@ -1,0 +1,49 @@
+.concepts {
+  position: relative;
+
+  img {
+    position: absolute;
+  }
+  input {
+    background: transparent;
+    border: 1px so;
+    border: none;
+    border-bottom: 1px solid #868686;
+    padding: 6px 32px;
+    font-size: 15px;
+    width: calc(100% - 64px);
+    cursor: text;
+  }
+  div.tags {
+    div.concept {
+      background: var(--primary-color);
+      border-radius: 6px;
+      padding: 10px;
+      color: white;
+      font-size: 12px;
+      margin-top: 10px;
+      margin-left: 10px;
+      display: inline-flex;
+      align-items: center;
+
+      img {
+        cursor: pointer;
+        position: initial;
+        margin-left: 8px;
+        width: 18px;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 680px) {
+  .concepts {
+    div.tags {
+      flex-direction: column;
+
+      div.concept {
+        justify-content: space-between;
+      }
+    }
+  }
+}

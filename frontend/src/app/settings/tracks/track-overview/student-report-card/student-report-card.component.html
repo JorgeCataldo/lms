@@ -1,0 +1,69 @@
+<div class="inner-content" >
+  <nav>
+    <a href="javascript:history.back()" >
+      <i class="logo icon-seta_direita" style="font-size: 26px;"></i>
+      voltar
+    </a>
+  </nav>
+
+  <div class="header" >
+    <h2>
+      <p>Trilha do curso</p>
+      {{ track?.title }}
+    </h2>
+  </div>
+<!-- 
+  <div class="subheader" >
+    <img [src]="getStudentImg()" />
+    <h3>{{ track?.student.name }}</h3>
+  </div> -->
+  <div class="table-wrap">
+    <table mat-table *ngIf="track.student.modules.length > 0" [dataSource]="track.student.modules"  class="mat-elevation-z8">
+      <ng-container matColumnDef="title">
+        <th width="90%" mat-header-cell *matHeaderCellDef>Módulo</th>
+        <td width="90%" mat-cell *matCellDef="let row">
+          {{row.title}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="grade">
+        <th width="10%" mat-header-cell *matHeaderCellDef> Nota </th>
+        <td width="10%" mat-cell *matCellDef="let row">
+          {{ row.moduleGrade }}
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+  <div class="table-wrap">
+    <table mat-table *ngIf="track.student.events.length > 0" [dataSource]="track.student.events"  class="mat-elevation-z8">
+      <ng-container matColumnDef="title">
+        <th width="80%" mat-header-cell *matHeaderCellDef>Evento</th>
+        <td width="80%" mat-cell *matCellDef="let row">
+          {{row.eventName}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="grade">
+        <th width="10%" mat-header-cell *matHeaderCellDef> Nota </th>
+        <td width="10%" mat-cell *matCellDef="let row">
+          {{ row.finalGrade }}
+        </td>
+      </ng-container>
+      
+      <ng-container matColumnDef="date">
+        <th width="20%" mat-header-cell *matHeaderCellDef> Data </th>
+        <td width="20%" mat-cell *matCellDef="let row">
+          {{ row.date | date: 'dd/MM/yyyy' }}
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="eventsDisplayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: eventsDisplayedColumns;"></tr>
+    </table>
+  </div>
+
+</div>

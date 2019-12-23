@@ -1,0 +1,221 @@
+.disabled-item{
+  background-color: #f3f3f3;
+  cursor: not-allowed;
+}
+
+div.track {
+  margin-right: 30px;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.16);
+
+  div.title {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  div.title-buttons {
+    max-height: 32px;
+    margin: auto 0px;
+    button {
+      margin-right: 10px;
+    }
+  }
+
+  p.track-title {
+    color: var(--primary-color);
+    font-weight: 700;
+    background: #f7f7f7;
+    padding: 15px;
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    button {
+      padding: 4px 8px;
+    }
+  }
+  p.sub-progress {
+    color: var(--primary-color);
+    font-size: 10px;
+  }
+  ul {
+    margin: 0;
+
+    li {      
+      
+      
+
+      div.list-content {
+        display: flex;
+        padding: 20px;
+        border-bottom: 1px solid #dedede;
+        cursor: pointer;
+
+        p.index {
+          font-size: 24px;
+          margin-right: 20px;
+          text-align: center;
+          color: var(--primary-color);
+          font-weight: 600;
+        }
+        p.title {
+          color: var(--alt-text-color);
+          font-weight: 700;
+          font-size: 14px;
+          flex-grow: 1;
+          text-transform: uppercase;
+
+          span {
+            color: var(--primary-color);
+            font-weight: 300;
+          }
+        }
+        div.finished {
+          color: #06e295;
+          display: flex;
+          align-items: center;
+          font-size: 13px;
+          font-weight: 600;
+
+          img {
+            margin-left: 10px;
+            width: 25px;
+            height: 25px;
+          }
+        }
+        div.progress,
+        div.late {
+          width: 120px;
+          display: flex;
+          align-items: center;
+          font-weight: 600;
+          font-size: 12px;
+        }
+        div.progress {
+          color: var(--primary-color);
+
+          app-progress-bar {
+            width: 100%;
+            margin-right: 10px;
+          }
+        }
+        div.late {
+          color: #ff4376;
+          text-align: right;
+          justify-content: flex-end;
+
+          img {
+            margin-left: 15px;
+          }
+        }
+        div.card-right {
+          display: grid;
+          align-self: center;
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+  span.valuation-index {
+    font-size: 24px;
+    margin-right: 20px;
+    color: var(--primary-color);
+    font-weight: 600;
+  }
+
+  .tests{    
+    cursor: pointer;
+    .header{
+      padding: 20px ;
+      border-bottom: 1px solid #dedede;
+      margin-bottom: 0px;
+      display: flex;
+      p{
+        color: var(--alt-text-color);
+        font-weight: 700;
+        font-size: 14px;
+        flex-grow: 1;
+        text-transform: uppercase;
+      }
+      p.arrow-box {
+        text-align: right;
+      }
+      img.turn-up {
+        transform: rotate(0.25turn);
+      }
+      img.turn-down {
+        transform: rotate(0.75turn);
+      }
+    }
+  }
+
+  .level {
+    background: #F5F5F5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 10px;
+    border-bottom: 1px solid #C3C3C3;
+
+    p {
+      font-size: 14px;
+      line-height: 20px;
+    }
+  }
+
+  .seta{
+    font-size: 15px;
+    color: #fcfcfc;
+  }
+  
+  .expand {
+    background: var(--primary-color);
+    cursor: pointer;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: var(--box-shadow);
+    margin-bottom: 10px;
+    border-radius: 0px 0px 8px 8px;
+    margin-top: 0px;
+  
+    &.expanded {
+      img {
+        transform: rotate(0.5turn);
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 414px) {
+  div.track {
+    margin-right: 0;
+    width: 100%;
+    margin-bottom: 14px;
+
+    div.title-buttons button {
+      margin: 0 0 0 10px;
+    }
+
+    div.title {
+      display: block;
+      background: #f7f7f7;
+      height: 96px;
+    }
+
+    ul li {
+      p.index {
+        margin-right: 10px;
+      }
+      p.title {
+        font-size: 13px;
+      }
+      div.card-right {
+        margin-left: 5px;
+      }
+    }
+  }
+}
+

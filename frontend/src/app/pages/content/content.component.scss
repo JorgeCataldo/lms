@@ -1,0 +1,43 @@
+.header {
+  background: var(--primary-color);
+  color: white;
+  padding: 8px;
+  text-align: right;
+  font-weight: 600;
+  font-size: 20px;
+
+  .inner-content {
+    overflow: initial;
+    display: flex;
+    justify-content: space-between;
+
+    img.back {
+      float: left;
+      cursor: pointer;
+    }
+  }
+
+  .sub-menu {
+    cursor: pointer;
+  }
+
+  &.offset {
+    margin-right: 300px;
+  }
+}
+
+.menu-toggle {
+  background: var(--primary-color);
+  padding: 16px 18px;
+  border-radius: 50%;
+  position: absolute;
+  right: 0px;
+  top: 53px;
+  cursor: pointer;
+}
+
+.menu {
+  &.offset {
+  margin-right: 300px;
+  }
+}

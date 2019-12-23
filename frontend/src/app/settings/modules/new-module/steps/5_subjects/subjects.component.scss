@@ -1,0 +1,67 @@
+.step {
+  .subjects {
+    .subject {
+      background: #FCFCFC;
+      border-radius: 4px;
+      box-shadow: 0 3px 2px 0 rgba(0, 0, 0, 0.16);
+      padding: 15px;
+      margin-top: 5px;
+      display: inline-block;
+      width: calc(100% - 30px);
+      margin-bottom: 15px;
+      position: relative;
+
+      img.trash {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        cursor: pointer;
+      }
+
+      p.subtitle {
+        font-weight: 600;
+        font-size: 14px;
+      }
+
+      .two-columns {
+        margin: 0px 0px 10px 0px;
+
+        .validation-field {
+          textarea {
+            height: 185px;
+          }
+        }
+
+        .percentages {
+          display: flex;
+          margin: 0;
+
+          p.level, input {
+            color: #868686;
+            border-bottom: 1px solid #929292;
+            padding: 6px 0px;
+            margin-top: 14px;
+            font-size: 15px;
+
+            &:focus {
+              border-bottom: 2px solid var(--primary-color);
+            }
+          }
+          input {
+            cursor: text;
+          }
+          div:first-child {
+            flex: 2;
+          }
+          div:last-child {
+            flex: 1;
+          }
+        }
+      }
+    }
+  }
+
+  button.add-subject {
+    width: 100%;
+  }
+}

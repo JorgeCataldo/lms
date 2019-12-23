@@ -1,0 +1,47 @@
+.step {
+  margin-bottom: 80px;
+
+  h2 {
+    font-size: 20px;
+    color: #707070;
+    margin-top: 0;
+  }
+  h3 {
+    color: var(--primary-color);
+    font-size: 18px;
+    margin-bottom: 5px;
+  }
+  p.subtitle {
+    color: #707070;
+    font-weight: 300;
+  }
+
+  form, div.form {
+    .validation-field {
+      .mat-form-field {
+        width: 100%;
+      }
+    }
+
+    .image-upload {
+      margin-bottom: 25px;
+      img, button {
+        display: block;
+      }
+      button {
+        margin-top: 6px;
+      }
+    }
+
+    textarea {
+      height: 120px;
+    }
+
+    p.title {
+      color: #868686;
+      font-weight: 600;
+      font-size: 14px;
+      margin: 10px 0px;
+    }
+  }
+}

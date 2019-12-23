@@ -1,0 +1,88 @@
+<div class="step" >
+  <div>
+    <h2>Banco de Questões</h2>
+    <button class="btn-test primary"
+      (click)="openUploadDialog(module)" >
+      IMPORTAR EXCEL
+    </button>
+    <button class="btn-test primary"
+      style="margin-left: 10px;"
+      (click)="exportSubjectQuestions()" >
+      EXPORTAR EXCEL
+    </button>
+  </div>
+
+  <div style="display: flex; justify-content: space-between">
+    <div>
+      <mat-form-field > 
+        <input matInput
+          placeholder="Limite de Perguntas para Média Volante"
+          [(ngModel)]="questionsLimit"
+        />
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field >
+        <mat-select [(ngModel)]="moduleGradeType" placeholder="Tipo do cálculo da nota do módulo">
+          <mat-option [value]="1">Ponderação de níveis</mat-option>
+          <mat-option [value]="2">Percentual de acerto</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <mat-tab-group #tabGroup (selectedTabChange)="loadQuestions()" >
+    <mat-tab [label]="subject.title" *ngFor="let subject of module.subjects" >
+      <div class="header" >
+        <div class="filter" >
+          <i class="icon-lupa"></i>
+          <input matInput
+            placeholder="Filtrar por Questão, Conceito ou Dificuldade"
+            [(ngModel)]="searchValue" required
+            (keyup)="updateSearch($event.target.value)"
+          />
+        </div>
+        <button class="btn-test" (click)="openQuestionDialog(subject)" >
+          NOVA QUESTÃO
+        </button>
+      </div>
+      <div>Id Assunto: {{subject.id}}</div>
+      <div class="question" *ngFor="let question of questions; let index = index" >
+        <div class="content" >
+          <div class="info" >
+            <p class="number" >
+              QUESTÃO {{ index + 1 }}
+            </p>
+            <p>
+              <small>dificuldade</small><br>
+              {{ getLevelDescription(question.level) }}
+            </p>
+            <p>
+              <small>tempo</small><br>
+              {{ getQuestionDuration(question.duration) }} min
+            </p>
+          </div>
+          <p class="question" >
+            {{ question.text }}
+          </p>
+        </div>
+        <div class="edit" >
+          <img src="./assets/img/edit.png"
+            (click)="editQuestion(subject, question)"
+          />
+          <img src="./assets/img/trash.png"
+            (click)="confirmRemoveQuestion(question.id)"
+          />
+        </div>
+      </div>
+
+      <app-pagination *ngIf="questionsCount"
+        [setPagination]="{
+          'itemsCount': questionsCount,
+          'pageSize': 10
+        }"
+        (goToPage)="goToPage($event)"
+      ></app-pagination>
+    </mat-tab>
+  </mat-tab-group>
+</div>

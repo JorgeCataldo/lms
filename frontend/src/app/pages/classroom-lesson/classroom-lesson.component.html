@@ -1,0 +1,100 @@
+<div id="ClassroomLesson" >
+  <div class="inner-content" >
+    <nav>
+      <a href="javascript:history.back()">
+        <i class="logo icon-seta_direita" style="font-size: 26px;"></i>
+        Voltar
+      </a>
+      <h2>{{ event?.title }}</h2>
+      <a></a>
+    </nav>
+
+    <app-classroom-lesson-header
+      [setEvent]="event"
+      [setEventApplication]="eventApplication"
+      [progress]="moduleProgress"
+      (showSubscriptionMessage)="showNotification()"
+    ></app-classroom-lesson-header>
+
+    <div class="content" >
+      <div class="main" >
+        
+        <p class="webinar" *ngIf="showWebinar()" >
+          <span>
+            ACESSE O WEBINAR
+          </span>
+          <span>
+            <span class="event-adress">
+              {{ getWebinarUrl() }}
+            </span>
+            <button class="btn-test primary" (click)="goToEvent()" >
+              ir para o evento
+            </button>
+          </span>
+        </p>  
+
+        <div id="videoContent"
+          style="width: 100%; visibility: hidden;"
+        ></div>
+
+        <p class="title" *ngIf="event && !(event.videoUrl === 'https://player.vimeo.com/video/null')">
+          <span>Por que Fazer Este Curso?</span>
+          <small>{{ getVideoDuration() }} minuto(s)</small>
+        </p>
+
+        <div class="subscription-notif" *ngIf="showSubscriptionMessage" >
+          <img src="./assets/img/close.png" (click)="dismissNotification()" />
+          <h4>SUA APLICAÇÃO FOI RECEBIDA E SERÁ ANALISADA!</h4>
+          <p>Vamos analisar suas respostas e logo sua inscrição será concluída.</p>
+        </div>
+
+        <ng-container *ngIf="!eventApplication?.finalGrade && event?.requirements && event?.requirements.length > 0">
+          <h3>PRÉ-REQUISITOS DESTE EVENTO</h3>
+          <app-event-required-module
+            *ngFor="let requirement of event.requirements; let last = last"
+            [requirement]="requirement"
+            [levels]="levelDict"
+            [last]="last"
+            [progress]="moduleProgress ? moduleProgress[requirement.moduleId] : null"
+            (click)="goToModule(requirement)"
+            style="cursor: pointer;"
+          ></app-event-required-module>
+        </ng-container>
+
+        <div class="final-grade" *ngIf="eventScheduleCompleted(eventApplication)" >
+          <div class="info" >
+            <p>
+              SUA AVALIAÇÃO<br>
+              <small>
+                avaliação referente ao curso presencial
+                {{
+                  getGradedSchedule(eventApplication.scheduleId) ?
+                    'realizado em ' + (getGradedSchedule(eventApplication.scheduleId) | date : 'dd/MM/yyyy' ) : ''
+                }}
+              </small>
+            </p>
+            <button class="btn-test" (click)="generateCertificatePDF()" *ngIf="event.certificateUrl">
+              Gerar Certificado
+            </button>
+          </div>
+          <div class="grade" >
+            <p>NOTA FINAL</p>
+            <div>
+              {{ eventApplication?.finalGrade }}
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <app-module-sidebar
+        [module]="event"
+        [isEvent]="true"
+        [eventApplication]="eventApplication"
+        [disabledQuestionBtn]="disabledQuestionBtn"
+        [forumQuestionsPreview]="forumQuestionsPreview"
+        (reloadForumQuestionsPreview)="loadEventForumPreview($event)"
+      ></app-module-sidebar>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+div.concepts {
+  border-radius: 4px;
+
+  p.title {
+    background: #f7f7f7;
+    padding: 15px;
+    font-size: 17px;
+    color: #ff4376;
+    font-weight: 500;
+    border-radius: 4px 4px 0px 0px;
+  }
+  ul {
+    margin: 0;
+    max-height: 65vh;
+    overflow-y: auto;
+
+    li {
+      color: #727272;
+      font-size: 14px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      &:not(:last-child) {
+        border-bottom: 1px solid #dedede;
+      }
+
+      p.concept {
+        color: #868686;
+        font-size: 16px;
+      }
+      p.count {
+        color: #ff4376;
+        font-weight: 600;
+      }
+    }
+  }
+}
+p.dismiss {
+  color: var(--primary-color);
+  text-align: center;
+  margin-top: 20px;
+  cursor: pointer;
+  font-weight: 500;
+}

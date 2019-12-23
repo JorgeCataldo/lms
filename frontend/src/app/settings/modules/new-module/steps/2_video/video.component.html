@@ -1,0 +1,43 @@
+<div class="video step" >
+  <h2>Por que Fazer este Curso?</h2>
+
+  <form [formGroup]="formGroup" >
+    <div class="two-columns" >
+      <div class="validation-field" >
+        <mat-form-field>
+          <input matInput placeholder="ID do Video"
+            formControlName="videoId" />
+        </mat-form-field>
+        <control-messages
+          [control]="formGroup.get('videoId')"
+        ></control-messages>
+      </div>
+      <div class="validation-field" >
+        <mat-form-field>
+          <input matInput placeholder="Duração do Vídeo (hh:mm:ss)"
+            formControlName="videoDuration"
+            mask="00:00:00"
+          />
+        </mat-form-field>
+        <control-messages
+          [control]="formGroup.get('videoDuration')"
+        ></control-messages>
+      </div>
+    </div>
+  </form>
+
+  <div *ngIf="formGroup.get('videoId').value" >
+    <iframe
+      class="videoIframe"
+      [src]="'https://player.vimeo.com/video/' + formGroup.get('videoId').value | safeUrl"
+      height="400"
+      frameborder="0"
+      webkitallowfullscreen
+      mozallowfullscreen
+      allowfullscreen
+    ></iframe>
+    <p class="video-title" >
+      {{ formGroup.get('videoTitle').value }}
+    </p>
+  </div>
+</div>

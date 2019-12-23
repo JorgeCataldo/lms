@@ -1,0 +1,67 @@
+<h1>
+ <a href="javascript:history.back()" >
+  <i class="icon icon-seta_direita"></i> 
+    Voltar</a>
+    <!-- MINHA CARREIRA -->
+    MEU PERFIL PROFISSIONAL
+</h1>
+<div class="module-info step inner-content" >
+
+  <form [formGroup]="formGroup" *ngIf="arquivos" >
+    <div class="aligner">
+      <h4 class="file-warning">* Máximo de 10 arquivos</h4>
+    </div>
+    <div class="support-material two-columns"
+      *ngFor="let childFormGroup of formGroup.get('materials')['controls']; let i = index;"
+      formArrayName="materials"
+    >
+      <ng-container [formGroupName]="i" >
+        <div class="info-upload" >
+          <div class="validation-field" >
+            <mat-form-field>
+              <input matInput placeholder="Nome do Arquivo"
+                formControlName="title" required />
+            </mat-form-field>
+            <control-messages [control]="childFormGroup.get('title')"
+            ></control-messages>
+          </div>
+          <div class="upload" >
+            <p class="file-name" *ngIf="!childFormGroup.get('downloadLink').value" >
+              Escolher Arquivo (Apenas .pdf, .png, .jpg e .jpeg. Limite de 3Mb)*
+            </p>
+            <a class="file-name" *ngIf="childFormGroup.get('downloadLink').value"
+              target="_blank"
+              [href]="childFormGroup.get('downloadLink').value" >
+              {{ childFormGroup.get('downloadLink').value.split('/secretary/')[1] }}
+            </a>
+            <button class="btn-test btn-upload" type="button" [disabled]="!childFormGroup.get('title').valid" (click)="openFileUpload(i)">
+              {{ childFormGroup.get('downloadLink').value ? 'Editar' : 'Upload' }}
+            </button>
+            <input class="input-file" type="file" accept=" application/pdf, image/*" id="inputFile{{i}}" hidden
+              (change)="setDocumentFile($event.target.files, childFormGroup)"
+            />
+          </div>
+        </div>
+        <div class="description" >
+          <img class="trash"
+            src="./assets/img/trash.png"
+            (click)="removeFile(i)"
+          />
+          <mat-form-field class="reduced" >
+            <textarea matInput placeholder="Descrição"
+              formControlName="description"></textarea>
+          </mat-form-field>
+          
+        </div>
+      </ng-container>
+    </div>
+
+    <button class="btn-test add-material"
+      *ngIf="contador < 10"
+      [disabled]="loading"
+      (click)="addMaterial()" >
+      + Adicionar Arquivos
+    </button>
+  </form>
+</div>
+      

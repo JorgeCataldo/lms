@@ -1,0 +1,39 @@
+<div class="inner-content" *ngIf="user">
+  <h2>MEUS EVENTOS</h2>
+  <ng-container *ngIf="events && events.length > 0" >
+     <div class="flex" >
+      <div class="modules" styles="position:relative">
+        <div class="cover module" >
+          <p>
+            Eventos e<br>
+            <span>Estudos de Caso</span>
+          </p>
+        </div>
+        <app-events-card
+          *ngFor="let event of events; let last = last"
+          [event]="event"
+          [isLast]="last"
+        ></app-events-card>
+
+      </div>
+      <div style="position:relative;position: relative;top: -190px;margin: 0px;">
+        <div class="slider-arrow-background slider-arrow back"
+          *ngIf="translatedValue < 0">
+          <span (click)="slideLeft()" ><i class="icon-seta_esquerda"></i></span>
+        </div>
+
+        <div
+        class="slider-arrow-background slider-arrow forward"
+        *ngIf="showSlider()">
+          <span (click)="slideRight()" ><i class="icon-seta_esquerda"></i></span>
+        </div>
+      </div>
+
+    </div>
+  </ng-container>
+
+  <h2>CALENDÁRIO</h2>
+  <app-track-overview-calendar
+  [setEvents]="user?.calendarEvents"
+  ></app-track-overview-calendar>
+</div>

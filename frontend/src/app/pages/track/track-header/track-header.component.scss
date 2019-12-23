@@ -1,0 +1,57 @@
+div.track-header {
+  position: relative;
+
+  .header-container {
+    background-size: cover;
+    background-position: center;
+    height: 320px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    .content {
+      z-index: 2;
+    }
+
+    img.icon {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+    }
+
+    h2 {
+      font-size: 40px;
+      text-transform: uppercase;
+      margin: 0;
+      font-weight: 500;
+    }
+    h3 {
+      font-size: 25px;
+      font-weight: 400;
+      margin: 10px 0px;
+    }
+
+    p.conclusion {
+      position: absolute;
+      bottom: 12px;
+      right: 16px;
+      font-size: 20px;
+
+      span {
+        color: #A8ECF5;
+        font-weight: 600;
+      }
+    }
+  }
+
+  div.shadow {
+    background: rgba(0, 0, 0, 0.16);
+    height: 320px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+  }
+}

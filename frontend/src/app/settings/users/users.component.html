@@ -1,0 +1,85 @@
+<div class="inner-content" >
+  <h2>GERENCIAMENTO USUÁRIOS</h2>
+
+  <div class="upper" *ngIf="canCreateUser()" >
+    <a routerLink="/configuracoes/usuarios/0" >
+      <button class="btn-test" >
+        NOVO USUÁRIO
+      </button>
+    </a>
+    <button class="btn-test btn-responsible" (click)="updateUsersResponsible()" >
+      ASSOCIAR RESPONSÁVEIS
+    </button>
+  </div>
+
+  <app-users-tabs
+    [tabs]="tabs"
+    (selectTab)="selectTab($event)"
+  ></app-users-tabs>
+
+  <app-list-search
+    placeholder="Digite o nome do usuário"
+    background="white"
+    (triggerSearch)="triggerSearch($event)"
+  ></app-list-search>
+
+  <table mat-table matSort [dataSource]="users" (matSortChange)="sortData($event)" class="mat-elevation-z8">
+    <ng-container matColumnDef="logo">
+      <th width="8%" mat-header-cell *matHeaderCellDef> </th>
+      <td width="8%" mat-cell *matCellDef="let row">
+        <img class="logo" [src]="row.imageUrl ? row.imageUrl : './assets/img/user-image-placeholder.png'" />
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th width="24%" mat-sort-header="name" mat-header-cell *matHeaderCellDef> Nome do Aluno </th>
+      <td width="24%" mat-cell *matCellDef="let row">
+        {{ row.name }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="user_name">
+        <th width="20%" mat-sort-header="user_name" mat-header-cell *matHeaderCellDef> Nome de Usuário </th>
+        <td width="20%" mat-cell *matCellDef="let row">
+          {{ row.userName }}
+        </td>
+      </ng-container>
+
+    <ng-container matColumnDef="matricula">
+      <th width="20%" mat-sort-header="matricula" mat-header-cell *matHeaderCellDef> Matrícula </th>
+      <td width="20%" mat-cell *matCellDef="let row">
+        {{ row.registrationId }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="responsible">
+        <th width="20%" mat-sort-header="responsible" mat-header-cell *matHeaderCellDef> Gestor </th>
+        <td width="20%" mat-cell *matCellDef="let row">
+          {{ row.lineManager }}
+        </td>
+      </ng-container>
+
+    <ng-container matColumnDef="manage">
+      <th width="8%" mat-header-cell *matHeaderCellDef> Gerenciar </th>
+      <td width="8%" mat-cell *matCellDef="let row">
+        <img class="icon"
+          src="./assets/img/edit.png"
+          (click)="manageUser(row)"
+        />
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+      (click)="viewUserDetails(row)"
+    ></tr>
+  </table>
+
+  <app-pagination *ngIf="tabs[ selectedTabIndex ] && tabs[ selectedTabIndex ].count"
+    [setPagination]="{
+      'itemsCount': tabs[ selectedTabIndex ].count,
+      'pageSize': pageSize
+    }"
+    (goToPage)="goToPage($event)"
+  ></app-pagination>
+</div>

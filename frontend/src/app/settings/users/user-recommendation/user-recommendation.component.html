@@ -1,0 +1,103 @@
+<div class="inner-content" >
+
+  <div class="header">
+    <div class="arrow-back">
+      <!--a href="javascript:history.back()">
+        <i class="logo icon-seta_direita" style="font-size: 26px;"></i>
+        voltar
+      </a-->
+    </div>
+    <div class="text-content">
+      <h3>MEU PERFIL PROFISSIONAL</h3>
+    </div>
+    <div class="favorite">
+      <img *ngIf="user && user.canFavorite"
+        (click)="toggleUserToFavorites()"
+        [src]="user && user.isFavorite ? './assets/img/full-heart.png' : './assets/img/empty-heart.png'"
+      />
+    </div>
+  </div>
+
+  <ng-container *ngIf="user && isCurrentUserCard" >
+    <div class="authorization" title="Do que se trata?" >
+      <div class="explanation" >
+        <p>
+            O Card do Perfil Profissional contém um extrato das suas informações pessoais, profissionais e de seu histórico 
+            acadêmico nos cursos. Uma vez autorizado o compartilhamento destas informações, o card poderá ser visualizado por 
+            profissionais de RH responsáveis pelas oportunidades divulgadas na plataforma.
+        </p>
+      </div>
+      <p class="toggle" >
+          EU AUTORIZO A DIVULGAÇÃO DO MEU PERFIL PROFISSIONAL NA PLATAFORMA 
+        <mat-slide-toggle
+          [checked]="user.userInfo.allowRecommendation"
+          (change)="allowRecommendation($event.checked)"
+        ></mat-slide-toggle>
+      </p>
+    </div>
+  </ng-container>                                                                                                                                                                                                                                                            
+
+  <ng-container *ngIf="user && user.userInfo.allowRecommendation && canApproveProfile()" >
+    <div class="authorization" >
+      <p class="toggle" >
+        <span>
+          DIVULGAR CARD <b>[USO EXCLUSIVO DO RH]</b>
+        </span>
+        <mat-slide-toggle
+          [checked]="user.userInfo.secretaryAllowRecommendation"
+          (change)="allowSecretaryRecommendation($event.checked)"
+        ></mat-slide-toggle>
+      </p>
+      <p class="studentPermission" >
+        PERMISSÃO DO ALUNO
+        <img src="./assets/img/approved.png" />
+      </p>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="user && !user.userInfo.allowRecommendation && canApproveProfile()" >
+    <div class="authorization" >
+      <p class="toggle" >
+        DIVULGAR CARD [USO EXCLUSIVO DO RH]
+        <mat-slide-toggle
+          [checked]="user.userInfo.secretaryAllowRecommendation"
+          (change)="allowSecretaryRecommendation($event.checked)"
+        ></mat-slide-toggle>
+      </p>
+      <p class="studentPermission" >
+        PERMISSÃO DO ALUNO?
+        <img src="./assets/img/approved-disabled.png" />
+      </p>
+    </div>
+  </ng-container>
+
+  <!-- <ng-container *ngIf="currentUserRole !== 'Recruiter'" >
+    <div class="visao" >
+      <h4>O QUE O RECRUTADOR VÊ?</h4>
+    </div>
+  </ng-container> -->
+  <h4 class="card-title">IDENTIFICAÇÃO</h4>
+  <div class="content" >
+    <app-user-details-summary-recommendation
+      [user]="user"
+      [dateBirth]="getAge()"
+    ></app-user-details-summary-recommendation>
+    <div class="app-user-career-recommendation">
+      <button class="btn-test" *ngIf="fromJobApplication" (click)="addApplicant()">
+        Adicionar Candidato à Vaga
+      </button>
+      <app-user-career-recommendation
+        [career]="user?.userCareer"
+      ></app-user-career-recommendation>
+    </div>
+  </div>
+
+  <app-proseek-recommendation *ngIf="user && user?.userEventApplications && user?.userEventApplications.length > 0"
+    [userSkills]="userSkills"
+    [userName]="user?.userInfo.name"
+    [userId]="userId"
+    [levels]="levels"
+    [baseValues]="user?.userEventApplications">
+  </app-proseek-recommendation>
+
+</div>

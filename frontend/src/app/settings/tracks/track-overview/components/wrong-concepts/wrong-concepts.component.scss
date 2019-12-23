@@ -1,0 +1,49 @@
+div.concepts {
+  border-radius: 4px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.16);
+  height: 100%;
+
+  p.title {
+    background: #f7f7f7;
+    padding: 15px;
+    font-size: 17px;
+    color: #ff4376;
+    font-weight: 500;
+    border-radius: 4px 4px 0px 0px;
+  }
+  p.no-concepts {
+    padding: 15px;
+  }
+  ul {
+    margin: 0;
+
+    li {
+      color: #727272;
+      font-size: 14px;
+      padding: 10px 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #dedede;
+
+      p.concept {
+        color: #868686;
+        font-size: 16px;
+      }
+      p.count {
+        color: #ff4376;
+        font-weight: 600;
+      }
+    }
+  }
+  div.action {
+    text-align: center;
+    padding: 10px;
+    
+    button {
+      background: transparent;
+      color: #24bcd1;
+      border: none;
+    }
+  }
+}

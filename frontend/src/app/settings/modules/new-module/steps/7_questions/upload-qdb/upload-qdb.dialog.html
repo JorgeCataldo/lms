@@ -1,0 +1,41 @@
+<h3>Upload de Banco de Questões</h3>
+
+<form>
+  <div class="content">
+    <p>
+      Ao importar uma nova planilha você tem a opção de substituir o banco de questões
+      para este assunto ou adicionar novas perguntas. Ao substituir você estará apagando
+      todo o histórico de respostas (tempo de resposta, aferição de respostas, etc.). Ao
+      apagar o histórioco você nào estará afetando os alunos que já obtiveram suas conquistas.
+    </p>
+    <div class="question">
+
+      <div class="ckGroup">
+        <div class="checkbox" [ngClass]="{ 'checked': addQuestions }" (click)="addQuestions = true;"></div>
+        <span>Adicionar Questões</span>
+      </div>
+      <div class="ckGroup">
+        <div class="checkbox" [ngClass]="{ 'checked': !addQuestions }" (click)="addQuestions = false;"></div>
+        <span>Substiuir BDQ para o Assunto</span>
+      </div>
+
+      <div class="upload">
+        <p class="file-name">
+          Escolher Arquivo *
+        </p>
+        <button type="button" (click)="openFileUpload()">
+          Upload
+        </button>
+        <input class="input-file" type="file" id="qdbInputFile" hidden
+        (change)="setDocumentFile($event)" />
+      </div>
+    </div>
+
+
+    <div class="actions">
+      <button class="btn-outline" (click)="dismiss()">
+        fechar
+      </button>
+    </div>
+  </div>
+</form>

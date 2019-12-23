@@ -1,0 +1,19 @@
+.support-material {
+  padding: 20px;
+  border-bottom: 2px solid #C3C3C3;
+  display: flex;
+  align-items: center;
+
+  div:first-child {
+    flex-grow: 1;
+  }
+
+  h4 {
+    color: #014075;
+    font-size: 15px;
+    margin: 0px 0px 10px 0px;
+  }
+  p {
+    font-size: 13px;
+  }
+}

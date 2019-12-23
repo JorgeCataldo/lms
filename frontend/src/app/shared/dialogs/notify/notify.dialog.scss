@@ -1,0 +1,17 @@
+.notify-dialog {
+  .selection-btns {
+    display: flex;
+    margin-top: 20px;
+
+    button {
+      flex: 1;
+
+      &:first-child {
+        margin-right: 5px;
+      }
+      &:last-child {
+        margin-left: 5px;
+      }
+    }
+  }
+}

@@ -1,0 +1,92 @@
+<div class="inner-content" >
+  <nav>
+    <a href="javascript:history.back()" >
+      voltar
+    </a>
+    <h2>{{ formula?.title }}</h2>
+  </nav>
+
+  <div class="formula-info" *ngIf="formula" >
+    <div class="two-columns" >
+      <mat-form-field>
+        <input matInput placeholder="Título"
+          [(ngModel)]="formula.title" required />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select placeholder="Tipo de Fórmula"
+          [(ngModel)]="selectedType"
+          (selectionChange)="selectType($event.value)" >
+          <mat-option [value]="1" >Participação em Evento</mat-option>
+          <mat-option [value]="2" >Nota Final de Evento</mat-option>
+          <mat-option [value]="3" >Nota de Módulo</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="two-columns" >
+      <mat-form-field *ngIf="selectedType" >
+        <mat-select placeholder="Variáveis"
+          [(ngModel)]="variable"
+          (selectionChange)="addVariable($event.value)" >
+          <mat-option [value]="variable" *ngFor="let variable of getVariablesByType(selectedType)" >
+            {{ variable }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-select placeholder="Operadores" 
+          [(ngModel)]="operator"
+          (selectionChange)="addOperator($event.value)" >
+          <mat-option [value]="1" >Adição +</mat-option>
+          <mat-option [value]="2" >Subtração -</mat-option>
+          <mat-option [value]="3" >Multiplicação *</mat-option>
+          <mat-option [value]="4" >Divisão /</mat-option>
+          <mat-option [value]="5" >Abrir Parêntese (</mat-option>
+          <mat-option [value]="6" >Fechar Parêntese )</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select placeholder="Números" 
+          [(ngModel)]="integralNumber"
+          (selectionChange)="addIntegralNumber($event.value)" >
+          <mat-option [value]="0" >0</mat-option>
+          <mat-option [value]="1" >1</mat-option>
+          <mat-option [value]="2" >2</mat-option>
+          <mat-option [value]="3" >3</mat-option>
+          <mat-option [value]="4" >4</mat-option>
+          <mat-option [value]="5" >5</mat-option>
+          <mat-option [value]="6" >6</mat-option>
+          <mat-option [value]="7" >7</mat-option>
+          <mat-option [value]="8" >8</mat-option>
+          <mat-option [value]="9" >9</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <p class="obs" >
+      Selecione variável, número ou operador acima para adicionar automaticamente à fórmula.
+    </p>
+
+    <div class="formula" >
+      <h3>Fórmula:</h3>
+      <div class="parts" >
+        <p class="part" *ngFor="let part of formula?.formulaParts; let index = index" >
+          {{ part.operator ? operators[part.operator] : (part.key || part.integralNumber) }}&nbsp;
+        </p>
+        <img *ngIf="formula && formula.formulaParts.length > 0"
+          src="./assets/img/backspace.svg"
+          (click)="removeOperator()"
+        />
+      </div>
+    </div>
+  
+    <div class="actions" >
+      <button class="btn-test" (click)="save()" >
+        Salvar
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,78 @@
+div.inner-content {
+  background: white;
+  padding: 0px 40px;
+  padding-bottom: 28px;
+
+  h4 {
+    color: var(--primary-color);
+    padding: 20px 0px 18px 0px;
+    margin: 0;
+    font-size: 20px;
+    font-weight: initial;
+  }
+  span {
+    color: var(--text-color);
+    font-size: 18px;
+    font-weight: 400;
+  }
+
+div.benefics {
+  margin: auto;
+}
+
+.exp{
+    color: var(--primary-color);
+    font-weight: 500;
+  }
+
+  div.progress-card {
+    width: 183px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    p {
+      padding: 5px 0;
+
+      &.title {
+        font-weight: bold;
+        color: #777;
+        font-size: 17px;
+        margin-top: 5px;
+        padding-right: 30px;
+      }
+    }
+  }
+
+  div.cards-slider {
+  position: relative;
+
+  div.slider {
+    display: flex;
+    padding-bottom: 10px;
+    overflow-x: auto;
+  }
+  div.slider-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.graduation { 
+  display: flex;
+
+  span { 
+    width: 50%;
+  }
+}
+
+.curse { 
+  display: flex;
+
+  span { 
+    width: 50%;
+  }
+}
+
+
+}

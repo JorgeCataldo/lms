@@ -1,0 +1,46 @@
+.created-module {
+  text-align: center;
+  padding: 15px 30px 0px 30px;
+
+  h2 {
+    font-size: 30px;
+    font-weight: 500;
+    color: var(--primary-color);
+    margin-top: 0;
+  }
+}
+
+p {
+  color: #239BD1;
+  font-size: 16px;
+  text-align: left;
+}
+
+div.actions {
+  border-top: 1px solid #C3C3C3;
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 20px;
+
+  p.btn {
+    color: #239BD1;
+    font-size: 22px;
+    padding-top: 20px;
+    text-align: center;
+    cursor: pointer;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .created-module {
+    h2 {
+      font-size: 24px;
+    }
+  }
+  p {
+    font-size: 12px;
+  }
+  p.btn {
+    font-size: 24px;
+  }
+}

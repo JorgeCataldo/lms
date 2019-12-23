@@ -1,0 +1,80 @@
+<div class="user-summary" >
+  <div class="personal" >
+    <img [src]="user?.imageUrl ? user?.imageUrl : './assets/img/user-image-placeholder.png'">
+    <h3>{{ user?.name ? user.name : '-'}}</h3>
+    <!-- <p class="title" >Rank: {{ user?.rank ? user.rank : '-'}}</p> -->
+    <p>Matrícula: {{ user?.registrationId ? user.registrationId : '-' }}</p>
+    <p>Info: {{ user?.info ? user.info : '-' }}</p>
+    <!--a routerLink="/configuracoes/usuarios/{{user ? user.id : ''}}" >
+      VER TODAS AS INFORMAÇÕES
+    </a-->
+  </div>
+
+  <!--div class="progresses" >
+    <div class="progress" >
+      <p>
+        <span>{{user?.modulesInfo.length}}</span> MÓDULOS
+      </p>
+    </div>
+    <div class="progress" >
+      <p>
+        <span>{{user?.tracksInfo.length}}</span> TRILHAS
+      </p>
+    </div>
+    <div class="progress" >
+      <p>
+        <span>{{user?.eventsInfo.length}}</span> EVENTOS
+      </p>
+    </div>
+  </div-->
+
+  <div class="knowledge" >
+    <p class="sub-title">CONHECIMENTO ADQUIRIDO</p>
+    <div class="chips"
+      [ngClass]="{ 'hide': !showAllTagUsers }" >
+      <app-concept-tag
+        *ngFor="let concept of user?.acquiredKnowledge; let index = index"
+        [concept]="concept.name"
+        [color]="progressService.getLevelColor(concept.level)">
+      </app-concept-tag>
+    </div>
+    <p class="view-all"
+      (click)="showAllTagUsers = !showAllTagUsers"
+    >
+      {{ showAllTagUsers ? 'ocultar' : 'ver todos' }}
+    </p>
+    <h5
+      *ngIf="user?.acquiredKnowledge?.length === 0"
+      >Não iniciado
+    </h5>
+  </div>
+
+  <div class="actions" >
+    <p>AÇÕES DISPONÍVEIS</p>
+    <button class="update" (click)="manageUser()">
+      Atualizar informações
+    </button>
+    <button class="update-prof" (click)="editUserCareer()">
+      Atualizar perfil profissional
+    </button>
+    <button class="block" *ngIf="cacheUser.role !== 'Student'" (click)="blockUser()">
+      {{ user?.isBlocked ? 'Desbloquear' : 'Bloquear' }}
+    </button>
+    <a (click)="goToUserArchives()" *ngIf="showSendFile">
+      <button class="arq">
+        Enviar arquivo para a secretaria
+      </button>
+    </a>
+    <a (click)="goToRecomendation()" *ngIf="showRecomendation">
+      <button class="rec">
+        Ver card de recomendação
+      </button>
+    </a>
+    <a [href]="linkedIn" *ngIf="hasLoginLinkedin">
+      <button class="linkedIn">
+        Associar conta ao linkedIn
+      </button>
+    </a>
+  </div>
+
+</div>

@@ -1,0 +1,33 @@
+<div [formGroup]="formGroup" > 
+  <!--Valores-->
+  <h2>VALORES</h2>
+  <div class="info-box"
+    *ngFor="let childFormGroup of formGroup.get('values')['controls']; let i = index;"
+    formArrayName="values"
+  >
+    <ng-container [formGroupName]="i" >
+      <div class="card-info rewardName" >
+        <p>Valor</p>
+        <div style="display: flex;">
+        <mat-form-field
+          class="noBorder"
+          floatLabel="never">
+          <input matInput formControlName="value"
+          placeholder="Insira o valor"/>
+        </mat-form-field>
+        <button class="btn-test remove-btn"
+            type="button"
+            (click)="removeForm('values', i)">
+            Remover
+          </button>
+      </div>
+      </div>
+    </ng-container>
+  </div>
+  <button class="btn-test add-button rewardButton"
+    type="button"
+    (click)="addReward.emit()" >
+    + Adicionar Valor
+  </button>
+  <!--FIM VALORES-->
+</div>

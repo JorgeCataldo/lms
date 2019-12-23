@@ -1,0 +1,73 @@
+<div class="content" >
+  <div class="side-content">
+    <h3>Filtros</h3>
+    <div class="filter">
+      <app-list-search
+        placeholder="Pesquisar trilha"
+        (triggerSearch)="triggerTrackSearch($event)"
+        [noPadding]="true"
+      ></app-list-search>
+      <div class="chips" >
+        <p *ngFor="let track of selectedTracks" >
+          {{ track.title }}
+          <span (click)="removeSelectedTrack(track.id)" >X</span>
+        </p>
+      </div>
+      <div class="tracks" >
+        <app-track-list-filter
+          *ngFor="let track of tracks"
+          [track]="track"
+          (updateCollection)="updateTracks()"
+        ></app-track-list-filter>
+      </div>
+    </div>
+  </div>
+  <div class="main-content">
+    <div class="table">
+      <div class="item" >
+        <div class="files">
+          <span>Status do Empenho dos Alunos - Progresso no Tempo</span>
+        </div>
+        <div class="buttonExcel">
+          <button class="btn-test btn-table"
+                (click)="getUserProgresses()">
+                EXPORTAR
+              </button>
+        </div>
+      </div>
+      <div class="item" >
+        <div class="files">
+          <span>Desempenho dos Alunos - Ranking de Notas</span>
+        </div>
+        <div class="buttonExcel">
+          <button class="btn-test btn-table"
+                (click)="exportGrades()">
+                EXPORTAR
+              </button>
+        </div>
+      </div>
+      <div class="item" >
+        <div class="files">
+          <span>Desempenho dos Alunos - Ranking de Efetividade</span>
+        </div>
+        <div class="buttonExcel">
+          <button class="btn-test btn-table"
+            (click)="checkTrackSelectedEffectiveness()">
+            EXPORTAR
+          </button>
+        </div>
+      </div>      
+      <div class="item" >
+        <div class="files">
+          <span>Desempenho dos Alunos - Ranking por Percentil</span>
+        </div>
+        <div class="buttonExcel">
+          <button class="btn-test btn-table" disabled="true"
+            (click)="checkTrackSelectedEffectiveness()">
+            EXPORTAR
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

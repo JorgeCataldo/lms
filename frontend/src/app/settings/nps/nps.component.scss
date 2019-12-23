@@ -1,0 +1,69 @@
+.header {
+  display: flex;
+  div {
+    flex: 1;
+    a {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      color: var(--primary-color);
+      text-decoration: none;
+      margin-top: 15px;
+
+      img {
+        margin-right: 4px;
+      }
+    }
+  }
+  h2 {
+    flex: 1;
+    text-align: center;
+    color: var(--primary-color);
+    font-size: 22px;
+  }
+  div.button-header {
+    text-align: right;
+    button {
+      margin-top: 15px;
+    }
+    .first-button {
+      margin-right: 10px;
+    }
+    .danger {
+      background: var(--danger-color);
+    }
+    .success {
+      background: var(--success-color);
+    }
+  }
+}
+
+div.upper {
+  display: flex;
+  justify-content: flex-end;
+  margin: 30px 0px 20px 0px;
+}
+img.user-img {
+  height: 32px;
+  width: 32px;
+}
+img.icon {
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 560px) {
+  div.upper {
+    /deep/.mat-form-field {
+      width: 100%;
+    }
+  }
+  table {
+    th, td {
+      &:nth-child(4),
+      &:nth-child(5),
+      &:nth-child(6) {
+        display: none;
+      }
+    }
+  }
+}

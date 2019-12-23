@@ -1,0 +1,35 @@
+<div class="inner-content" >
+  <h2>EVENTOS</h2>
+
+  <div class="header" >
+    <div class="search" >
+      <i class="icon icon-lupa search-icon"></i><input type="text"
+        placeholder="Digite o nome do módulo ou TAG"
+        (keyup)="updateSearch($event.target.value)"
+      />
+    </div>
+    <div class="actions" >
+      <button class="btn-test" (click)="createNewEvent()"  >
+        NOVO EVENTO
+      </button>
+    </div>
+  </div>
+
+  <div class="events" >
+    <app-settings-event-card
+      *ngFor="let event of events"
+      [event]="event"
+      [isManagementPage]="true"
+      (editEvent)="editEvent($event)"
+      (deleteEvent)="deleteEvent($event)"
+    ></app-settings-event-card>
+  </div>
+
+  <app-pagination *ngIf="eventsCount"
+    [setPagination]="{
+      'itemsCount': eventsCount,
+      'pageSize': 20
+    }"
+    (goToPage)="goToPage($event)"
+  ></app-pagination>
+</div>

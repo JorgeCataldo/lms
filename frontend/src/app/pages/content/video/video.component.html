@@ -1,0 +1,31 @@
+<div class="video-content" [ngClass]="{ 'resumed': resumedView }" >
+  <div class="inner-content" >
+    <div id="videoContent"
+      [style.pointerEvents]="preventPointerEvents ? 'none' : 'initial'"
+    ></div>
+  </div>
+  <!-- <div style="color:white">{{markers | json}}</div> -->
+
+  <div class="timeline-container" *ngIf="!resumedView" >
+    <div class="inner-content" >
+      <div class="timeline" >
+        <ng-container *ngFor="let marker of markers" >
+          <p class="marker"
+            (mouseenter) ="marker.hovered = true"
+            (mouseleave) ="marker.hovered = false"
+            [style.left]="getMarkerPosition(marker.position)"
+            (click)="setVideoPosition(marker.position)"
+          > c </p>
+          <ng-container *ngIf="marker.hovered" >
+            <div class="triangle"
+              [style.left]="getMarkerPosition(marker.position, 2)"
+            ></div>
+            <p class="tooltip"
+              [style.left]="getMarkerPosition(marker.position, -5)"
+            > {{ marker.concept }} </p>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

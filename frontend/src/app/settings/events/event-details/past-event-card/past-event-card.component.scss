@@ -1,0 +1,46 @@
+.past-event-card {
+  background: #FCFCFC;
+  box-shadow: 0 3px 2px 0 rgba(0, 0, 0, 0.16);
+  border-radius: 6px;
+  color: #707070;
+  
+  div.content {
+    padding: 12px;
+    color: #868686;
+
+    p.header {
+      display: flex;
+      justify-content: space-between;
+      color: #707070;
+      font-size: 20px;
+      font-weight: 600;
+    }
+    p.progress {
+      font-size: 14px;
+      margin: 10px 0px;
+  
+      span {
+        font-size: 20px;
+        font-weight: 600;
+      }
+    }
+  }
+  
+  div.buttons {
+    display: flex;
+    border-top: 1px solid #d3d3d3;
+
+    button {
+      background: white;
+      font-weight: 500;
+      color: #239bd1;
+      width: 100%;
+      text-align: center;
+      padding: 10px 0px;
+  
+      &.alt {
+        color: var(--primary-color);
+      }
+    }
+  }
+}

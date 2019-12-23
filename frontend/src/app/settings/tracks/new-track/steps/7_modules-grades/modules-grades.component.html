@@ -1,0 +1,55 @@
+<div class="step" >
+  <h2>Notas Módulos</h2>
+  <p class="subtitle" >
+    <!-- Defina a o peso de cada conteúdo para a nota final, distribuindo todos 100 pontos disponíveis -->
+  </p><br>
+  <div class="content">
+    <div class="content-table">
+      <table mat-table matSort [dataSource]="trackModulesEvents" >
+        <ng-container matColumnDef="content">
+          <th width="50%" mat-header-cell *matHeaderCellDef> Conteúdo </th>
+          <td width="50%" mat-cell *matCellDef="let row">
+              <p>
+                {{ row.title }}
+              </p>
+          </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="weightGrade1">
+          <th width="5%" class="weight-center" mat-header-cell *matHeaderCellDef> Peso </th>
+          <td width="5%"class="weight-center" mat-cell *matCellDef="let row" style="padding: 0px 10px">
+              <input type="number" class="input-weight" [ngModel]="row.weightGrade1" (ngModelChange)="setWeightGradeValue($event, 1, row)">
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="grade1">
+          <th width="15%" class="weight-center" mat-header-cell *matHeaderCellDef> Nota 1 </th>
+          <td width="15%"class="weight-center" mat-cell *matCellDef="let row" style="padding: 0px 10px">
+            <mat-select placeholder="Avaliação" required="true" [ngModel]="row.grade1" (ngModelChange)="setGradeValue($event, 1, row)" >
+              <mat-option [value]="1">BDQ</mat-option>
+              <mat-option [value]="2">Prova</mat-option>
+            </mat-select>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="weightGrade2">
+          <th width="5%" class="weight-center" mat-header-cell *matHeaderCellDef> Peso </th>
+          <td width="5%"class="weight-center" mat-cell *matCellDef="let row" style="padding: 0px 10px">
+              <input type="number" class="input-weight" [ngModel]="row.weightGrade2" (ngModelChange)="setWeightGradeValue($event, 2, row)">
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="grade2">
+          <th width="15%" class="weight-center" mat-header-cell *matHeaderCellDef> Nota 2 </th>
+          <td width="15%"class="weight-center" mat-cell *matCellDef="let row" style="padding: 0px 10px">
+            <mat-select placeholder="Avaliação" required="true" [ngModel]="row.grade2" (ngModelChange)="setGradeValue($event, 2, row)" >
+              <mat-option [value]="1">BDQ</mat-option>
+              <mat-option [value]="2">Prova</mat-option>
+            </mat-select>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
+      </table>
+    </div>
+  </div>
+</div>
