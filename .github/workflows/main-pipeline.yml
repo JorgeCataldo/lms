@@ -35,8 +35,9 @@ jobs:
         ssh ubuntu@dev.academia.tg4.com.br sudo systemctl restart academia-api-staging.service    
             
 
+    
+    - uses: actions/setup-node@v1
     - name: Set Node Version
-      uses: actions/setup-node@v1
       with:
         node-version: ${{ env.NODE_VERSION }}
         
