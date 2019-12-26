@@ -43,6 +43,10 @@ jobs:
       with:
         node-version: ${{ env.NODE_VERSION }}
         
+    - uses: webfactory/ssh-agent@v0.1.1
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    
     - name: Build Frontend
       run: |
         cd frontend
