@@ -42,10 +42,6 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ env.NODE_VERSION }}
-        
-    - uses: webfactory/ssh-agent@v0.1.1
-      with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
     
     - name: Build Frontend
       run: |
@@ -56,18 +52,4 @@ jobs:
         sudo apt-get install -y rsync
         rsync -rvP --del ./dist/frontend/ ubuntu@54.236.7.239://var/www/academia/staging/
         
-    #- name: 'Deploy Backend to Amazon'
-    #  uses: azure/webapps-deploy@v1
-    #  with:
-    #    app-name: ${{ env.AZURE_WEBAPP_NAME }}
-    #    publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-    #    package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
-        
-                
-    #- name: 'Deploy Frontent to Amazon'
-    #  uses: azure/webapps-deploy@v1
-    #  with:
-    #    app-name: ${{ env.AZURE_WEBAPP_NAME }}
-    #    publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-    #    package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
 
