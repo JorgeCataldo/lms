@@ -36,7 +36,10 @@ jobs:
         
     - name: dotnet publish 
       run: |
-        dotnet publish ./backend/src/Api -c Release -o myapp 
+        dotnet publish backend/src/Api -c Release -o ./dist
+        - apt-get update
+        - apt-get install -y rsync            
+        - rsync -rvP --del --exclude 'wwwroot*' ./backend/src/Api/dist/ ubuntu@54.236.7.239:///var/aspnetcore/academia-api
             
     - name: Set Node Version
       uses: actions/setup-node@v1
