@@ -39,8 +39,8 @@ jobs:
           
     - name: dotnet deploy 
       run: |
-        - apt-get update
-        - apt-get install -y rsync            
+        - sudo apt-get update
+        - sudo apt-get install -y rsync            
         - rsync -rvP --del --exclude 'wwwroot*' ./backend/src/Api/dist/ ubuntu@54.236.7.239:///var/aspnetcore/academia-api
             
     - name: Set Node Version
