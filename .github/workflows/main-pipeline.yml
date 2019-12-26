@@ -28,7 +28,7 @@ jobs:
     - name: Build Server
       run:  |
         echo 'ANTES'
-        dotnet build ./backend/src/Api  --configuration Release
+        dotnet build './backend/src/Api'  --configuration Release
         echo 'AQUI'
         
     - name: dotnet publish 
