@@ -44,8 +44,8 @@ jobs:
         cd frontend
         npm install
         npm run build:staging
-        apt-get update
-        apt-get install -y rsync
+        sudo apt-get update
+        sudo apt-get install -y rsync
         rsync -rvP --del ./dist/frontend/ ubuntu@54.236.7.239://var/www/academia/staging/
         
     #- name: 'Deploy Backend to Amazon'
