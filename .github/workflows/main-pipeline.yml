@@ -17,22 +17,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    
+    - uses: actions/checkout@v1
     - name: Setting .net version
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 2.1.700
         ssh-private-key: ${{ secrets.LightsailKey }}
         
-    - uses: actions/setup-dotnet@v1
     - name: Build Server
       run:  |
         echo 'ANTES'
-        # If your web app project is not located in your repository's root
-        # Please consider using pushd to change your path
-        pushd ./backend/src/Api
-        dotnet build --configuration Release --output ./output
-        popd
+        dotnet build ./backend/src/Api --configuration Release --output ./output
         echo 'AQUI'
         
     - name: dotnet publish 
