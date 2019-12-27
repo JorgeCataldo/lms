@@ -37,9 +37,9 @@ jobs:
       run: |
         dotnet publish backend/src/Api -c Release -o ./dist
           
-    - name: dotnet deploy 
-      run: |
-        - sudo apt-get update
+  #  - name: dotnet deploy 
+  #    run: |
+  #      - sudo apt-get update
      #   - sudo apt-get install -y rsync
       #  - rsync -rvP --del --exclude 'wwwroot*' ./backend/src/Api/dist/ ubuntu@107.21.157.253:///var/aspnetcore/academia-api        
 
