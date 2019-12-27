@@ -28,14 +28,14 @@ jobs:
       with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
         
-    - name: Build Server
-      run:  |
-        dotnet build ./backend/src/Api --configuration Release --output ./output
+  #  - name: Build Server
+  #    run:  |
+  #      dotnet build ./backend/src/Api --configuration Release --output ./output
 
         
-    - name: dotnet publish 
-      run: |
-        dotnet publish backend/src/Api -c Release -o ./dist
+  #  - name: dotnet publish 
+  #    run: |
+  #      dotnet publish backend/src/Api -c Release -o ./dist
           
   #  - name: dotnet deploy 
   #    run: |
