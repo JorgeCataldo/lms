@@ -46,7 +46,7 @@ jobs:
         flags: '-rvP --del'
         options: "--exclude 'wwwroot*'"
         ssh_options: ''
-        src: 'home/runner/work/lms/lms/backend/src/Api/dist'
+        src: 'home/runner/work/lms/lms/backend/src/Api/dist/'
         dest: 'ubuntu@107.21.157.253:///var/aspnetcore/academia-api'
         
     - name: Display status from deploy
