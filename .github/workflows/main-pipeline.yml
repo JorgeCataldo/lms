@@ -33,6 +33,7 @@ jobs:
     - name: dotnet publish 
       run: |
         dotnet publish backend/src/Api -c Release -o ./dist
+        ls ./dist
         
     - name: Display status from deploy
       run: echo "Deploy 2"
