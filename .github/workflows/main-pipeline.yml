@@ -34,6 +34,9 @@ jobs:
       run: |
         dotnet publish backend/src/Api -c Release -o ./dist
         
+    - name: Display status from deploy
+      run: echo "Deploy 1"
+        
     - name: Deploy to server
       id: deploy2
       uses: Pendect/action-rsyncer@v1.1.0
