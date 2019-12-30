@@ -38,7 +38,7 @@ jobs:
       run: echo "Deploy 6"
         
     - name: Deploy to server
-      id: deploy2
+      id: deployBackend
       uses: Pendect/action-rsyncer@v1.1.0
       env:
        DEPLOY_KEY: ${{secrets.SSH_PRIVATE_KEY}}
@@ -69,8 +69,17 @@ jobs:
         cd frontend
         npm install
         npm run build:staging
-        sudo apt-get update
-        sudo apt-get install -y rsync
-        rsync -rvP --del ./dist/frontend/ ubuntu@107.21.157.253://var/www/academia/staging/
+
+    - name: Deploy to server
+      id: deployFrontend
+      uses: Pendect/action-rsyncer@v1.1.0
+      env:
+       DEPLOY_KEY: ${{secrets.SSH_PRIVATE_KEY}}
+      with:
+        flags: '-rvP --del'
+        options: "--exclude 'wwwroot*'"
+        ssh_options: ''
+        src: './frontend/dist/frontend/'
+        dest: ' ubuntu@107.21.157.253://var/www/academia/staging/'
         
 
