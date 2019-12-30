@@ -24,9 +24,7 @@ jobs:
       with:
         dotnet-version: 2.1.700
         
-    - uses: webfactory/ssh-agent@v0.1.1
-      with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
         
  #   - name: Build Server
  #    run:  |
@@ -40,7 +38,7 @@ jobs:
       id: deploy2
       uses: Pendect/action-rsyncer@v1.1.0
       env:
-       DEPLOY_KEY: ${{secrets.HOMOL_SSH_PUBLIC_KEY}}
+       DEPLOY_KEY: ${{secrets.HOMOL_NEW_PUBLIC_KEY}}
       with:
         flags: '-rvP --del'
         options: "--exclude 'wwwroot*'"
