@@ -80,6 +80,6 @@ jobs:
         options: "--exclude 'wwwroot*'"
         ssh_options: ''
         src: './frontend/dist/frontend/'
-        dest: ' ubuntu@107.21.157.253://var/www/academia/staging/'
+        dest: ' ubuntu@107.21.157.253://var/www/academia/site/'
         
 
