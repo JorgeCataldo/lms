@@ -36,18 +36,6 @@ jobs:
       run: |
         dotnet publish backend/src/Api -c Release -o ./dist
         
-#    - name: Deploy to server
-#      id: deploy
-#      uses: Pendect/action-rsyncer@v1.1.0
-#      env:
-#       DEPLOY_KEY: ${{secrets.HOMOL_SSH_PRIVATE_KEY}}
-#      with:
-#        flags: '-rvP --del'
-#        options: "--exclude 'wwwroot*'"
-#        ssh_options: './output'
-#        src: 'public/'
-#        dest: 'ubuntu@107.21.157.253:///var/aspnetcore/academia-api'
-        
     - name: Deploy to server
       id: deploy2
       uses: Pendect/action-rsyncer@v1.1.0
