@@ -32,10 +32,10 @@ jobs:
         
     - name: dotnet publish 
       run: |
-        dotnet publish ./backend/src/Api -c Release -o ./dist
+        dotnet publish ./backend/src/Api -c Release -o ./backend/src/Api/dist
         
     - name: Display status from deploy
-      run: echo "Deploy 3"
+      run: echo "Deploy 4"
         
     - name: Deploy to server
       id: deploy2
@@ -46,7 +46,7 @@ jobs:
         flags: '-rvP --del'
         options: "--exclude 'wwwroot*'"
         ssh_options: ''
-        src: '/home/runner/work/lms/lms/backend/src/Api/dist'
+        src: 'home/runner/work/lms/lms/backend/src/Api/dist'
         dest: 'ubuntu@107.21.157.253:///var/aspnetcore/academia-api'
         
     - name: Display status from deploy
