@@ -1,0 +1,20 @@
+<h3>PARA REVISAR {{ concept }}</h3>
+
+<ng-container *ngIf="contents.length > 0" >
+  <div class="content"
+    *ngFor="let content of contents"
+    [ngClass]="{ 'viewed': content.viewed }"
+    (click)="viewContent(content)"
+  >
+    <h4>{{ content.title }}</h4>
+    <p>{{ content.excerpt }}</p>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="contents.length === 0" >
+  <p>Ainda não há conteúdos associados a este conceito</p>
+</ng-container>
+
+<button class="btn-test" (click)="closeReview()" >
+  {{contents.length == 0 ? 'Voltar' : 'Finalizar Revisão'}}
+</button>

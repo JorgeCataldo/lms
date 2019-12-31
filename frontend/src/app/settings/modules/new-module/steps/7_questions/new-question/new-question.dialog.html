@@ -1,0 +1,102 @@
+<h3>Questão {{ data.question.index + 1 }}</h3>
+
+<div class="content" >
+  <!-- <div class="question" >
+    <mat-form-field>
+      <textarea matInput placeholder="Pergunta"
+        [(ngModel)]="data.question.text" required ></textarea>
+    </mat-form-field>
+  </div> -->
+
+  <div id="htmlEditor" ></div>
+
+  <div class="info" >
+    <mat-form-field>
+      <mat-select placeholder="Dificuldade" required
+        [(ngModel)]="data.question.level" >
+        <mat-option [value]="level.id" *ngFor="let level of data.levels" >
+          {{ level.description }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <ng-container *ngIf="isString(data.question.duration)" >
+      <mat-form-field>
+        <input matInput placeholder="Tempo de Resposta Esperado (hh:mm:ss)"
+          mask="00:00:00" required
+          [(ngModel)]="data.question.duration" />
+      </mat-form-field>
+    </ng-container>
+    <ng-container *ngIf="!isString(data.question.duration)" >
+      {{ getFormattedByDuration(data.question.duration) }}
+    </ng-container>
+  </div>
+</div>
+
+<div class="concepts" >
+  <app-concepts-select
+    [setConcepts]="concepts"
+    [selectedConcepts]="selectedConcepts"
+    (updateConcepts)="updateConcepts($event)"
+  ></app-concepts-select>
+</div>
+
+<div class="answers" >
+  <table>
+    <thead>
+      <tr>
+        <th>Conteúdo</th>
+        <th>Pontuação</th>
+        <th *ngFor="let concept of selectedConcepts" >
+          {{ concept }}
+        </th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let answer of data.question.answers; let index = index" >
+        <td>
+          <textarea matInput placeholder="Resposta"
+            [(ngModel)]="answer.description" required ></textarea>
+        </td>
+        <td>
+          <mat-select [(ngModel)]="answer.points" >
+            <mat-option [value]="-1" >-1</mat-option>
+            <mat-option [value]="0" >0</mat-option>
+            <mat-option [value]="1" >1</mat-option>
+            <mat-option [value]="2" >2</mat-option>
+          </mat-select>
+        </td>
+        <td *ngFor="let concept of selectedConcepts" >
+          <img [src]="getAnswerIconSrc(answer, concept)"
+            (click)="toggleAnswer(answer, concept)"
+          />
+        </td>
+        <td>
+          <img
+            src="./assets/img/trash.png"
+            (click)="removeAnswer(index)"
+          />
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td>
+          <button class="btn-test primary" (click)="addAnswer()" >
+            + Adicionar Resposta
+          </button>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+<div class="actions" >
+  <button class="btn-outline" (click)="dismiss()" >
+    Cancelar
+  </button>
+  <button class="btn-test" (click)="save()" >
+    Salvar
+  </button>
+</div>

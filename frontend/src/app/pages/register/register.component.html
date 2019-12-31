@@ -1,0 +1,73 @@
+<h1>
+  <a href="javascript:history.back()" >
+    cancelar
+  </a>
+  CRIAR NOVA CONTA
+</h1>
+<div>
+    <p>Nesta seção você criará uma conta para acesso a todos os recursos da plataforma. Inicialmente, 
+        vamos cadastrar apenas algumas informações básicas. Posteriormente, você poderá nos passar mais informações que nos ajudem a 
+        recomendar cursos mais adequados ao seu perfil. 
+      </p>
+</div>
+<div class="inner-content" >    
+  <div class="user-info" >
+    <form [formGroup]="formGroup" >
+      <h2>INFORMAÇÕES BÁSICAS</h2>
+      <mat-form-field>
+        <input matInput placeholder="Nome Completo"
+          formControlName="name" required />
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="CPF"
+          formControlName="cpf"
+          mask="000.000.000-00" required />
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Nome de Usuário Para Login"
+          formControlName="userName" required />
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="password" placeholder="Senha"
+          formControlName="password" required />
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="password" placeholder="Confirmação Senha"
+          formControlName="repeatPassword" required />
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Mini Bio"
+          formControlName="info"  />
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="E-mail"
+          formControlName="email" required />
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Telefone"
+          formControlName="phone"
+          mask="(00) 0 0000-0000" required />
+      </mat-form-field>
+    </form>
+  </div>
+
+  <div class="user-logo" >
+    <div class="img-container" >
+      <img [src]="formGroup.get('imageUrl').value" />
+      <div class="edit-icon"
+        (click)="uploadImage(240, 240, formGroup.get('imageUrl'))">
+        <img src="./assets/img/edit-white.png" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<div>
+    <p>Para completar o seu cadastro vamos enviar um email com instruções para o seu primeiro acesso.</p>
+</div>
+
+<div class="footer" >
+  <button class="btn-test" type="button" (click)="save()" [disabled]="!formGroup.valid" >
+    Criar Conta
+  </button>
+</div>

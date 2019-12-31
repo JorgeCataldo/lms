@@ -1,0 +1,144 @@
+<h1>
+  PERFIL DA EMPRESA
+</h1>
+
+<div class="inner-content" >
+  <div class="user-info" style="margin-left: 50px; margin-right: 50px">
+    <form [formGroup]="formGroup" *ngIf="formGroup" >
+      <h2>DADOS BÁSICOS</h2>
+      <mat-form-field>
+        <input matInput required
+          placeholder="Razão Social"
+          formControlName="socialName"
+        />
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput required
+          placeholder="Nome Fantasia"
+          formControlName="businessName"
+        />
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput required
+          placeholder="CNPJ"
+          formControlName="cnpj"
+          mask="00.000.000/0000-00"
+        />
+      </mat-form-field>
+
+      <div formGroupName="address" >
+        <div class="cep-search">
+          <mat-form-field>
+            <input matInput
+              placeholder="CEP"
+              formControlName="zipCode"
+              mask="00000-000"
+            />
+          </mat-form-field>
+            
+          <button class="btn-test" type="button" (click)="searchCep()">
+            Pesquisar
+          </button>
+        </div>
+  
+        <mat-form-field>
+          <input matInput placeholder="Cidade" formControlName="city" />
+        </mat-form-field>  
+        <mat-form-field>
+          <input matInput placeholder="Estado" formControlName="state" />
+        </mat-form-field>  
+        <mat-form-field>
+          <input matInput placeholder="Rua" formControlName="street" />
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Bairro" formControlName="district" />
+        </mat-form-field>
+      </div>
+
+      <br>
+      <h2>CONTATO</h2>
+
+      <div formGroupName="humanResourcesResponsible" >
+        <mat-form-field>
+            <input matInput placeholder="Nome do Responsável pelo RH"
+                formControlName="name" required />
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="E-mail do Responsável"
+                formControlName="email" required />
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Telefone do Responsável"
+                formControlName="phone" required />
+        </mat-form-field>
+      </div>
+
+      <div formGroupName="operationsResponsible" >
+        <mat-form-field>
+          <input matInput
+            placeholder="Nome do Contato Operacional/Frequente"
+            formControlName="name"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput 
+            placeholder="E-mail do Contato"
+            formControlName="email"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput
+            placeholder="Telefone do Contato"
+            formControlName="phone"
+          />
+        </mat-form-field>
+      </div>
+
+      <br>
+      <h2>INFORMAÇÔES ADICIONAIS</h2>
+      <mat-form-field>
+        <input matInput
+          placeholder="Porte da Empresa (Média de Funcionários)"
+          formControlName="companySize"
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput
+          placeholder="Ramo de Atuação"
+          formControlName="businessActivity"
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput
+          placeholder="Estimativa de Contratações por Ano"
+          formControlName="yearlyHiring"
+        />
+      </mat-form-field>
+
+      <div class="authLogo">
+        <input 
+          type="checkbox"
+          formControlName="authLogo"
+        /> Autorizo a utilização do logo da empresa para exibição no site como Parceiro Proseek
+      </div>
+    </form>
+  </div>
+
+  <div class="user-logo" >
+    <div class="img-container" *ngIf="formGroup">
+      <img [src]="formGroup.get('logoUrl').value" />
+      <div class="edit-icon"
+        (click)="uploadImage(480, 240, formGroup.get('logoUrl'))">
+        <img src="./assets/img/edit-white.png" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer" >
+  <button class="btn-test" type="button" (click)="save()" >
+    Salvar Alterações
+  </button>
+</div>

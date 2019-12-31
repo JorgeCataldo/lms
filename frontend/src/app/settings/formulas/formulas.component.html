@@ -1,0 +1,33 @@
+<div class="inner-content" >
+  <h2>PARAMETRIZAÇÃO DE FÓRMULAS</h2>
+
+  <div class="header" >
+    <div class="actions" >
+      <button class="btn-test" (click)="createNewFormula()" >
+        NOVA FÓRMULA
+      </button>
+    </div>
+  </div>
+
+  <div class="formulas" >
+    <app-formula-card
+      *ngFor="let formula of formulas"
+      (editFormula)="manageFormula($event)"
+      (deleteFormula)="deleteFormula($event)"
+      [formula]="formula"
+    ></app-formula-card>
+  </div>
+
+  <p *ngIf="formulas && formulas.length === 0" >
+    Ainda não há nenhuma Fórmula criada.
+  </p>
+
+  <app-pagination
+    [hidden]="itemsCount === 0"
+    [setPagination]="{
+      'itemsCount': itemsCount,
+      'pageSize': 10
+    }"
+    (goToPage)="goToPage($event)"
+  ></app-pagination>
+</div>

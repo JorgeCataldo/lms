@@ -1,0 +1,75 @@
+<div class="overlay" padding *ngIf="showLoader">
+  <div layout="row" layout-sm="column" layout-align="space-around" >
+    <mat-spinner color="#fcaf17" [diameter]="55" ></mat-spinner>
+  </div>
+</div>
+<div class="login-container" *ngIf="!isFirstAccess">
+  <form class="form" [formGroup]="formGroup">
+
+    <h1>BEM-VINDO(A)!</h1>
+    <h2>Faça o Login</h2>
+    <mat-form-field class="login-input">
+      <input matInput placeholder="Usuário ou Email" formControlName="username" required />
+    </mat-form-field>
+    <control-messages class="login-input" [control]="formGroup.get('username')"></control-messages>
+    <mat-form-field class="login-input">
+      <input matInput type="password" placeholder="Senha" formControlName="password" required />
+    </mat-form-field>
+    <control-messages class="login-input" [control]="formGroup.get('password')"></control-messages>
+    <a style="cursor: pointer;" (click)="forgotPass()">Esqueceu sua senha? Preencha o campo de usuário e clique aqui</a>
+    <div class="spacer"></div>
+    <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+    <div class="spacer"></div>
+    <button (click)="doLogin()">Entrar</button>
+    <ng-container *ngIf="hasSSO || hasSignUp" >
+      <div class="spacer"></div>
+      <div class="spacer"></div>
+    </ng-container>
+    <div class="button" *ngIf="hasLoginLinkedin">
+      <a [href]="linkedIn" >Entrar com LinkedIn</a>
+    </div>
+    <ng-container *ngIf="hasSSO">
+      <div class="spacer"> Ou </div>
+      <div class="spacer"></div>
+      <div class="spacer"></div>
+      <div class="button" >
+        <a [href]="apiUrl+'/api/account/sso'" >Entrar com BTG</a>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="hasSignUp">
+      <h2 style="margin: 0px;">AINDA NÃO TEM USUÁRIO?</h2>
+      <div class="spacer"></div>
+      <div class="spacer"></div>
+      <button *ngIf="hasSignUp"
+        type="button"
+        (click)="signUp()" >
+        Criar Nova Conta
+      </button>
+    </ng-container>
+  </form>
+  <div class="ilustration"></div>
+</div>
+
+<div class="first-access" *ngIf="isFirstAccess">
+  <form class="form" [formGroup]="firstAccessFormGroup">
+    <h1>Primeiro Acesso!</h1>
+    <h2>Complete seus dados para proceder com o login</h2>
+    <div id="videoContent" style="width: 100%; visibility: hidden;"></div>
+    <mat-form-field class="login-input">
+      <input matInput placeholder="Nome" formControlName="fullName" required />
+    </mat-form-field>
+    <mat-form-field class="login-input">
+      <input matInput placeholder="Telefone" formControlName="phone" mask="(00) 0 0000-0000" required />
+    </mat-form-field>
+    <mat-form-field class="login-input">
+      <input matInput type="email" placeholder="Email" formControlName="email" required />
+    </mat-form-field>
+    <mat-form-field class="login-input">
+      <input matInput placeholder="CPF" formControlName="cpf" mask="000.000.000-00" required />
+    </mat-form-field>
+    <div class="spacer"></div>
+    <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+    <button class="button-input" [disabled]="!firstAccessFormGroup.valid" (click)="saveAndContinue()">Salvar e
+      Continuar</button>
+  </form>
+</div>

@@ -1,0 +1,55 @@
+<div class="inner-content" >
+    <nav>
+        <a href="javascript:history.back()" >
+        <img src="./assets/img/arrow-back.png" />
+        voltar para minhas vagas
+        </a>
+    </nav>
+
+    <div class="content" *ngIf="job">
+        <div class="header">
+            <div class="logo-header">
+                <h1>{{job?.title}}</h1>
+                <button class="btn-test primary"
+                    *ngIf="!job?.applied" 
+                    (click)="applyToJob()">
+                    Candidatar-se
+                </button>
+                <button class="btn-test primary buttonCadidate"
+                    *ngIf="job?.applied"> 
+                    Candidato
+                </button>
+            </div>
+            <div class="info">
+                <div class="info-box">
+                    <p>Cargo</p>
+                    <span>{{job?.employment.record.function}}</span>
+                </div>
+                <div class="info-box" style="margin-left: 50px">
+                    <p>Tipo de contrato</p>
+                    <span>{{job?.employment.benefits.employmentType}}</span>
+                </div>
+            </div>
+        </div>
+
+        <mat-tab-group>
+
+            <mat-tab class="labelColor" label="ATIVIDADES">
+                <app-job-activities [job]="job"></app-job-activities>
+            </mat-tab>
+
+            <mat-tab class="labelColor" label="PRÉ-REQUISITOS">
+                <app-job-pre-requisites [job]="job"></app-job-pre-requisites>
+            </mat-tab>
+
+            <mat-tab class="labelColor" label="VALORES">
+                <app-job-values [job]="job"></app-job-values>
+            </mat-tab>
+
+            <mat-tab class="labelColor" label="REMUNERAÇÃO E BENEFÍCIOS">
+                <app-job-remuneration [job]="job"></app-job-remuneration>
+            </mat-tab>
+
+        </mat-tab-group>
+    </div>
+</div>

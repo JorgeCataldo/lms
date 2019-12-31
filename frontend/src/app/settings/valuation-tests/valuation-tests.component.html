@@ -1,0 +1,40 @@
+<div class="inner-content" >
+
+  <div class="header" >
+    <!--div class="empty-block"></div-->
+    <h2>AVALIAÇÕES E PESQUISAS NOS CURSOS</h2>
+    <!--div class="actions" >
+      <button class="btn-test" (click)="createNewTest()" >
+          NOVA AVALIAÇÃO OU PESQUISA
+      </button>
+    </div-->
+  </div>
+
+  <p>
+    Esta seção gerencia a criação de provas, avaliações de reação acadêmica
+    e pesquisas diversas associadas a cursos, eventos ou trilhas. 
+    Elas aparecem para os alunos no corpo do curso, evento ou trilha como mais uma tarefa.
+  </p>
+
+  <div class="tests" >
+    <app-settings-valuation-test-card
+      *ngFor="let test of tests"
+      (editTest)="manageTest($event)"
+      (deleteTest)="deleteTest($event)"
+      (viewTest)="viewTest($event)"
+      (getAnswersExcel)="getAnswersExcel($event)"
+      [test]="test"
+    ></app-settings-valuation-test-card>
+  </div>
+
+  <p class="emptyState"*ngIf="tests && tests.length === 0" >
+    Ainda não há nenhum BDQ criado.
+  </p>
+
+  <div class="center-btn" >
+    <button class="btn-test" (click)="createNewTest()" >
+        NOVA AVALIAÇÃO OU PESQUISA
+    </button>
+  </div>
+
+</div>

@@ -1,0 +1,38 @@
+<div class="prof-experience" [formGroup]="formGroup">
+  <div class="info-box">
+    <ng-container formGroupName="activities" >
+      <div class="card-info role" >
+        <p>Principais Atividades da Vaga</p>
+        <mat-form-field
+          class="noBorder"
+          floatLabel="never">
+          <input matInput formControlName="activity"
+          placeholder="Descreva as atividades da vaga"/>
+        </mat-form-field>
+      </div>
+      <div class="prof-objectives" >
+        <mat-form-field class="card-activities" >
+          <p class="card-activities-title">Perfil desejado/Caracteríscticas</p>
+          <!-- <mat-label>Perfil desejado/Caracteríscticas</mat-label> -->
+          <textarea matInput placeholder=""
+            formControlName="character"></textarea>
+        </mat-form-field>
+        <mat-form-field class="card-activities">
+          <p class="card-activities-title">Habilidades Comportamentais</p>
+          <!-- <mat-label>Habilidades Comportamentais</mat-label> -->
+          <textarea matInput placeholder=""
+            formControlName="abilities"></textarea>
+        </mat-form-field>
+      </div>
+      <div class="card-info role" >
+        <p>Linha de Reporte:</p>
+        <mat-form-field
+            class="noBorder"
+            floatLabel="never">
+            <input matInput formControlName="report"
+            placeholder="Descreva o reporte"/>
+        </mat-form-field>
+      </div>
+    </ng-container>
+  </div>
+</div>

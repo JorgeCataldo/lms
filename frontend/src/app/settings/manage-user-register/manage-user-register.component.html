@@ -1,0 +1,222 @@
+<div class="inner-content" >
+  <div class="header" >
+    <h2>GERENCIAR USUÁRIOS</h2>
+  </div>
+  
+  <div class="content" *ngIf="users.length > 0">
+
+    <app-manage-user-register-filters 
+      [filters]="filters"
+      (updateFilters)="updateFilters($event)"
+      (search)="triggerFilterSearch($event)"
+      (setCreatedSince)="setCreatedSince($event)"
+      (setUserTermFilter)="setUserTermFilter($event)"
+    ></app-manage-user-register-filters>
+
+    <div class="list" [ngClass]="{ 'isBtgList': isBTG }" >
+      <!-- <app-list-search        
+        placeholder="Digite o nome do usuário"
+        (triggerSearch)="triggerSearch($event)"
+      ></app-list-search> -->
+
+    <div class="selected" >
+        <div class="filter-actions-new">
+            <div class="down">
+              <span>
+                <b>{{usersCount ? usersCount : 0}}</b> usuários encontrados na busca
+              </span>
+            </div>
+            <!-- <p>Ações sobre os selecionados: &nbsp;</!-->
+            <div class="dropdown">
+              <mat-form-field>
+                <mat-label>Ações</mat-label>
+                <mat-select>
+                  <mat-option value="Newuser"
+                    *ngIf="canCreateUser()"
+                    routerLink="/configuracoes/usuarios/0">Novo usuário
+                  </mat-option>
+
+                  <mat-option value="AssociateResponsible"
+                    (click)="updateUsersResponsible()">Associar Gestor
+                  </mat-option>
+
+                  <mat-option value="Recommandation"
+                    [disabled]="!hasSelectedUsers()"
+                    (click)="goToRecommendation()" >Matricular
+                  </mat-option>
+
+                  <mat-option value="SendEmail"
+                    [disabled]="!hasSelectedUsers()"
+                    (click)="goToSendCustomEmail()" >Enviar email
+                  </mat-option>
+
+                  <!-- <mat-option value="IndicationTest"
+                    *ngIf="hasProfileTest"
+                    [disabled]="!hasSelectedUsers()"
+                    (click)="goToSuggestTest()" >Indicar Teste
+                  </mat-option> -->
+
+                  <mat-option value="ExportCarrer"
+                    [disabled]="!hasSelectedUsers()"
+                    (click)="exportUsersCareer()" >Exportar Carreira
+                  </mat-option>
+
+                  <mat-option value="ExportGrade"
+                    [disabled]="!hasSelectedUsers()"
+                    (click)="exportUsersGrade()" >Exportar Notas
+                  </mat-option>
+
+                  <mat-option value="ExportEffetiveness"
+                    [disabled]="!hasSelectedUsers()"
+                    (click)="exportUsersEffectiveness()" >Exportar efetividade
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <span>*Após selecionar o usuário escolha a ação para ele acima.</span>
+            </div>
+        </div>
+
+        <p class="upper">
+          <span>
+            <b>{{selectedUsers && selectedUsers.length > 0 ? selectedUsers.length : 0}}</b> SELECIONADOS
+          </span>
+          <span class="link" (click)="cleanSelectedUsers()" >
+            Limpar Seleção
+          </span>
+          <span class="link" (click)="selectAllUsers()">
+            Selecionar todos
+          </span>
+        </p>
+
+        <div class="chips"
+          *ngIf="selectedUsers && selectedUsers.length > 0"
+          [ngClass]="{ 'hide': !showAllSelectedUsers }" >
+          <p *ngFor="let user of selectedUsers" >
+            <img class="logo" [src]="user.imageUrl ? user.imageUrl : './assets/img/user-image-placeholder.png'" />
+            {{ user.name }}
+            <span (click)="removeSelectedUser(user)">X</span>
+          </p>
+        </div>
+        <p class="view-all"
+          *ngIf="selectedUsers && selectedUsers.length > 4"
+          (click)="showAllSelectedUsers = !showAllSelectedUsers"
+        >
+          {{ showAllSelectedUsers ? 'ocultar' : 'ver todos' }}
+        </p>
+
+      <table mat-table matSort [dataSource]="users" (matSortChange)="sortData($event)" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="manage">
+          <th width="6%" mat-header-cell *matHeaderCellDef> </th>
+          <td width="6%" mat-cell *matCellDef="let row">
+            <mat-checkbox (change)="selectUser($event, row)"
+              [(ngModel)]="row.checked"
+            ></mat-checkbox>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="logo">
+          <th width="6%" mat-header-cell *matHeaderCellDef> </th>
+          <td width="6%" mat-cell *matCellDef="let row">
+            <img class="logo" [src]="row.imageUrl ? row.imageUrl : './assets/img/user-image-placeholder.png'" />
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th width="12%" mat-sort-header="name" mat-header-cell *matHeaderCellDef> Nome do Aluno </th>
+          <td width="12%" mat-cell *matCellDef="let row" (click)="viewUserDetails(row)" >
+            {{ row.name }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="userName">
+          <th width="10%" mat-header-cell *matHeaderCellDef> Nome de Usuário </th>
+          <td width="10%" mat-cell *matCellDef="let row" (click)="viewUserDetails(row)" >
+            {{ row.userName }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="registerId">
+          <th width="10%" mat-header-cell *matHeaderCellDef> Matrícula </th>
+          <td width="10%" mat-cell *matCellDef="let row" (click)="viewUserDetails(row)" >
+            {{ row.registrationId }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="responsible">
+          <th width="10%" mat-header-cell *matHeaderCellDef> Gestor </th>
+          <td width="10%" mat-cell *matCellDef="let row" (click)="viewUserDetails(row)" >
+            {{ row.lineManager }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="manager">
+          <th width="3%" mat-header-cell *matHeaderCellDef> </th>
+          <td width="3%" mat-cell *matCellDef="let row">
+            <img class="icon"
+              src="./assets/img/edit.png"
+              (click)="manageUser(row)"
+              title="Cadastro/Bloqueio das Matrículas"
+            />
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="seeCard">
+          <th width="3%" mat-header-cell *matHeaderCellDef>  </th>
+          <td width="3%" mat-cell *matCellDef="let row">
+            <img class="icon"
+              src="./assets/img/view.png"
+              (click)="goToRecomendation(row)"
+              title="Ver Perfil Profissional do Aluno"
+            />
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="blocked">
+          <th width="3%" mat-header-cell *matHeaderCellDef>  </th>
+          <td width="3%" mat-cell *matCellDef="let row">
+            <img class="icon"
+              *ngIf="row.isBlocked"
+              src="./assets/img/lock-user-red.png"
+              (click)="blockUser(row)"
+              title="Bloquear/Desbloquear acesso à Plataforma"
+            />
+            <img class="icon"
+              *ngIf="!row.isBlocked"
+              src="./assets/img/unlock-user-green.png"
+              (click)="blockUser(row)"
+              title="Bloquear/Desbloquear acesso à Plataforma"
+            />
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="impersonate">
+          <th width="3%" mat-header-cell *matHeaderCellDef>  </th>
+          <td width="3%" mat-cell *matCellDef="let row">
+            <img class="icon"
+              src="./assets/img/shared-content.png"
+              (click)="impersonateUser(row)"
+              title="Navegar pelo Usuário"
+            />
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
+      </table>
+
+      <app-pagination *ngIf="usersCount"
+        [setPagination]="{
+          'itemsCount': usersCount,
+          'pageSize': pageSize
+        }"
+        (goToPage)="goToPage($event)"
+      ></app-pagination>
+
+      <button class="recommend"
+        (click)="goToRecommendation()" >
+        RECOMENDAR TRILHA
+      </button>
+    </div>
+  </div>
+</div>

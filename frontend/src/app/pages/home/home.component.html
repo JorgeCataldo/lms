@@ -1,0 +1,315 @@
+<div class="inner-content" >
+
+  <ng-container *ngIf="showVersionChanges" >
+    <div class="sub-path" style="position:relative;">
+      <button (click)="closeVersionBox()" style="position:absolute;right:0px">X</button>
+      Versão: 
+      <ul>
+        <li>Alteração da estrutura do menu;</li>
+        <li>Criação da funcionalidade de NPS</li>
+        <li>Alterações de layout</li>
+      </ul>
+    </div>
+  </ng-container>
+
+  <slideshow [height]="height"
+    [minHeight]="'400px'"
+    [autoPlay]="true"
+    [showArrows]="true"
+    [autoPlayInterval]="7000"
+    [stopAutoPlayOnSlide]="true"
+    [imageUrls]="imageUrlArray"
+    [lazyLoad]="imageUrlArray?.length > 1"
+    [autoPlayWaitForLazyLoad]="true">
+  </slideshow>
+
+  <!-- <app-home-search
+    *ngIf="hasContent()"
+  ></app-home-search> -->
+  
+  <ng-container *ngIf="hasSuggestions()" >
+    <div class="recommended" >
+      <p>Produtos Recomendados</p>
+    </div>
+    <p>
+      Com base no seu Teste de Perfil, selecionamos alguns produtos interessantes para você:
+    </p>
+    <br>
+    <div class="suggested" >
+      <app-suggestion-card
+        *ngFor="let suggestion of suggestions"
+        [suggestion]="suggestion"
+        (click)="goToStore(suggestion)"
+      ></app-suggestion-card>
+    </div>
+    <br><br>
+  </ng-container>
+
+  <ng-container *ngIf="hasTest()" >
+    <div class="profile-test" >
+      <p>
+        Faça nosso Teste de Perfil para saber quais os produtos mais recomendados para você.
+      </p>
+      <button class="btn-test primary" (click)="goToProfileTest()" >
+        Fazer Teste de Perfil
+      </button>
+    </div>
+  </ng-container>
+
+  <p class="no-content" *ngIf="hasNoContent()" >
+    Você ainda não está associado a nenhum Módulo, Evento ou Trilha.
+  </p>
+
+  <!--ng-container *ngIf="events && events.length > 0" >
+    <div class="modules" >
+      <div class="cover module" >
+        <p>
+          Eventos e<br>
+          <span>Estudos de Caso</span>
+        </p>
+      </div>
+      <app-main-card
+        *ngFor="let event of events; let last = last"
+        [event]="event"
+        [isLast]="last"
+      ></app-main-card>
+    </div>
+
+    <img class="slider-arrow back"
+      *ngIf="translatedValue < 0"
+      src="./assets/img/slider-arrow.png"
+      (click)="slideLeft()"
+    />
+
+    <div class="arrow-background slider-arrow back"
+      [ngClass]= "{
+        'buttonStudents': !_checkUserType,
+        'buttonNotStudents': !_checkUserAdmin
+      }"
+      *ngIf="translatedValue < 0">
+      <span (click)="slideLeft()" ><i class="icon-seta_esquerda"></i></span>
+    </div>
+
+    <div
+      class="arrow-background slider-arrow forward"
+      [ngClass]= "{
+        'buttonStudents': !_checkUserType,
+        'buttonNotStudents': !_checkUserAdmin
+      }"
+      *ngIf="showSlider() && (-translatedValue < scrollLimit)">
+      <span (click)="slideRight()" ><i class="icon-seta_esquerda"></i></span>
+    </div>
+    <img class="slider-arrow forward"
+      *ngIf="showSlider() && (-translatedValue < scrollLimit)"
+      src="./assets/img/slider-arrow.png"
+      (click)="slideRight()"
+    />
+  </ng-container-->
+
+  <!-- <ng-container *ngIf="tracks && tracks.length > 0" >
+    <div class="path" >
+      <p>Suas Trilhas</p>
+    </div>
+
+    <div class="tracks" >
+      <app-settings-track-my-card
+      *ngFor="let track of tracks"
+      [track]="track"
+      (editTrack)="editTrack($event)"
+      (goTrack)="goTrack($event)"
+      (sumarryTrack)="sumarryTrack($event)"
+      ></app-settings-track-my-card>
+    </div>
+
+    <app-pagination *ngIf="tracksCount"
+      [setPagination]="{
+        'itemsCount': tracksCount,
+        'pageSize': 8
+      }"
+      (goToPage)="goToPageTrack($event)"
+    ></app-pagination>
+  </ng-container> -->
+
+  <ng-container *ngIf="tracks && tracks.length > 0" >
+    <div class="path" >
+      <p>Recomendados Para Você</p>
+    </div>
+
+    <!-- <div class="sub-path">
+      <p>A Proseek conta com material elaborado para a carreira financeira e o melhor? Pronto para você usar.</p>
+    </div> -->
+
+    <div class="suggested" >
+      <app-track-card
+        *ngFor="let track of tracks"
+        [track]="track"
+        [progress]="trackProgress[track.id]"
+        [showPrice]="true"
+        [showRecommended]="true"
+        [showText]="true"
+      ></app-track-card>
+      <div class="track-card more-courses" (click)="goToProductsCatalog()">
+        Ver Mais <span>Cursos</span>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- <ng-container *ngIf="allModules && allModules.length > 0" >
+    <div class="all-modules" >
+      <p>Todos os Módulos</p>
+      <span (click)="changeViewType()" ><i class="icon visao-icon icon-visao_lista"></i></span>
+    </div>
+
+    <div class="suggested" [ngClass]="{ 'list': viewType === 'list' }" >
+      <app-module-card
+        *ngFor="let module of allModules"
+        [module]="module"
+        [viewType]="viewType"
+        [progress]="moduleProgress[module.id]"
+        [levels]="levelDict"
+      ></app-module-card>
+    </div>
+
+    <app-pagination *ngIf="modulesCount"
+      [setPagination]="{
+        'itemsCount': modulesCount,
+        'pageSize': 8
+      }"
+      (goToPage)="goToPage($event)"
+    ></app-pagination>
+  </ng-container> -->
+  <div style="background: #fff;margin-top: 50px;padding: 20px 50px;overflow:hidden;">
+<!-- <ng-container>
+  <div class="title-path center" >
+      <p>Responsabilidade Social e Apoio Cultural</p>
+  </div>
+  <div class="path center" >
+    <p>Educação</p>
+  </div>
+  <div class="sub-path center" >
+    <p>
+      Investimos em projetos que incentivam o desenvolvimento de talentos, a busca pela excelência, 
+      a meritocracia e o empreendedorismo, contribuindo para a capacitação de jovens e futuros líderes do País.
+      Mantemos projetos educacionais em parceria com renomadas instituições de ensino, como Endeavor, 
+      USP (Universidade de São Paulo), Fundação Estudar, Insper e um dos mantenedores do Endowment da Poli.
+    </p>
+    <p>
+      Procuramos profissionais alinhados à nossa cultura e aos valores, independente da área de atuação ou campo de conhecimento. 
+      Candidatos com alto potencial, comprometimento e éticos têm no BTG Pactual uma estrutura que favorece o crescimento e 
+      proporciona grande desenvolvimento profissional.
+    </p>
+    <p>
+      A maior parte dos nossos profissionais seniores é formado no Banco, com forte estímulo ao desenvolvimento pessoal, 
+      profissional e mobilidade interna. Independente da área de atuação. Nossa visão consiste em reconhecer e abrir oportunidades 
+      de acordo com o mérito individual, em um sistema de avaliação que reconhece o trabalho em equipe e o empreendedorismo.
+    </p>
+    <p>
+      Essas características nos permitiram criar um ambiente que atrai, desenvolve e mantém os profissionais mais 
+      talentosos do mercado. Investimos no aprimoramento pessoal e profissional dos colaboradores e procuramos levá-los a 
+      seus mais altos níveis de conhecimento, dando todo o apoio necessário durante o processo evolutivo. Além disso, 
+      analisamos e gerenciamos o desempenho individual, alinhando-o às estratégias e aos objetivos do Banco.
+    </p>
+  </div>
+
+  <div class="wrapper container-areas-atuacao">
+    <div class="wrapper lead center">
+      <p class="path center">Áreas de Atuação</p>
+      <p class="sub-path center">O BTG Pactual está organizado nas seguintes áreas de negócios:</p>
+    </div>
+
+    <div class="slides clearfix">
+      <div class="slide">
+        <div>
+          <img src="https://static.btgpactual.com/media/icones-areas-atuacao_07.jpg" alt="">
+        </div>
+        <div class="texto" style="height: 128px;">
+          <p class="path center">Produtos e Serviços Financeiros</p>
+          <p class="sub-path center">Formação de mercado, corretagem e compensação, operações com derivativos, taxas de juros, câmbio, ações e energia</p>
+        </div>
+      </div>
+
+      <div class="slide">
+        <div>
+          <img src="https://static.btgpactual.com/media/icones-areas-atuacao_09.jpg" alt="">
+        </div>
+        <div class="texto" style="height: 128px;">
+          <p class="path center">Asset Management</p>
+          <p class="sub-path center">Gestão de ativos a partir de um amplo portfólio de fundos nas maiores classes de ativos globais&nbsp;</p>
+        </div>
+      </div>
+
+      <div class="slide">
+        <div>
+          <img src="https://static.btgpactual.com/media/icones-areas-atuacao_11.jpg" alt="">
+        </div>
+        <div class="texto" style="height: 128px;">
+          <p class="path center">Wealth Management</p>
+          <p class="sub-path center">Consultoria em investimento e planejamento financeiro, bem como produtos de investimento para clientes de alta renda</p>
+        </div>
+      </div>
+
+      <div class="slide">
+        <div>
+          <img src="https://static.btgpactual.com/media/icones-areas-atuacao_03.jpg" alt="">
+        </div>
+        <div class="texto" style="height: 128px;">
+          <p class="path center">Investment Bank</p>
+          <p class="sub-path center">Assessoria financeira e Produtos e serviços estruturados e personalizados, de acordo com a necessidade de cada cliente.</p>
+        </div>
+      </div>
+
+      <div class="slide">
+        <div>
+          <img src="https://static.btgpactual.com/media/icones-areas-atuacao_05.jpg" alt="">
+        </div>
+        <div class="texto" style="height: 128px;">
+          <p class="path center">Empréstimos e Financiamentos</p>
+          <p class="sub-path center">Atendimento personalizado para atender as demandas de crédito de nossos clientes, utilizando produtos e instrumentos.</p>
+        </div>
+      </div>                      
+    </div>
+  </div>
+</ng-container> -->
+
+
+
+<!-- <ng-container>
+  <div class="title-path center" >
+    <p>Seja bem-vindo a nossa plataforma de ensino</p>
+  </div>
+  <div class="sub-path center" >
+    <p>
+      Nossa missão é despertar, motivar e transformar os estudantes ou recém-formados de forma que eles 
+      possam atingir o máximo do seu potencial, trilhando uma carreira feliz e de sucesso.
+    </p>
+    <p>      
+      A Proseek é a primeira empresa brasileira de assessoria de carreiras especializada na formação de profissionais para o Mercado Financeiro. 
+    </p>
+    <p>
+      Aqui em nossa plataforma você trilha seu crescimento em 3 passos:      
+    </p>
+    <ul>
+      <li>Análise do seu perfil profissional</li>
+      <li>Orientação e desenvolvimento técnico e comportamental</li>
+      <li>Serviços de colocação</li>
+    </ul>
+    <p>
+      Acreditamos no poder da educação, quando bem direcionada e motivada pelos valores certos. Nos unimos por um futuro mais 
+      promissor do jovem brasileiro, para construir uma sociedade mais consciente e capaz de determinar seu sucesso com as próprias mãos, 
+      independentemente das circunstâncias.
+    </p>
+    <p>
+      Com uma inteligência de avaliação avançada e expertise de mercado, nosso objetivo é disponibilizar para nossos alunos todas as 
+      ferramentes necessárias para que eles se desenvolvam e se tornem destaques dentro do mercado financeiro.
+    </p>
+  </div>
+
+</ng-container> -->
+
+
+
+
+
+</div>
+
+</div>

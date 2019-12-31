@@ -1,0 +1,36 @@
+<div class="concepts" >
+  <p class="concept-title">EDIÇÃO</p>
+  <div class="concept-box">
+    <mat-form-field>
+      <input matInput placeholder="Título"
+        [(ngModel)]="data.title" required />
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Texto"
+        [(ngModel)]="data.text" required />
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="number"
+        min="0" max="100"
+        placeholder="Aparição com progresso geral em %"
+        [(ngModel)]="data.percentage" required
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select placeholder="Status"
+        [(ngModel)]="data.active" required >
+        <mat-option [value]="true">Ligado</mat-option>
+        <mat-option [value]="false">Desligado</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+<div class="footer">
+  <p class="dismiss" (click)="save()" >
+    salvar
+  </p>
+  <p class="dismiss bar" (click)="dismiss()" >
+    fechar
+  </p>
+</div>
+

@@ -1,0 +1,114 @@
+<div class="inner-content" >
+  <nav>
+    <a href="javascript:history.back()" >
+      voltar
+    </a>
+    <h2>{{ test?.title }}</h2>
+    <div class="empty-block"></div>
+  </nav>
+
+  <div class="test-info" >
+    <ng-container *ngIf="test">
+      <div class="title-box">
+        <mat-form-field>
+          <input matInput placeholder="Título"
+            [(ngModel)]="test.title" required />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="Tipo"
+            [(ngModel)]="test.type" required >
+            <mat-option [value]="1">Pesquisa</mat-option>
+            <mat-option [value]="2">Avaliação</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </ng-container>
+
+    <div class="questions" >
+      <div class="header" >
+        <h3>Perguntas</h3>
+        <button class="btn-test primary" (click)="openFileUpload()" >
+          IMPORTAR EXCEL
+        </button>
+        <input class="input-file" type="file" id="inputFile" hidden
+          (change)="setDocumentFile($event)"
+        />
+
+        <button class="btn-test" 
+          (click)="openQuestionDialog()" >
+          NOVA PERGUNTA
+        </button>
+      </div>
+      <div class="question" *ngFor="let question of test?.testQuestions; let index = index" >
+        <div class="content" >
+          <div class="info" >
+            <p class="number" >
+              QUESTÃO {{ index + 1 }} (peso {{question.percentage}})
+            </p>
+          </div>
+          <p class="question" >
+            {{ question.title }}
+          </p>
+        </div>
+        <div class="edit" >
+          <img src="./assets/img/edit.png"
+            (click)="openQuestionDialog(question)"
+          />
+          <img src="./assets/img/trash.png"
+            (click)="confirmRemoveQuestion(index)"
+          />
+        </div>
+      </div>
+    </div>
+
+    <h3>Trilhas</h3>
+    <p class="sub" >
+      Escolha a(s) trilha(s) que o teste será aplicado
+    </p>
+    <app-list-search
+      placeholder="Pesquisar por nome ou conceito"
+      (triggerSearch)="triggerTrackSearch($event)"
+    ></app-list-search>
+    <div class="chips" >
+      <p *ngFor="let track of selectedTracks" >
+        {{ track.title }}
+        <span (click)="removeSelectedTrack(track.id)" >X</span>
+      </p>
+    </div>
+    <div class="tracks" >
+      <app-settings-track-card-valuation-test
+        *ngFor="let track of tracks"
+        [track]="track"
+        (updateCollection)="updateTracks()"
+      ></app-settings-track-card-valuation-test>
+    </div>
+
+    <h3>Módulos</h3>
+    <p class="sub" >
+      Escolha o(s) módulo(s) que o teste será aplicado
+    </p>
+    <app-list-search
+      placeholder="Pesquisar por nome ou conceito"
+      (triggerSearch)="triggerModuleSearch($event)"
+    ></app-list-search>
+    <div class="chips" >
+      <p *ngFor="let module of selectedModules" >
+        {{ module.title }}
+        <span (click)="removeSelectedModule(module.id)" >X</span>
+      </p>
+    </div>
+    <div class="tracks" >
+      <app-settings-module-card-valuation-test
+        *ngFor="let module of modules"
+        [module]="module"
+        (updateCollection)="updateModules()"
+      ></app-settings-module-card-valuation-test>
+    </div>
+  
+    <div class="actions" >
+      <button class="btn-test" (click)="next()" >
+        Proximo
+      </button>
+    </div>
+  </div>
+</div>

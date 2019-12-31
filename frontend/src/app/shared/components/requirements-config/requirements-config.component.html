@@ -1,0 +1,128 @@
+<h3>Obrigatórios</h3>
+<p class="subtitle" >
+  Usuário só poderá fazer o módulo após cumprir o nível definido destes módulos
+</p>
+
+<div class="module-form" >
+  <img class="search-icon" src="./assets/img/search.png" />
+
+  <div class="search" >
+    <input matInput type="text" placeholder="Nome do módulo" id="requiredInput"
+      (keyup)="updateRequiredSearch($event.target.value)"
+    />
+
+    <div class="search-results"
+      *ngIf="searchRequiredResults && searchRequiredResults.length > 0"
+    >
+      <p *ngFor="let module of searchRequiredResults"
+        (click)="setModule(module)"
+      >
+        {{ module.title }}
+      </p>
+    </div>
+
+    <mat-spinner *ngIf="loading"
+      [diameter]="16"
+    ></mat-spinner>
+  </div>
+
+  
+  <mat-form-field>
+    <mat-select placeholder="Nível"
+      [(ngModel)]="newModule.level"
+    >
+      <mat-option [value]="level.id" *ngFor="let level of levels" >
+        {{ level.description }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button class="btn-test" type="button" (click)="saveModule()" >
+    {{ editing ? 'Salvar' : 'Adicionar' }}
+  </button>
+</div>
+
+<div class="modules" >
+  <div class="module"
+    *ngFor="let module of requiredModules; let index = index"
+    [ngClass]="{ 'editing': module.editing }"
+  >
+    <p class="title" >
+      {{ module.module ? module.module.title : module.title }}
+    </p>
+    <p class="level" >
+      {{ levelEnum[module.level] }}
+      <img class="edit"
+        src="./assets/img/edit.png"
+        (click)="editModule(module)"
+      />
+    </p>
+    <img class="trash"
+      src="./assets/img/trash.png"
+      (click)="removeModule(index)"
+    />
+  </div>
+</div>
+
+<h3>Opcionais</h3>
+<p class="subtitle" >
+  Módulos e níveis recomendados, mas que não impedem a realização do módulo
+</p>
+
+<div class="module-form" >
+  <img class="search-icon" src="./assets/img/search.png" />
+
+  <div class="search" >
+    <input matInput type="text" placeholder="Nome do módulo" id="optionalInput"
+      (keyup)="updateOptionalSearch($event.target.value)"
+    />
+
+    <div class="search-results"
+      *ngIf="searchOptionalResults && searchOptionalResults.length > 0"
+    >
+      <p *ngFor="let module of searchOptionalResults"
+        (click)="setOptionalModule(module)"
+      >
+        {{ module.title }}
+      </p>
+    </div>
+
+    <mat-spinner *ngIf="loadingOptional"
+      [diameter]="16"
+    ></mat-spinner>
+  </div>
+
+  <mat-form-field>
+    <mat-select placeholder="Nível"
+      [(ngModel)]="newOptionalModule.level"
+    >
+      <mat-option [value]="level.id" *ngFor="let level of levels" >
+        {{ level.description }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button class="btn-test" type="button" (click)="saveModule(true)" >
+    {{ editingOptional ? 'Salvar' : 'Adicionar' }}
+  </button>
+</div>
+
+<div class="modules" >
+  <div class="module"
+    *ngFor="let module of optionalModules; let index = index"
+    [ngClass]="{ 'editing': module.editing }"
+  >
+    <p class="title" >
+      {{ module.module ? module.module.title : module.title }}
+    </p>
+    <p class="level" >
+      {{ levelEnum[module.level] }}
+      <img class="edit"
+        src="./assets/img/edit.png"
+        (click)="editModule(module, true)"
+      />
+    </p>
+    <img class="trash"
+      src="./assets/img/trash.png"
+      (click)="removeModule(index, true)"
+    />
+  </div>
+</div>

@@ -1,0 +1,108 @@
+<h2>ENTURMAÇÃO E MATRÍCULA</h2>
+
+<div class="inner-content" >
+
+  <h4>USUÁRIOS</h4>
+  <app-list-search
+    placeholder="Nome ou E-mail"
+    (triggerSearch)="triggerUserSearch($event)"
+  ></app-list-search>
+  <ul class="user-list"
+    *ngIf="users && users.length > 0"
+    (clickOutside)="resetUserSearch()" >
+    <li *ngFor="let user of users"
+      (click)="addUser(user)" >
+      <img class="logo" [src]="user.imageUrl ? user.imageUrl : './assets/img/user-image-placeholder.png'" />
+      <span>{{ user.name }}</span>
+    </li>
+  </ul>
+  <div class="chips"
+    *ngIf="selectedUsers && selectedUsers.length > 0"
+    [ngClass]="{ 'hide': !showAllSelectedUsers }" >
+    <p *ngFor="let user of selectedUsers" >
+      <img class="logo" [src]="user.imageUrl ? user.imageUrl : './assets/img/user-image-placeholder.png'" />
+      {{ user.name }}
+      <span (click)="removeSelectedUser(user)">X</span>
+    </p>
+  </div>
+  <p class="view-all"
+    *ngIf="selectedUsers && selectedUsers.length > 4"
+    (click)="showAllSelectedUsers = !showAllSelectedUsers"
+  >
+    {{ showAllSelectedUsers ? 'ocultar' : 'ver todos' }} 
+  </p>
+
+  <h4>TRILHAS</h4>
+  <p class="sub" >
+    Escolha uma ou mais trilhas para recomendar aos usuários selecionados acima
+  </p>
+  <app-list-search
+    placeholder="Pesquisar por nome ou conceito"
+    (triggerSearch)="triggerTrackSearch($event)"
+  ></app-list-search>
+  <div class="chips" >
+    <p *ngFor="let track of selectedTracks" >
+      {{ track.title }}
+      <span (click)="removeSelectedTrack(track.id)" >X</span>
+    </p>
+  </div>
+  <div class="tracks" >
+    <app-settings-track-card-select
+      *ngFor="let track of tracks"
+      [track]="track"
+      (updateCollection)="updateTracks()"
+    ></app-settings-track-card-select>
+  </div>
+
+  <h4>CURSOS</h4>
+  <p class="sub" >
+    Escolha uma ou mais módulos para recomendar aos usuários selecionados acima
+  </p>
+  <app-list-search
+    placeholder="Pesquisar por nome ou conceito"
+    (triggerSearch)="triggerModuleSearch($event)"
+  ></app-list-search>
+  <div class="chips" >
+    <p *ngFor="let module of selectedModules" >
+      {{ module.title }}
+      <span (click)="removeSelectedModule(module.id)" >X</span>
+    </p>
+  </div>
+  <div class="tracks" >
+    <app-settings-module-card-select
+      *ngFor="let module of modules"
+      [module]="module"
+      (updateCollection)="updateModules()"
+    ></app-settings-module-card-select>
+  </div>
+
+  <h4>EVENTOS</h4>
+  <p class="sub" >
+    Escolha uma ou mais eventos para recomendar aos usuários selecionados acima
+  </p>
+  <app-list-search
+    placeholder="Pesquisar por nome ou conceito"
+    (triggerSearch)="triggerEventSearch($event)"
+  ></app-list-search>
+  <div class="chips" >
+    <p *ngFor="let event of selectedEvents" >
+      {{ event.eventTitle }} - {{ event.eventDate | date : 'dd/MM/yyyy' }}
+      <span (click)="removeSelectedEvent(event.id)" >X</span>
+    </p>
+  </div>
+  <div class="tracks" >
+    <app-settings-event-card-select
+      *ngFor="let event of events"
+      [setEvent]="event"
+      (updateCollection)="updateEvents($event)"
+    ></app-settings-event-card-select>
+  </div>
+
+
+  <div class="footer" >
+    <button class="btn-test" (click)="sendRecommendations()" >
+      Matricular
+    </button>
+  </div>
+</div>
+  

@@ -1,0 +1,48 @@
+h2 {
+  text-align: center;
+  color: var(--primary-color);
+  font-size: 22px;
+}
+table {
+  width: 100%;
+
+  tr.mat-header-row {
+    height: 40px;
+  }
+  td {
+    color: #707070;
+
+    img {
+      &.logo {
+        width: 32px;
+        border-radius: 50%;
+      }
+      &.icon {
+        width: 20px;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 680px) {
+  table {
+    padding: 10px;
+
+    th, td {
+      &:first-child,
+      &:nth-child(3) {
+        display: none;
+      }
+    }
+  }
+}
+@media only screen and (max-width: 560px) {
+  table {
+    th, td {
+      &:nth-child(4) {
+        display: none;
+      }
+    }
+  }
+}

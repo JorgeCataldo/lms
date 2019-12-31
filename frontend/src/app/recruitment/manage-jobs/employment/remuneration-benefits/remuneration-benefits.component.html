@@ -1,0 +1,66 @@
+<div [formGroup]="formGroup" >
+  <div class="info-box">
+    <ng-container formGroupName="benefits" >
+      <div class="card-info campus" >
+        <div class="card-info " >
+          <p>Salário</p>
+          <mat-form-field class="noBorder" floatLabel="never" >
+            <span matPrefix>R$: &nbsp;</span>
+            <input matInput
+              placeholder="00.000,00"
+              formControlName="salary"
+            />
+          </mat-form-field>
+        </div>
+        <div>
+          <div class="prof-experience"
+            *ngFor="let childFormGroup of formGroup.get('benefits').get('complementaryBenefits')['controls']; let i = index;"
+            formArrayName="complementaryBenefits"
+          >
+            <div class="two-columns" [formGroupName]="i" >
+              <div class="card-info " >
+                <p>{{ childFormGroup?.get('name')?.value }}</p>
+                <mat-form-field class="noBorder" floatLabel="never" >
+                  <mat-select formControlName="done" (selectionChange)="cleanLevel(i)" >
+                    <mat-option [value]="true">Sim</mat-option>
+                    <mat-option [value]="false">Não</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="card-info" >
+                <p>Valor</p>
+                <mat-form-field class="noBorder" floatLabel="never">
+                  <span matPrefix>R$: &nbsp;</span>
+                  <input matInput
+                    placeholder="00.000,00"
+                    formControlName="level"
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-info academicDegree" >
+          <p>Tipo de contratação</p>
+          <mat-form-field 
+            class="noBorder"
+            floatLabel="never">
+            <mat-select class="degree" formControlName="employmentType" placeholder="Contratação" >
+              <mat-option [value]="'CLT'">CLT</mat-option>
+              <mat-option [value]="'PJ'">PJ</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <p>Mudança de residência</p>
+          <mat-form-field 
+            class="noBorder"
+            floatLabel="never">
+            <mat-select class="degree" formControlName="employmentChangeHouse" placeholder="Escolha a opção" >
+              <mat-option [value]="'Sim'">Sim</mat-option>
+              <mat-option [value]="'Não'">Não</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

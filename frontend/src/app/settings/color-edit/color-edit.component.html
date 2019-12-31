@@ -1,0 +1,58 @@
+<div class="inner-content" >
+  <div class="user-info" >
+    <h2>PARAMETRIZAÇÃO DA PALETA DE CORES</h2>
+    <form [formGroup]="formGroup" >
+
+      <div class="font-container">
+        <span class="font-name"> Principal: &nbsp;</span>
+        <p>(cores principais do sistema)</p>
+        <mat-form-field class="font-input">
+          <input matInput formControlName="--primary-color" placeholder="Color" />
+        </mat-form-field>
+        <div class="priority-color" [ngStyle]="{'background-color': formGroup.get('--primary-color').value}"></div>
+      </div>
+      
+      <div class="font-container">
+        <span class="font-name"> Botões: &nbsp;</span>
+        <p>(cores dos botões)</p>
+        <mat-form-field class="font-input">
+          <input matInput formControlName="--alternate-primary-color" placeholder="Color" />
+        </mat-form-field>
+        <div class="priority-color" [ngStyle]="{'background-color': formGroup.get('--alternate-primary-color').value}"></div>
+      </div>
+      
+      <div class="font-container">
+        <span class="font-name">Menu: &nbsp;</span>
+        <p>(cor do fundo do menu)</p>
+        <mat-form-field class="font-input">
+          <input matInput formControlName="--third-primary-color" placeholder="Color" />
+        </mat-form-field>
+        <div class="priority-color" [ngStyle]="{'background-color': formGroup.get('--third-primary-color').value}"></div>
+      </div>
+      
+      <div class="font-container">
+        <span class="font-name"> Divisor Menu: &nbsp;</span>
+        <p>(cor divisor do menu)</p>
+        <mat-form-field class="font-input">
+          <input matInput formControlName="--divider-color" placeholder="Color" />
+        </mat-form-field>
+        <div class="priority-color" [ngStyle]="{'background-color': formGroup.get('--divider-color').value}"></div>
+      </div>
+      
+      <div class="font-container">
+        <span class="font-name"> Links: &nbsp;</span>
+        <p>(cor do textos linkados)</p>
+        <mat-form-field class="font-input">
+          <input matInput formControlName="--danger-color" placeholder="Color" />
+        </mat-form-field>
+        <div class="priority-color" [ngStyle]="{'background-color': formGroup.get('--danger-color').value}"></div>
+      </div>
+
+      <div style="text-align: center;"> 
+        <button class="btn-test" type="button" (click)="saveColorEdit()">
+          Salvar Alterações
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

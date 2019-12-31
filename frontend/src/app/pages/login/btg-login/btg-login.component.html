@@ -1,0 +1,23 @@
+<div class="btg-login">
+  <div class="btg-login-header">
+    <img class="logo" src="./assets/img/logo-btg.png" />
+    <img class="close" (click)="closeModal()" src="./assets/img/close-colored.png" />
+  </div>
+  <div *ngIf="!isLogged">
+    <form class="form" [formGroup]="formGroup">
+      <mat-form-field class="login-input">
+        <input matInput placeholder="Usuário ou Email" formControlName="username" required />
+      </mat-form-field>
+      <mat-form-field class="login-input">
+        <input matInput type="password" placeholder="Senha" formControlName="password" required />
+      </mat-form-field>
+      <div class="spacer"></div>
+      <button (click)="doLogin()">Entrar</button>
+    </form>
+  </div>
+  <div *ngIf="isLogged">
+      <p>Olá {{username}}. Você ja esta autorizado</p>
+      <button (click)="doLogin()">Continuar</button>
+      <p><a (click)="notUser()">Não é {{username}}? Clique aqui</a></p>
+  </div>
+</div>

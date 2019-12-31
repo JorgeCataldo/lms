@@ -1,0 +1,297 @@
+<div class="inner-content">
+  <h4>PERFIL DE RESOLUÇÃO DE PROBLEMAS</h4>
+  <div class="perfil-inner-content">
+    <div>
+      <ng-container>
+        <p class="perfil" *ngIf="getQcGradeNormal() >= 9">
+          <span>Critério: <b>Predominância em Qualidade da Contribuição | (Nível 2)</b> 
+            <img src="./assets/img/icon_info.jpg" />
+            <span class="tooltip">Refere-se refere-se à forma como o aluno se relaciona com o grupo, focando no respeito
+              e no interesse pelas contribuições dadas pelos demais.</span>
+          </span>
+        </p>
+        <p class="perfil" *ngIf="getQcGradeNormal() >= 7 && getQcGradeNormal() < 9 ">
+          <span>Critério: <b>Qualidade da Contribuição | (Nível 1)</b>
+            <img src="./assets/img/icon_info.jpg" />
+            <span class="tooltip">Refere-se refere-se à forma como o aluno se relaciona com o grupo, focando no respeito
+              e no interesse pelas contribuições dadas pelos demais.</span>
+          </span>
+        </p>
+        <p class="perfil" *ngIf="getQcGradeNormal() < 7">
+          <span>Critério: <b>Qualidade da Contribuição | (Nível 0)</b>
+            <img src="./assets/img/icon_info.jpg" />
+            <span class="tooltip">Refere-se refere-se à forma como o aluno se relaciona com o grupo, focando no respeito
+              e no interesse pelas contribuições dadas pelos demais.</span>
+          </span>
+        </p>
+        <p class="perfil-drop" (click)="qcPerfil = !qcPerfil">
+          <span>Detalhes da Avaliação</span>
+          <span>{{ qcPerfil ? '-' : '+' }}</span>
+        </p>
+        <ng-container *ngIf="qcPerfil">
+          <p class="perfil-info-und" *ngIf="getQcGradeNormal() >= 9">
+            Identificamos que os traços analíticos são mais marcantes no perfil profissional do aluno quanto à visão de negócios, 
+            especialmente ligado ao campo de competências ligado a habilidades cognitivas de associação de conceitos e 
+            contextos, como ferramenta predominante para resolução de problemas complexos, domínio profundo do que está em questão.<br><br>
+            Este profissional demonstra capacidade de trazer insights conceituais, relacionados ao objeto de análise,
+            e contextuais, quando contribui para enriquecer a visão do contexto em que se insere o problema. Sendo
+            pragmático em se preparar previamente (sem ser solicitado) aos briefings de reunião, apresentações,
+            sendo disposto a buscar informações fora da caixa para debater resoluções de problemas, busca de
+            soluções e desenho de projetos.<br><br>
+            Os principais riscos identificados associados à competência quanto à maturidade profissional, mais
+            objetivamente em dois critérios: coerência e objetividade.<br><br>
+            Coerência: usualmente quando falta visão ampla do contexto estratégico e mercadológico da empresa,
+            o que resulta em contribuições que tangenciam o centro da questão.<br><br>
+            Objetividade: quando a vontade de contribuir e ajudar a resolver acaba gerando preciosismo na
+            argumentação e as contribuições deixam de ser propositivas, o que pode prejudicar a tomada de decisão.  
+          </p>
+
+          <p class="perfil-info-und" *ngIf="getQcGradeNormal() >= 7 && getQcGradeNormal() < 9 ">
+            Quanto a Qualidade da Contribuição, é sistemático e se sente desconfortável em participar de
+            discussões nas quais não houve aviso prévio ou contextualização prévia. Os principais riscos associados à
+            dominância são coerência e objetividade; seja pela falta de visão holística do negócio no contexto
+            estratégico seja na contribuição questionadora quanto as decisões tomadas.
+          </p>
+
+          <p class="perfil-info-und" *ngIf="getQcGradeNormal() < 7">
+            Com pouca maturidade no âmbito profissional, é obstinado e defende seu ponto de vista, podendo se
+            mostrar reativo e contra argumentar sem ressalvas, independente do ambiente em que se encontra.
+          </p>
+        </ng-container>
+        <!-- <p class="perfil-drop" (click)="qcPerfilInfo = !qcPerfilInfo">
+          <span>Como definimos este perfil</span>
+          <span>{{ qcPerfilInfo ? '-' : '+' }}</span>
+        </p>
+        <p class="perfil-info-def" *ngIf="qcPerfilInfo">
+          Refere-se a relevância das contribuições do aluno ao grupo, ou seja, à
+          qualidade e à quantidade das contribuições dadas em relação ao conteúdo debatido e discutido.
+        </p> -->
+      </ng-container>
+
+      <ng-container>
+        <p class="perfil" *ngIf="getTgGradeNormal() >= 9">
+          <span>Critério: <b>Predominância em Trabalho em Grupo | (Nível 2)</b>
+            <img src="./assets/img/icon_info.jpg" />
+            <span class="tooltip">Refere-se refere-se à forma como o aluno se relaciona com o grupo, focando no respeito
+              e no interesse pelas contribuições dadas pelos demais.</span></span>
+        </p>
+        <p class="perfil" *ngIf="getTgGradeNormal() >= 7 && getTgGradeNormal() < 9 ">
+          <span>Critério: <b>Trabalho em Grupo | (Nível 1)</b>
+            <img src="./assets/img/icon_info.jpg" />
+            <span class="tooltip">Refere-se refere-se à forma como o aluno se relaciona com o grupo, focando no respeito
+              e no interesse pelas contribuições dadas pelos demais.</span></span>
+        </p>
+        <p class="perfil" *ngIf="getTgGradeNormal() < 7">
+          <span>Critério: <b>Trabalho em Grupo | (Nível 0)</b>
+            <img src="./assets/img/icon_info.jpg" />
+            <span class="tooltip">Refere-se refere-se à forma como o aluno se relaciona com o grupo, focando no respeito
+              e no interesse pelas contribuições dadas pelos demais.</span></span>
+        </p>
+        <p class="perfil-drop" (click)="tgPerfil = !tgPerfil">
+          <span>Detalhes da Avaliação</span>
+          <span>{{ tgPerfil ? '-' : '+' }}</span>
+        </p>
+        <ng-container *ngIf="tgPerfil">
+          <p class="perfil-info-und" *ngIf="getTgGradeNormal() >= 9">
+            Os traços mais marcantes do perfil profissional do aluno estão ligados à forma como se
+            comporta em ambiente de dissidência e trabalho em grupo, o campo de competências está ligado a
+            habilidades interpessoais de negociação e diplomacia.<br><br>
+            É um(a) ouvinte atento(a), que respeita, se interessa e aplica as visões dos demais em suas
+            contribuições. A principal virtude de um negociador avançado é saber ouvir cuidadosamente e perceber os
+            interesses por trás de cada colocação, equilibrando suas posições ao melhor resultado possível em cada
+            situação.<br><br>
+            Este profissional demonstra um perfil conciliador, incansável pela busca da convergência de visões por
+            meio do estímulo ao engajamento dos demais nos debates. Esta postura lhe garante que opiniões e
+            interesses estejam disponíveis para uma discussão franca e esclarecedora com o objetivo de encontrar o
+            balanço ideal de expectativas, riscos, custos e benefícios entre as partes.<br><br>
+            Em contrapartida, é comum que este perfil apresente riscos ao seu desenvolvimento de carreira
+            associados ao seu grau de maturidade, que pode gerar um padrão de comportamento destrutivo e
+            desagregador. É um perfil que, por sua propensão ao relacionamento e trocas, tem alto potencial de
+            aprender e crescer no ambiente profissional.<br><br>
+            Isso acontece quando o profissional enxerga os demais como rivais e acaba usando suas habilidades
+            interpessoais para dominar as discussões, minar a argumentação de terceiros e esvaziar o valor de outras
+            contribuições em benefício das suas. Por isso é importante estimular a autocrítica e o feedback por parte
+            de seus líderes e pares.  
+          </p>
+
+          <p class="perfil-info-und" *ngIf="getTgGradeNormal() >= 7 && getTgGradeNormal() < 9 ">
+            Com habilidades interpessoais de negociação e diplomacia, sabe ouvir cuidadosamente e perceber os
+            interesses por trás de cada colocação para saber equilibrar as suas posições com o objetivo de encontrar o
+            balanço ideal de expectativas, riscos, custos e benefícios entre as partes.<br><br>
+            É comum que esse perfil apresente riscos ao seu desenvolvimento de carreira associados a autocrítica e
+            o feedback por parte de seus líderes e pares; sendo ambíguo quando esta troca pode proporcionar um alto
+            potencial de aprender e crescer no ambiente profissional.
+          </p>
+
+          <p class="perfil-info-und" *ngIf="getTgGradeNormal() < 7">
+            Este perfil, não tem propensão a tomar risco e se expor, sem ter convicção de que não será destrutivo,
+            com poucas habilidades interpessoais para dominar discussões e estruturar argumentos de assuntos
+            inesperados.
+          </p>
+        </ng-container>
+        <!-- <p class="perfil-drop" (click)="tgPerfilInfo = !tgPerfilInfo">
+          <span>Como definimos este perfil</span>
+          <span>{{ tgPerfilInfo ? '-' : '+' }}</span>
+        </p>
+        <p class="perfil-info-def" *ngIf="tgPerfilInfo">
+          Refere-se refere-se à forma como o aluno se relaciona com o grupo, focando no respeito
+          e no interesse pelas contribuições dadas pelos demais.
+        </p> -->
+      </ng-container>
+
+      <ng-container>
+        <p class="perfil" *ngIf="getFaGradeNormal() >= 9">
+          <span>Critério: <b>Predominância em Fluência Argumentativa | (Nível 2)</b>
+            <img src="./assets/img/icon_info.jpg" />
+            <span class="tooltip">Refere-se à capacidade do aluno de expor suas contribuições de forma
+              clara, objetiva e assertiva.</span></span>
+        </p>
+        <p class="perfil" *ngIf="getFaGradeNormal() >= 7 && getFaGradeNormal() < 9 ">
+          <span>Critério: <b>Fluência Argumentativa | (Nível 1)</b>
+            <img src="./assets/img/icon_info.jpg" />
+            <span class="tooltip">Refere-se à capacidade do aluno de expor suas contribuições de forma
+              clara, objetiva e assertiva.</span></span>
+        </p>
+        <p class="perfil" *ngIf="getFaGradeNormal() < 7">
+          <span>Critério: <b>Fluência Argumentativa | (Nível 0)</b>
+            <img src="./assets/img/icon_info.jpg" />
+            <span class="tooltip">Refere-se à capacidade do aluno de expor suas contribuições de forma
+              clara, objetiva e assertiva.</span></span>
+        </p>
+        <p class="perfil-drop" (click)="faPerfil = !faPerfil">
+          <span>Detalhes da Avaliação</span>
+          <span>{{ faPerfil ? '-' : '+' }}</span>
+        </p>
+        <ng-container *ngIf="faPerfil">
+          <p class="perfil-info-und" *ngIf="getFaGradeNormal() >= 9">
+            Os traços mais marcantes do perfil profissional do aluno estão ligados a habilidades
+            interpessoais de persuasão e oratória, envolvendo assertividade, fundamentação argumentativa e
+            estrutura associativa do discurso, que formam o campo de competências associadas à responsabilidade
+            decisória.<br><br>
+            Este perfil é marcante pela alta capacidade e velocidade para associação de conceitos e contextos de
+            forma clara e objetiva, transmitindo segurança e transparência em suas posições.<br><br>
+            É um perfil de profissional com forte potencial para tomada de decisão em áreas de negócios e
+            operações, que tende a se posicionar sempre de forma avançada, assumindo responsabilidades e riscos.<br><br>
+            Com domínio pleno do discurso persuasivo, é um perfil profissional que trata objetivos e metas de
+            forma direcionada e contundente, com pragmatismo para atender às expectativas da empresa.<br><br>
+            O principal risco associado à gestão de carreira e desenvolvimento profissional desse perfil está
+            associado ao seu nível de maturidade profissional, com especial atenção às suas relações profissionais.<br><br>
+            Pragmatismo e objetividade para tomada de decisão são sempre bem-vindos no ambiente empresarial,
+            mas saber ouvir e respeitar interesses de terceiros também. Com o devido cuidado para não se deixar
+            atropelar interesses e opiniões alheias, esse profissional tem alto potencial de crescimento porque assume
+            os riscos e a responsabilidade das suas posições.
+          </p>
+
+          <p class="perfil-info-und" *ngIf="getFaGradeNormal() >= 7 && getFaGradeNormal() < 9">
+            Pode-se considerar em suas habilidades interpessoais a fundamentação argumentativa, com forte
+            potencial para tomada de decisão em áreas de negócios e operações, com propensão a assumir
+            responsabilidades e riscos associando à leitura do cenário de forma rápida, assertiva e transparente.
+          </p>
+
+          <p class="perfil-info-und" *ngIf="getFaGradeNormal() < 7">
+            O principal risco associado à gestão de carreira e desenvolvimento profissional desse perfil está
+            associado ao seu nível de maturidade profissional, em especial em relação a saber ouvir e respeitar o ponto
+            de vista e interesse de terceiros também.
+          </p>
+        </ng-container>
+        <!-- <p class="perfil-drop" (click)="faPerfilInfo = !faPerfilInfo">
+          <span>Como Definimos este perfil</span>
+          <span>{{ faPerfilInfo ? '-' : '+' }}</span>
+        </p>
+        <p class="perfil-info-def" *ngIf="faPerfilInfo">
+          Refere-se à capacidade do aluno de expor suas contribuições de forma
+          clara, objetiva e assertiva.
+        </p> -->
+      </ng-container>
+    </div>
+    <div>
+      <app-profile-radar class="perf"
+        [canvasId]="userId"
+        [setCanvasId]="userId"
+        [labels]="getRadarBarLabels()"
+        [titleCallback]="getProfileRadarTitleCallback.bind(this)"
+        [dataset]="getRadarProfileDataset()"
+        [tooltipCallback]="getProfileRadarTooltipCallback.bind(this)">
+      </app-profile-radar>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="inner-content" *ngIf="baseValues?.length > 0">
+  <h4>EVENTOS</h4>
+  <div class="prog-perf">
+    <h4 class="subtitle prog">EVENTO</h4>
+    <h4 class="subtitle perf">GRÁFICO</h4>
+  </div>
+  <ng-container *ngFor="let baseValue of baseValues">
+    <div class="prog-perf">
+      <div class="prog">
+        <div class="prog-text" style="width: fit-content;">
+          <p class="blue"><b>{{baseValue.eventName}}</b></p>
+          <p><b>Nota QC: {{baseValue.qcGrade}}</b></p>
+          <p><b>Nota TG: {{baseValue.tgGrade}}</b></p>
+          <p><b>Nota FA: {{baseValue.faGrade}}</b></p>
+        </div>
+      </div>
+      <app-recommendation-bar class="perf"
+        [canvasId]="baseValue.eventId"
+        [setCanvasId]="baseValue.eventId"
+        [labels]="getRadarBarLabels()"
+        [dataset]="getRadarBarDataset(baseValue)">
+      </app-recommendation-bar>
+    </div>
+  </ng-container>
+</div> -->
+
+<div class="inner-content" *ngIf="userSkills.length > 0">
+  <h4>DESEMPENHO NOS CURSOS ONLINE</h4>
+  <div class="prog-perf">
+    <h4 class="subtitle prog">PROGRAMA</h4>
+    <h4 class="subtitle perf">PERFORMANCE</h4>
+  </div>
+  <ng-container *ngFor="let userSkill of userSkills">
+    <div class="prog-perf">
+      <div class="prog">
+        <div class="prog-text" style="width: fit-content;">
+          <p class="blue"><b>{{userSkill.title}}</b></p>
+          <p><b>Nota Final: {{userSkill.modulesGrade | number:'1.1-2'}}</b></p>
+        </div>
+      </div>
+      <app-recommendation-radar class="perf"
+        [canvasId]="userSkill.id"
+        [setCanvasId]="userSkill.id"
+        [labels]="getRadarLabels(userSkill)"
+        [titleCallback]="getRadarTitleCallback.bind(this)"
+        [dataset]="getRadarDataset(userSkill)"
+        [tooltipCallback]="getRadarTooltipCallback.bind(this)">
+      </app-recommendation-radar>
+    </div>
+  </ng-container>
+</div>
+
+<!--div class="inner-content">
+  <h4>SOFT SKILLS</h4>
+  <div class="prog-perf">
+    <h4 class="subtitle prog">HABILIDADES</h4>
+    <h4 class="subtitle perf">PERFORMANCE</h4>
+  </div>
+  <div class="prog-perf">
+    <div class="prog">
+      <div class="prog-text">
+        <p><b>1. Capacidade Técnica</b></p>
+        <p><b>2. Postura</b></p>
+        <p><b>3. Argumentação</b></p>
+        <p><b>4. Articulação</b></p>
+        <p><b>5. Negociação</b></p>
+      </div>
+    </div>
+    <app-recommendation-radar class="perf"
+      [canvasId]="'canvas2'"
+      [setCanvasId]="'canvas2'"
+      [labels]="mockLabels"
+      [titleCallback]="getRadarTitleCallback.bind(this)"
+      [dataset]="mockDataset"
+      [tooltipCallback]="getRadarTooltipCallback.bind(this)">
+    </app-recommendation-radar>
+  </div>
+</div-->

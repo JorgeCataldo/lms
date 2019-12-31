@@ -1,0 +1,82 @@
+<app-content-menu
+  *ngIf="showMenu"
+  [contents]="contents"
+  [menuContents]="allContents"
+  [currentIndex]="index"
+  [subjectProgress]="subjectProgress"
+  [levels]="levels"
+  (toggleMenu)="toggleMenu()"
+  (goToContent)="goToContent($event)"
+></app-content-menu>
+
+<div class="header" [ngClass]="{ 'offset': showMenu }" >
+  <div class="inner-content" >
+    <a href="javascript:history.back()">
+      <img class="back"
+        src="./assets/img/arrow-back-white.png"
+      />
+    </a>
+
+    <p>{{ contents ? contents[index].title : '' }}</p>
+
+    <div><img class="sub-menu" *ngIf="!showMenu" (click)="showMenu = !showMenu" src="./assets/img/menu-icon-white.png" /></div>
+  </div>
+</div>
+
+<ng-container *ngIf="contents" [ngSwitch]="contents[index].type">
+
+  <div class="menu" [ngClass]="{ 'offset': showMenu }">
+    <app-content-video
+      *ngSwitchCase="contentTypeEnum.Video"
+      [setContent]="contents[index]"
+      [setPosition]="conceptPosition"
+      (saveVideoPlayedAction)="saveVideoPlayedAction($event)"
+    ></app-content-video>
+
+  <app-content-pdf
+    *ngSwitchCase="contentTypeEnum.Pdf"
+    #pdfContent
+    [setContent]="contents[index]"
+    (savePdfFinishedAction)="savePdfFinishedAction($event)"
+  ></app-content-pdf>
+  
+  <app-content-html
+    *ngSwitchCase="contentTypeEnum.Zip"
+    [setContent]="contents[index]"
+  ></app-content-html>
+
+  <app-content-text
+    *ngSwitchDefault
+    [content]="contents[index]"
+    (saveTextFinishedAction)="saveTextFinishedAction($event)"
+  ></app-content-text>
+
+  <app-content-description
+    *ngIf="contents[index].type != contentTypeEnum.Zip"
+    #contentDescription
+    [content]="contents[index]"
+    [contentNote]="userContentNote"
+    (goToPosition)="goToPosition($event)"
+    (goToAnchor)="goToAnchor($event)"
+    (saveConceptViewAction)="saveConceptViewAction($event)"
+    (saveUserContentNote)="updateUserContentNote($event)"
+  ></app-content-description>
+  
+  <app-content-footer
+    *ngIf="contents[index].type != contentTypeEnum.Zip"
+    [hasMultiple]="contents.length > 1"
+    [isFirst]="index === 0"
+    [isLast]="index === (contents.length - 1)"
+    [contentId]="contents[index].id"
+    [moduleId]="moduleId"
+    [subjectId]="subjectId"
+    [hasQuestions]="hasQuestions"
+    [reachedMaxLevel]="reachedMaxLevel()"
+    [hasFinishedRequirements]="hasFinishedRequirements"
+    (forumQuestion)="openForumQuestionModal()"
+    (goToPrevious)="goToPrevious()"
+    (goToNext)="goToNext()"
+  ></app-content-footer>
+</div>
+
+</ng-container>

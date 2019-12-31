@@ -1,0 +1,137 @@
+<div class="inner-content">
+    <nav>
+        <h2>MINHAS OPORTUNIDADES</h2>
+    </nav>
+    <div>
+        <div class="content">
+            <!--div class="top-down" >
+                <h1>
+                    <span class="top-down-number">{{ totalOpenJobs }}</span> 
+                    <span class="top-down-text">OPORTUNIDADES</span>
+                </h1>
+                <button class="btn-test primary" (click)="searchTalents()" >
+                    BUSCAR VAGAS
+                </button>
+            </div-->
+            <app-users-tabs
+                [tabs]="tabs"
+                (selectTab)="selectTab($event)"
+            ></app-users-tabs>
+
+            <ng-container style="text-align: center" *ngIf="Accept()">
+                <div class="new-job">
+                    <p>Você não foi selecionado</p>
+                    <p>a nenhuma vaga ainda</p>
+                    <p><button class="btn-test" (click)="newJob()">
+                        Buscar Vaga
+                    </button></p>
+                </div>
+            </ng-container>
+            <ng-container style="text-align: center" *ngIf="notAccept()">
+                <div class="new-job">
+                    <p>Você não possui</p>
+                    <p>nenhuma vaga pendente</p>
+                    <p><button class="btn-test button-pendent" (click)="newJob()">
+                        Buscar Vaga
+                    </button></p>
+                </div>
+            </ng-container>
+            
+            <table mat-table [dataSource]="userJob" 
+                *ngIf="selectedTabIndex === 0 && userAccpet > 0 ">
+
+                <ng-container matColumnDef="job_name">
+                    <th width="30%" mat-header-cell *matHeaderCellDef> Nome Vaga </th>
+                    <td width="30%" mat-cell *matCellDef="let row" (click)="viewJobDetails(row.jobPositionId)">
+                        {{ row.jobTitle }}
+                    </td>
+                </ng-container>
+            
+                <ng-container matColumnDef="conclusion_date">
+                    <th width="30%" mat-header-cell *matHeaderCellDef> Prazo de Conclusão </th>
+                    <td width="30%" mat-cell *matCellDef="let row" (click)="viewJobDetails(row.jobPositionId)">
+                        {{ row.dueTo | date:'dd/MM/yyy' }}
+                    </td>
+                </ng-container>
+            
+                <ng-container matColumnDef="result">
+                    <th width="30%" mat-header-cell *matHeaderCellDef> Resultado </th>
+                    <td width="30%" mat-cell *matCellDef="let row">
+                        <div *ngIf="row.approved === true"
+                            style="color: #05e295"
+                            (click)="viewJobDetails(row.jobPositionId)"
+                            >Selecionado
+                        </div>
+                        <div *ngIf="row.approved === null"
+                            style="color: #c7c7c7"
+                            >-
+                        </div>
+                        <div *ngIf="row.approved === false"
+                            style="color: #ff5e89"
+                            (click)="viewJobDetails(row.jobPositionId)"
+                            >Não Selecionado
+                        </div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="null">
+                    <th width="10%" mat-header-cell *matHeaderCellDef></th>
+                    <td width="10%" mat-cell *matCellDef="let row" (click)="viewJobDetails(row.jobPositionId)" >
+                    </td>
+                </ng-container>
+            
+                <tr mat-header-row *matHeaderRowDef="candidateDisplayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: candidateDisplayedColumns;"
+                    (click)="viewJobDetails(row)"
+                ></tr>
+            </table>
+
+            <table mat-table [dataSource]="pendingUsers" 
+                *ngIf="selectedTabIndex === 1 && notUserAccpet > 0">
+
+                <ng-container matColumnDef="job_name">
+                    <th width="30%" mat-header-cell *matHeaderCellDef> Nome Vaga </th>
+                    <td width="30%" mat-cell *matCellDef="let row" (click)="viewJobDetails(row.jobPositionId)">
+                        {{ row.jobTitle }}
+                    </td>
+                </ng-container>
+            
+                <ng-container matColumnDef="company">
+                    <th width="30%" mat-header-cell *matHeaderCellDef> Empresa </th>
+                    <td width="30%" mat-cell *matCellDef="let row" (click)="viewJobDetails(row.jobPositionId)">
+                        {{ row.recruitingCompanyName }}
+                    </td>
+                </ng-container>
+            
+                <ng-container matColumnDef="action">
+                    <th width="30%" mat-header-cell *matHeaderCellDef class="text-center"> Ação </th>
+                    <td width="30%" mat-cell *matCellDef="let row" class="text-center">
+                        <button class="btn-test primary"
+                            *ngIf="!checkUserId(row.createdBy)"
+                            (click)="approveUserJob(row.jobPositionId)">
+                            Aceitar Convite
+                        </button>
+                        <button class="btn-test primary buttonWait"
+                            *ngIf="checkUserId(row.createdBy)">
+                            Aguardando Aceite Empresa
+                        </button>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="null">
+                    <th width="10%" mat-header-cell *matHeaderCellDef></th>
+                    <td width="10%" mat-cell *matCellDef="let row" >
+                    </td>
+                </ng-container>
+            
+                <tr mat-header-row *matHeaderRowDef="waitApproveDisplayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: waitApproveDisplayedColumns;"></tr>
+            </table>
+        </div>
+        <!--div class="notifications">
+            <app-notifications
+                [notifications]="notifications"
+            ></app-notifications>
+        </div-->
+    </div>
+</div>

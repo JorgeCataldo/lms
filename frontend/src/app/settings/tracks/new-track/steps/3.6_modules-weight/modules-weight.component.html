@@ -1,0 +1,53 @@
+<div class="step" >
+  <h2>Nota</h2>
+  <p class="subtitle" >
+    Defina a o peso de cada conteúdo para a nota final, distribuindo todos 100 pontos disponíveis
+  </p><br>
+  <div class="content">
+    <div class="content-table">
+      <table mat-table matSort [dataSource]="trackModulesEvents" >
+        <ng-container matColumnDef="content">
+          <th width="45%" mat-header-cell *matHeaderCellDef> Conteúdo </th>
+          <td width="45%" mat-cell *matCellDef="let row">
+              <p>
+                {{ row.title }}<br>
+                <span>{{ row.isEvent ? 'EVENTO PRESENCIAL' : 'MÓDULO ONLINE' }}</span>
+              </p>
+          </td>
+        </ng-container>
+
+        <!--ng-container matColumnDef="data">
+          <th width="40%" mat-header-cell *matHeaderCellDef> Data de corte BDQ </th>
+          <td width="40%" mat-cell *matCellDef="let row">
+            <mat-form-field *ngIf="!row.isEvent">
+              <input matInput [matDatepicker]="picker" placeholder="Data (dd/mm/aaaa)"
+              [(ngModel)]="row.cutOffDate"
+              (ngModel)="checkDate()">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </td>
+        </ng-container-->
+        
+        <ng-container matColumnDef="weight">
+          <th width="15%" class="weight-center" mat-header-cell *matHeaderCellDef> Peso </th>
+          <td width="15%"class="weight-center" mat-cell *matCellDef="let row">
+              <input type="number" class="input-weight" min="0" [(ngModel)]="row.weight" (change)="setRowValue($event.target.value, row)">
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
+      </table>
+    </div>
+    <div class="bar">
+      <p>PONTOS UTILIZADOS</p>
+      <span [ngClass]="{ 'span-success': totalWeight === 100 }">{{totalWeight}}/100</span>
+      <div class="progress-bar"
+        [ngClass]="{ 'progress-bar-green': totalWeight === 100 }">
+        <div class="progress-bar-grow"
+        [ngStyle]="{'height' : getCurrentProgress()}"></div>
+      </div>
+    </div>
+  </div>
+</div>

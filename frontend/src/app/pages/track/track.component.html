@@ -1,0 +1,58 @@
+<div class="inner-content" >
+  <nav>
+    <a href="javascript:history.back()" >
+      <i class="logo icon-seta_direita" style="font-size: 26px;"></i>
+      Voltar
+    </a>
+    <ng-container *ngIf="track?.conclusion * 100 >= 100 && track?.certificateUrl">
+      <button class="btn-test" (click)="generateCertificatePDF()">
+        Gerar Certificado
+      </button>
+    </ng-container>
+  </nav>
+
+  <app-track-header
+    *ngIf="track"
+    [track]="track"
+    [progress]="trackProgress"
+  ></app-track-header>
+
+  <div class="introduction" >
+    <div>
+      <h4>Sobre a Trilha</h4>
+      <p>{{ track?.description }}</p>
+    </div>
+    <app-track-overview-calendar *ngIf="track"
+      [setEvents]="getCalendarEvents()"
+    ></app-track-overview-calendar>
+  </div>
+
+  <ng-container *ngIf="track && track.eventsConfiguration && track.eventsConfiguration.length > 0" >
+    <h4>
+      Eventos
+      <span>{{ getAttendedEventsCount() }} de {{ track.eventsConfiguration.length }} eventos atendidos</span>
+    </h4>
+    <div class="all-modules" >
+      <app-event-card
+        *ngFor="let event of track?.eventsConfiguration"
+        [event]="event"
+        [showDate]="false"
+        (click)="goToEvent(event)"
+      ></app-event-card>
+    </div>
+  </ng-container>
+
+  <h4>
+    Todos os Módulos
+    <span>{{trackProgress?.modulesCompleted ? trackProgress?.modulesCompleted.length : 0}} de {{ track?.modules.length }} objetivos completos</span>
+  </h4>
+  <div class="all-modules" >
+    <app-module-card
+      *ngFor="let module of track?.modules"
+      [module]="module"
+      [progress]="moduleProgress[module.id]"
+      [levels]="levelDict"
+      [completed]="trackProgress?.modulesCompleted.includes(module.id)"
+    ></app-module-card>
+  </div>
+</div>

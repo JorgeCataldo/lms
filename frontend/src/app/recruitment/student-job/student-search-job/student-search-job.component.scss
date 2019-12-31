@@ -1,0 +1,110 @@
+nav {
+  text-align: center;
+  margin: 20px 0px;
+  h2 {
+    color: var(--primary-color);
+    font-size: 22px;
+    margin-bottom: 1.5em;
+  }
+  a {
+    color: var(--primary-color);
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    margin: 20px 0px;
+
+    img {
+      margin-right: 4px;
+    }
+  }
+}
+
+div.content {
+  display: flex;
+
+  div.app-manage-team-filters {
+    flex: 1;
+    margin-bottom: 10px;
+    div.second-filters {
+      margin-top: 30px;
+    }
+  }
+  div.list {
+    flex: 3;
+
+    div.selected {
+      margin-bottom: 10px;
+
+      p.down {
+        font-size: 18px;
+        font-weight: 500;
+      }
+    }
+  }
+    
+  img.logo {
+    width: 32px;
+    border-radius: 50%;
+  }
+}
+
+div.students {
+  border-radius: 4px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.16);
+  background-color: white;
+
+  p.no-students {
+    padding: 15px;
+  }
+  ul {
+    margin: 0;
+
+    li {
+      display: flex;
+      align-items: center;
+      padding: 10px 0px;
+      margin: 0px 15px;
+      cursor: pointer;
+
+      &:not(:last-child) {
+        border-bottom: 1px solid #dedede;
+      }
+      .job {
+        font-size: 17px;
+        font-weight: bold;
+      }
+      .money {
+        color: var(--primary-color);
+        font-size: 17px;
+        font-weight: 500;
+      }
+
+      .buttonCadidate {
+        background: white;
+        color: #24bcd1;
+        border: #24bcd1;
+        border-style: solid;
+        border-width: 2px;
+        padding: 7px 34px
+      }
+
+      img.photo {
+        width: 81px;
+        height: 81px;
+        border-radius: 50%;
+        margin-right: 25px;
+      }
+      .item-title {
+        color: #727272;
+        font-size: 14px;
+        flex-grow: 1;
+        text-transform: uppercase
+      }
+    }
+  }
+  /deep/app-pagination .pagination {
+    margin: 0;
+    padding: 15px 0px;
+  }
+}

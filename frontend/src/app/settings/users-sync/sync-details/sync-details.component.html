@@ -1,0 +1,77 @@
+<div class="inner-content" >
+  <h2>USUÁRIOS</h2>
+
+  <app-users-tabs
+    [tabs]="tabs"
+    (selectTab)="selectTab($event)"
+  ></app-users-tabs>
+
+  <app-list-search
+    placeholder="Digite o nome do usuário"
+    background="white"
+    (triggerSearch)="triggerSearch($event)"
+  ></app-list-search>
+
+  <table mat-table [dataSource]="users" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="imageUrl">
+      <th width="10%" mat-header-cell *matHeaderCellDef></th>
+      <td width="10%" mat-cell *matCellDef="let row">
+        <img class="logo" [src]="row.imageUrl ? user.imageUrl : './assets/img/user-image-placeholder.png'" />
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th width="30%" mat-header-cell *matHeaderCellDef> Nome do Usuário </th>
+      <td width="30%" mat-cell *matCellDef="let row">
+        {{ row.name }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="jobTitle">
+      <th width="20%" mat-header-cell *matHeaderCellDef> Categoria </th>
+      <td width="20%" mat-cell *matCellDef="let row">
+        {{ row.rank }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="responsible">
+      <th width="20%" mat-header-cell *matHeaderCellDef> Responsável </th>
+      <td width="20%" mat-cell *matCellDef="let row">
+        {{ row.responsible }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th width="20%" mat-header-cell *matHeaderCellDef> Status </th>
+      <td width="20%" mat-cell *matCellDef="let row">
+        <ng-container [ngSwitch]="row.status">
+          <app-status-tag *ngSwitchCase="'Novo Usuário'"
+            [status]="row.status"
+            [backgroundColor]="'#06e295'"
+          ></app-status-tag>
+          <app-status-tag *ngSwitchCase="'Usuário Atualizado'"
+            [status]="row.status"
+            [backgroundColor]="'#bd62ff'"
+          ></app-status-tag>
+          <app-status-tag *ngSwitchCase="'Usuário Bloqueado'"
+            [status]="row.status"
+            [backgroundColor]="'#FF4376'"
+          ></app-status-tag>
+        </ng-container>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <app-pagination *ngIf="tabs[ selectedTabIndex ] && tabs[ selectedTabIndex ].count && notSearching"
+    [setPagination]="{
+      'itemsCount': tabs[ selectedTabIndex ].count,
+      'pageSize': pageSize
+    }"
+    (goToPage)="goToPage($event)"
+  ></app-pagination>
+</div>
+  

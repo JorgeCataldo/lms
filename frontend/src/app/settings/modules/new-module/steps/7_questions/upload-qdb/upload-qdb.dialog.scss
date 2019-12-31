@@ -1,0 +1,145 @@
+h3 {
+  color: var(--primary-color);
+  font-weight: 500;
+  font-size: 20px;
+  margin: 0;
+}
+
+div.content {
+  margin-top: 20px;
+
+  div.question {
+    margin-right: 50px;
+
+    .ckGroup{
+      display: flex;
+      flex-direction: row;
+      margin-top: 10px;
+
+      span {
+        padding-top: 6px;
+      }
+    }
+  }  
+  
+  div.checkbox {
+    width: 26px;
+    height: 26px;
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    margin-right: 8px;
+    cursor: pointer;
+
+    &.checked {
+      background: var(--primary-color);
+    }
+  }
+
+  .upload {
+    margin: 0;
+    display: flex;
+
+    p.file-name, a.file-name {
+      color: #868686;
+      border-bottom: 1px solid #868686;
+      flex-grow: 1;
+      padding-bottom: 5px;
+      margin-right: 10px;
+      margin-top: 10px;
+    }
+    a.file-name {
+      color: var(--primary-color);
+    }
+    button {
+      background: var(--primary-color);
+      color: white;
+      border-radius: 6px;
+      width: 160px;
+    }
+  }
+}
+
+div.concepts {
+  margin: 20px 0px;
+}
+
+div.answers {
+  margin: 15px 0px;
+
+  table {
+    background: #FCFCFC;
+    border-radius: 6px;
+    width: 100%;
+    box-shadow: 0 3px 2px 0 rgba(0, 0, 0, 0.16);
+    text-align: left;
+    border-collapse: collapse;
+    margin: 10px 0px;
+
+    tr {
+      td, th {
+        padding: 10px 15px;
+      }
+    }
+
+    thead {
+      tr {
+        background: var(--semi-primary-color);
+        color: #868686;
+        text-align: center;
+
+        th {
+          font-size: 14px;
+
+          &:first-child {
+            border-radius: 6px 0px 0px 0px;
+            text-align: left;
+          }
+          &:last-child {
+            border-radius: 0px 6px 0px 0px;
+          }
+        }
+      }
+    }
+    tbody {
+      tr {
+        border-bottom: 1px solid #C3C3C3;
+
+        td {
+          color: #868686;
+          font-size: 16px;
+          padding-bottom: 10px;
+          text-align: center;
+
+          &:first-child {
+            text-align: left;
+          }
+          .mat-select {
+            width: 50%;
+          }
+          textarea {
+            height: 60px;
+          }
+          img {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
+
+div.actions {
+  text-align: right;
+  border-top: 2px solid #707070;
+  padding-top: 20px;
+  margin-top: 30px;
+
+  button {
+    width: 30%;
+    margin-right: 10px;
+    font-size: 16px;
+    padding: 12px 24px;
+    font-weight: 400;
+    border-radius: 10px;
+  }
+}

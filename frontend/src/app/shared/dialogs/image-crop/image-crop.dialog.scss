@@ -1,0 +1,27 @@
+/deep/#cropper > span > input {
+  display: none;
+}
+
+.image-crop-dialog {
+  text-align: center;
+
+  p.final {
+    margin: 12px;
+  }
+
+  .selection-btns {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+
+    button {
+      margin: 6px;
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .selection-btns {
+    flex-direction: column;
+  }
+}

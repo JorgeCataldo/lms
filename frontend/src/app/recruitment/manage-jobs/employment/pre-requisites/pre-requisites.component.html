@@ -1,0 +1,196 @@
+<div class="prof-experience" [formGroup]="formGroup" >
+    <div class="info-box">
+      <ng-container formGroupName ="preRequirements" >
+        <div class="card-title companyName" >
+          <p>Formação acadêmica:</p>
+        </div>
+        <div class="card-info education" >
+          <p>Grau do curso</p>
+          <mat-form-field 
+            class="noBorder"
+            floatLabel="never">
+            <mat-select class="degree" formControlName="education" placeholder="Grau" >
+              <mat-option [value]="'Graduação'">Graduação</mat-option>
+              <mat-option [value]="'Pós-Graduação'">Pós-Graduação</mat-option>
+              <mat-option [value]="'Mestrado'">Mestrado</mat-option>
+              <mat-option [value]="'Doutorado'">Doutorado</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="card-info " >
+          <p>Nome do curso</p>
+          <mat-form-field
+            class="noBorder"
+            floatLabel="never">
+            <input matInput formControlName="curseName"
+            placeholder="Qual o nome do curso"/>
+          </mat-form-field>
+        </div>
+        <div class="two-columns">
+          <div class="card-info " >
+            <p>Data de Conclusão</p>
+            <mat-form-field class="noBorder" floatLabel="never" >
+              <input matInput
+                placeholder="MM/YYYY"
+                mask="00/0000"
+                formControlName="dateConclusion"
+              />
+            </mat-form-field>
+          </div>
+        <div class="card-info " >
+          <p>CR Acumulado</p>
+          <mat-form-field
+            class="noBorder"
+            floatLabel="never">
+            <input matInput formControlName="crAcumulation"
+            placeholder="Coeficiente de Rendimento"/>
+          </mat-form-field>
+        </div>
+        </div>
+        <div class="card-title " >
+            <p>Experiência Profissional:</p>
+        </div>
+        <div class="card-info " >
+            <p>Mínimo de tempo requerido em função similar: 
+              <span style="font-weight: 100; font-style: italic;">(Em anos)</span>
+            </p> 
+            <mat-form-field
+              class="noBorder"
+              floatLabel="never">
+              <input matInput type="number" formControlName="minTime"
+              placeholder="Qual o tempo mínimo"/>
+            </mat-form-field>
+            <p class="card-pre-requisites-title">Formação complementar</p>
+          </div>
+          
+        <div>
+          <div class="prof-experience"
+            *ngFor="let childFormGroup of formGroup.get('preRequirements').get('complementaryInfo')['controls']; let i = index;"
+            formArrayName="complementaryInfo"
+          >
+            <div class="two-columns" [formGroupName]="i" >
+              <div class="card-info name" >
+                <p>{{ childFormGroup?.get('name')?.value }}</p>
+                <mat-form-field class="noBorder" floatLabel="never" >
+                  <mat-select formControlName="done" (selectionChange)="cleanLevel(i)" >
+                    <mat-option [value]="true">Sim</mat-option>
+                    <mat-option [value]="false">Não</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="card-info level" >
+                <p>Nível</p>
+                <div style="display: flex;">
+                  <mat-form-field class="noBorder" floatLabel="never" >
+                    <mat-select formControlName="level" 
+                      [disabled]="!childFormGroup?.get('done')?.value" >
+                      <mat-option [value]="'Básico'">Básico</mat-option>
+                      <mat-option [value]="'Intermediário'">Intermediário</mat-option>
+                      <mat-option [value]="'Avançado'">Avançado</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <h2>Outros</h2>
+          <div class="info-box"
+            *ngFor="let childFormGroup of formGroup.get('preRequirements').get('others')['controls']; let i = index;"
+            formArrayName="others">
+            <ng-container [formGroupName]="i" >
+              <div class="two-columns">
+                <div class="card-info languageName" >
+                  <p>Outro</p>
+                  <mat-form-field
+                    class="noBorder"
+                    floatLabel="never">
+                    <input matInput formControlName="name"/>
+                  </mat-form-field>
+                </div>
+                <div class="card-info languageLevel" >
+                  <p>Nível</p>
+                  <div style="display: flex;">
+                    <mat-form-field
+                      class="noBorder"
+                      floatLabel="never">
+                      <mat-select formControlName="level">
+                        <mat-option [value]="'Básico'">Básico</mat-option>
+                        <mat-option [value]="'Intermediário'">Intermediário</mat-option>
+                        <mat-option [value]="'Avançado'">Avançado</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <button class="btn-test remove-btn"
+                      type="button"
+                      (click)="removeOthersForm('others', i)">
+                      Remover
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+          <button class="btn-test add-button languageButton"
+            type="button"
+            (click)="addOthers.emit()" >
+            + Adicionar Outros
+          </button>
+
+          <div class="card-info " >
+            <p class="card-pre-requisites-title">Informação complementar</p>
+          </div>
+          <div class="card-info " >
+            <p>Certificação</p>
+            <mat-form-field
+              class="noBorder"
+              floatLabel="never">
+              <input matInput formControlName="certification"
+              placeholder="Qual a certificação"/>
+            </mat-form-field>
+          </div>
+          <h2>IDIOMAS</h2>
+          <div class="info-box"
+            *ngFor="let childFormGroup of formGroup.get('preRequirements').get('languageInfo')['controls']; let i = index;"
+            formArrayName="languageInfo">
+            <ng-container [formGroupName]="i" >
+              <div class="two-columns">
+                <div class="card-info languageName" >
+                  <p>Idioma</p>
+                  <mat-form-field
+                    class="noBorder"
+                    floatLabel="never">
+                    <input matInput formControlName="language"/>
+                  </mat-form-field>
+                </div>
+                <div class="card-info languageLevel" >
+                  <p>Nível</p>
+                  <div style="display: flex;">
+                    <mat-form-field
+                      class="noBorder"
+                      floatLabel="never">
+                      <mat-select formControlName="level">
+                        <mat-option [value]="'Básico'">Básico</mat-option>
+                        <mat-option [value]="'Intermediário'">Intermediário</mat-option>
+                        <mat-option [value]="'Avançado'">Avançado</mat-option>
+                        <mat-option [value]="'Fluente'">Fluente</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <button class="btn-test remove-btn"
+                      type="button"
+                      (click)="removeLanguageForm('languageInfo', i)">
+                      Remover
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+      <button class="btn-test add-button languageButton"
+        type="button"
+        (click)="addLanguage.emit()" >
+        + Adicionar Outros Idiomas
+      </button>
+      </div>
+    </ng-container>
+    </div>
+  </div>

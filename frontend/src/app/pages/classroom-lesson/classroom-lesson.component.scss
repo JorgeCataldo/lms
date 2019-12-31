@@ -1,0 +1,154 @@
+#ClassroomLesson {
+  margin-bottom: 50px;
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    a {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      color: var(--primary-color);
+      text-decoration: none;
+
+      img {
+        margin-right: 4px;
+      }
+    }
+  }
+
+  h2, h3 {
+    color: var(--primary-color);
+  }
+  h2 {
+    font-size: 21px;
+    text-align: right;
+  }
+
+  .content {
+    display: grid;
+    grid-template-columns: calc(70% - 15px) 30%;
+    grid-gap: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    .main {
+      .title, .webinar {
+        background: #FCFCFC;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        padding: 10px;
+        box-shadow: 0px 2px 6px 0px rgba(180, 180, 180, 1);
+        border-radius: 0px 0px 5px 5px;
+      }
+      .webinar {
+        span {
+          font-weight: bold;
+          color: #23bcd1;
+          margin-top: auto;
+          margin-bottom: auto;
+          display: flex;
+          justify-content: space-between;
+        }
+        .event-adress{
+          color: #777;
+          background-color: #f1f1f1;
+          font-weight: 500;
+          padding: 8px 24px 8px 8px;
+          border-radius: 4px;
+          font-size: 13px;
+          margin-right: 8px;
+        }
+      }
+      .subscription-notif {
+        background: var(--primary-color);
+        color: white;
+        padding: 30px 20px;
+        border-radius: 4px;
+        position: relative;
+
+        h4 {
+          font-size: 16px;
+          margin: 0px 0px 10px 0px;
+        }
+        p {
+          font-size: 14px;
+        }
+        img {
+          position: absolute;
+          right: 15px;
+          top: 15px;
+          cursor: pointer;
+        }
+      }
+
+      div.final-grade {
+        box-shadow: 0px 2px 6px 0px rgba(180, 180, 180, 1);
+        padding: 12px;
+        border-radius: 4px;
+
+        div.info,
+        div.grade {
+          display: flex;
+
+          p {
+            color: var(--primary-color);
+          }
+        }
+
+        div.info {
+          justify-content: space-between;
+
+          p {
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 20px;
+
+            small {
+              font-weight: 300;
+            }
+          }
+        }
+
+        div.grade {
+          margin-top: 14px;
+
+          p {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 240px;
+            height: 120px;
+          }
+          div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #24bcd1;
+            color: white;
+            width: 240px;
+            height: 120px;
+            font-size: 30px;
+            border-radius: 0px 4px 4px 0px;
+          }
+        }
+
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  #ClassroomLesson {
+    .content {
+      display: initial;
+    }
+
+    .event-adress{
+      display: none;
+    }
+  }
+}

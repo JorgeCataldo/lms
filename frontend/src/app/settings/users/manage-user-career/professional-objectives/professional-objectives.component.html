@@ -1,0 +1,16 @@
+<h2>SEUS OBJETIVOS PROFISSIONAIS</h2>
+
+<div class="prof-objectives" [formGroup]="formGroup" >
+
+  <mat-form-field class="short" >
+    <mat-label>Curto Prazo</mat-label>
+    <textarea matInput placeholder="Descreva resumidamente os seus objetivos profissionais de curto prazo"
+      formControlName="shortDateObjectives" required></textarea>
+  </mat-form-field>
+
+  <mat-form-field class="long" >
+    <mat-label>Longo Prazo</mat-label>
+    <textarea matInput placeholder="Descreva resumidamente os seus objetivos profissionais de longo prazo"
+      formControlName="longDateObjectives" required></textarea>
+  </mat-form-field>
+</div>

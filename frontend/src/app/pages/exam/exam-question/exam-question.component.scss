@@ -1,0 +1,120 @@
+.inner-content {
+  max-width: initial;
+  padding: 0px 25px;
+  color: var(--alt-text-color);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+
+  h2 {
+    margin: 5px 0px;
+    color: var(--primary-color);
+    font-size: 18px;
+  }
+  p.title {
+    font-size: 16px;
+  }
+  p.level {
+    font-size: 14px;
+    text-align: right;
+
+    span {
+      font-size: 22px;
+      font-weight: 500;
+    }
+  }
+}
+
+.content {
+  display: flex;
+  margin-top: 15px;
+
+  &.reviewing {
+    flex-direction: column;
+
+    div.answers {
+      border-right: none;
+      border-bottom: 2px solid var(--primary-color);
+      margin-bottom: 10px;
+      padding-bottom: 20px;
+    }
+  }
+
+  div.answers {
+    flex: 4;
+    border-right: 2px solid var(--primary-color);
+    padding-right: 20px;
+    padding-top: 15px;
+    margin-right: 20px;
+
+    p.number {
+      font-weight: 600;
+      font-size: 18px;
+    }
+    p.statement {
+      margin-top: 10px;
+      font-size: 16px;
+      line-height: 22px;
+    }
+    mat-radio-group {
+      display: flex;
+      flex-direction: column;
+      margin-top: 10px;
+
+      mat-radio-button {
+        margin: 10px 0px;
+        font-size: 18px;
+
+        /deep/.mat-radio-inner-circle {
+          background-color: var(--primary-color);
+        }
+        /deep/.mat-radio-outer-circle {
+          border-color: var(--primary-color);
+        }
+      }
+    }
+    button.answered {
+      background: var(--primary-color);
+    }
+  }
+
+  div.concepts {
+    flex: 1;
+    padding-top: 15px;
+
+    ul {
+      li.concept {
+        background: #FCFCFC;
+        border-radius: 5px;
+        color: var(--primary-color);
+        margin-bottom: 12px;
+        padding: 8px 16px;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+
+        &.selected {
+          background: var(--primary-color);
+          color: #FCFCFC;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .content {
+    flex-direction: column;
+
+    div.answers {
+      border-right: none;
+      border-bottom: 2px solid var(--primary-color);
+      margin-bottom: 10px;
+      padding-bottom: 20px;
+    }
+  }
+}

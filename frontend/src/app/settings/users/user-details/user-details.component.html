@@ -1,0 +1,65 @@
+<div class="inner-content" >
+    <h3>MEUS DADOS</h3>
+
+  <div class="header">
+    <div class="arrow-back">
+      <!--a href="javascript:history.back()">
+        <i class="logo icon-seta_direita" style="font-size: 26px;"></i>
+        voltar
+      </a-->
+    </div>
+    <div class="switch-content">
+      <div class="grid-cell" 
+        [ngClass]="{ 'selected': currentTab === 'BasicInfo' }"
+        (click)="changeUserInfoDisplay('BasicInfo')">
+        <p [ngClass]="{ 'selected': currentTab === 'BasicInfo' }">
+          IDENTIFICAÇÂO
+        </p>
+      </div>
+      <div class="grid-cell" *ngIf="showCareer" 
+        [ngClass]="{ 'selected': currentTab === 'MyCareer' }"
+        (click)="changeUserInfoDisplay('MyCareer')">
+        <p [ngClass]="{ 'selected': currentTab === 'MyCareer' }">
+          PERFIL PROFISSIONAL
+        </p>
+      </div>
+      <div class="grid-cell" 
+        *ngIf="isAdmin"
+        [ngClass]="{ 'selected': currentTab === 'Performance' }"
+        (click)="changeUserInfoDisplay('Performance')">
+        <p [ngClass]="{ 'selected': currentTab === 'Performance' }">
+          CURSOS
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="content" >
+    <app-user-details-summary
+      [user]="user"
+    ></app-user-details-summary>
+    
+    <!--app-manage-user
+      *ngIf="currentTab === 'BasicInfo'"
+      [summaryForm]='true'
+      (saveForm)="upDateUser()"
+    ></app-manage-user-->
+    
+    <app-user-info
+      *ngIf="currentTab === 'BasicInfo'"
+      [user]="user"
+    ></app-user-info>
+    
+    <app-user-career
+      *ngIf="showCareer && currentTab === 'MyCareer'"
+      [career]="user?.career"
+    ></app-user-career>
+
+    <app-user-details-progress
+      *ngIf="currentTab === 'Performance'"
+      [modules]="user?.modulesInfo"
+      [tracks]="user?.tracksInfo"
+      [events]="user?.eventsInfo"
+    ></app-user-details-progress>
+  </div>
+</div>

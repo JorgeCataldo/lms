@@ -1,0 +1,66 @@
+<div class="calendar-views">
+  <div
+    class="month"
+    (click)="view = CalendarView.Month"
+    [class.active]="view === CalendarView.Month">
+    MÊS
+  </div>
+  <div
+    class="week"
+    (click)="view = CalendarView.Week"
+    [class.active]="view === CalendarView.Week">
+    SEMANA
+  </div>
+  <div
+    class="day"
+    (click)="view = CalendarView.Day"
+    [class.active]="view === CalendarView.Day">
+    DIA
+  </div>
+</div>
+
+<div class="calendar-content" >
+  <div class="calendar-header" >
+    <div mwlCalendarPreviousView
+      [view]="view"
+      [(viewDate)]="viewDate"
+      (viewDateChange)="activeDayIsOpen = false" >
+      <i class="icon-seta_direita" style="color: #ffffff;"></i>
+    </div>
+    <h3>{{ viewDate | calendarDate:(view + 'ViewTitle') : 'pt' }}</h3>
+    <div mwlCalendarNextView
+      [view]="view"
+      [(viewDate)]="viewDate"
+      (viewDateChange)="activeDayIsOpen = false" >
+      <i class="icon-seta_esquerda" style="color: #ffffff;"></i>
+    </div>
+  </div>
+  <div [ngSwitch]="view">
+    <mwl-calendar-month-view
+      *ngSwitchCase="CalendarView.Month"
+      [viewDate]="viewDate"
+      [events]="events"
+      [refresh]="refresh"
+      [activeDayIsOpen]="activeDayIsOpen"
+      [locale]="'pt'"
+      (dayClicked)="dayClicked($event.day)"
+      (eventClicked)="handleEvent($event.event)" >
+    </mwl-calendar-month-view>
+    <mwl-calendar-week-view
+      *ngSwitchCase="CalendarView.Week"
+      [viewDate]="viewDate"
+      [events]="events"
+      [refresh]="refresh"
+      [locale]="'pt'"
+      (eventClicked)="handleEvent($event.event)" >
+    </mwl-calendar-week-view>
+    <mwl-calendar-day-view
+      *ngSwitchCase="CalendarView.Day"
+      [viewDate]="viewDate"
+      [events]="events"
+      [refresh]="refresh"
+      [locale]="'pt'"
+      (eventClicked)="handleEvent($event.event)" >
+    </mwl-calendar-day-view>
+  </div>
+</div>

@@ -1,0 +1,126 @@
+h3 {
+  color: var(--primary-color);
+  font-weight: 500;
+  font-size: 20px;
+  margin: 0;
+}
+h4 {
+  color: #626262;
+  font-size: 19px;
+  font-weight: 300;
+  margin: 0;
+}
+
+div.content {
+  display: flex;
+  margin-top: 20px;
+
+  div.info {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    margin-right: 70px;
+
+    p.label {
+      font-size: 14px;
+      color: #868686;
+      margin-bottom: 10px;
+    }
+
+    textarea {
+      height: 100px;
+    }
+
+    div.references {
+      input {
+        width: 100%;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #949494;
+        padding-bottom: 6px;
+        font-size: 14px;
+      }
+    }
+  }
+  div.concepts {
+    flex: 3;
+
+    p {
+      color: #626262;
+      font-size: 16px;
+      font-weight: 300;
+      margin: 10px 0px;
+
+      &.title {
+        font-size: 14px;
+        font-weight: 400;
+        margin: 0;
+      }
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+
+      tr {
+        text-align: left;
+        border-bottom: 2px solid #D3D3D3;
+        display: flex;
+
+        th {
+          font-weight: 400;
+          font-size: 14px;
+          padding: 8px 0px;
+
+          &:first-child {
+            flex: 2;
+          }
+          &:last-child {
+            flex: 1;
+          }
+        }
+        td {
+          font-size: 16px;
+          padding: 8px;
+          text-transform: uppercase;
+          display: flex;
+          align-items: center;
+
+          &:first-child {
+            flex: 2;
+          }
+          &:last-child {
+            flex: 1;
+          }
+
+          div.checkbox {
+            width: 26px;
+            height: 26px;
+            border: 2px solid var(--primary-color);
+            border-radius: 50%;
+            margin-right: 8px;
+            cursor: pointer;
+
+            &.checked {
+              background: var(--primary-color);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+div.actions {
+  text-align: right;
+  border-top: 1px solid #707070;
+  padding-top: 20px;
+  margin-top: 30px;
+
+  button {
+    width: 30%;
+    margin-right: 10px;
+    font-size: 16px;
+    padding: 12px 24px;
+    font-weight: 400;
+    border-radius: 10px;
+  }
+}

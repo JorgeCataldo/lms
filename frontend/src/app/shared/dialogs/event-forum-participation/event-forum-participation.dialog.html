@@ -1,0 +1,44 @@
+<h3>PARTICIPAÇÕES EM FÓRUM ({{data.length}})</h3>
+<div class="content" >
+  <div class="forum" >
+    <div *ngFor="let question of data">
+      <div class="forum-question-card" >
+        <p class="card-type">Pergunta</p>
+        <div class="question" (click)="goToForum(question.eventId, question.eventScheduleId, question.id)">
+          <h2 class="title">{{ question.title }}</h2>
+          <div style="display: flex;">
+            <img class="logo" [src]="question.userImgUrl ? question.userImgUrl : './assets/img/user-image-placeholder.png'" />
+            <div>
+              <p class="user-title"> {{ question.userName }} </p>
+              <p>{{ question.description }}</p>
+            </div>
+          </div>
+        </div>
+        <p class="card-type">Resposta(s)</p>
+        <ng-container *ngIf="question.answers.length === 0" >
+          <p class="card-type" style="padding-bottom: 15px; font-weight: inherit;">
+            Não teve participação nas respostas
+          </p>
+        </ng-container>
+        <ng-container *ngIf="question.answers.length > 0" >
+          <div *ngFor="let answer of question.answers">
+            <div class="question" (click)="goToForum(question.eventId, question.eventScheduleId, question.id)">
+              <div style="display: flex;">
+                <img class="logo" [src]="answer.userImgUrl ? answer.userImgUrl : './assets/img/user-image-placeholder.png'" />
+                <div>
+                  <p class="user-title"> {{ answer.userName }} </p>
+                  <p>{{ answer.text }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <ng-container *ngIf="data.length == 0" >
+      <p style="margin-bottom: 20px;">
+        Este usuário não fez perguntas no Fórum
+      </p>
+    </ng-container>
+  </div>
+</div>

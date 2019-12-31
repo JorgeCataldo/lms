@@ -1,0 +1,162 @@
+<div class="inner-content" >
+  <nav>
+    <a href="javascript:history.back()" >
+      <img src="./assets/img/arrow-back.png" />
+      voltar
+    </a>
+
+    <div class="header" >
+      <h2>BANCO DE TALENTOS</h2>
+      <h3>{{ jobApplication?.title }}</h3>
+    </div>
+
+    <div>
+    <ng-container *ngIf="!isAdmin() && jobApplication !== null">
+      <button class="btn-test" (click)="addApplicants()">
+        Adicionar Candidatos a Vaga
+      </button>
+    </ng-container>
+    </div>
+  </nav>
+
+  <div class="content">
+
+    <app-manage-team-filters
+      [filters]="filters"
+      [dateActive]=false
+      (updateFilters)="updateFilters($event)"
+      (search)="triggerFilterSearch($event)"
+      (setUserTermFilter)="setUserTermFilter($event)"
+    ></app-manage-team-filters>
+
+    <div class="list">
+      <!-- <app-list-search
+        placeholder="Digite o nome do usuário"
+        (triggerSearch)="triggerSearch($event)"
+      ></app-list-search> -->
+
+      <div class="selected" >
+        <p class="upper" *ngIf="jobApplication !== null">
+          <span>
+            <b>{{selectedUsers && selectedUsers.length > 0 ? selectedUsers.length : 0}}</b> SELECIONADOS
+          </span>
+          <span class="link" (click)="cleanSelectedUsers()" >
+            Limpar Seleção
+          </span>
+        </p>
+
+        <div class="chips"
+          *ngIf="selectedUsers && selectedUsers.length > 0"
+          [ngClass]="{ 'hide': !showAllSelectedUsers }" >
+          <p *ngFor="let user of selectedUsers" >
+            <img class="logo" [src]="user.imageUrl ? user.imageUrl : './assets/img/user-image-placeholder.png'" />
+            {{ user.name }}
+            <span (click)="removeSelectedUser(user)">X</span>
+          </p>
+        </div>
+        <p class="view-all"
+          *ngIf="selectedUsers && selectedUsers.length > 4"
+          (click)="showAllSelectedUsers = !showAllSelectedUsers"
+        >
+          {{ showAllSelectedUsers ? 'ocultar' : 'ver todos' }}
+        </p>
+
+        <p class="down" [ngStyle]="{'border-top': jobApplication !== null ? '1px solid #c3c3c3' : 'none'}">
+          <span>
+            <b>{{usersCount ? usersCount : 0}}</b> talentos encontrados
+          </span>
+          <span class="link" (click)="selectAllUsers()" 
+            *ngIf="jobApplication !== null">
+            Selecionar todos
+          </span>
+          <span class="link" (click)="changeMandatoryFields()" 
+            *ngIf="jobApplication == null && isAdmin() && mandatoryFields">
+            Informações minimas obrigatórias
+          </span>
+          <span class="link" (click)="changeMandatoryFields()" 
+            *ngIf="jobApplication == null && isAdmin() && !mandatoryFields">
+            Informações minimas opcionais
+          </span>
+        </p>
+      </div>
+
+      <table mat-table matSort [dataSource]="users" (matSortChange)="sortData($event)" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="manage"  >
+          <th width="10%" mat-header-cell *matHeaderCellDef> </th>
+          <td width="10%" mat-cell *matCellDef="let row" >
+            <ng-container *ngIf="!isAdmin() && jobApplication !== null">
+              <div class="green-square"
+                *ngIf="!row.checked"
+                (click)="selectUser(true, row)">
+                <p>+</p>
+              </div>
+              <div class="green-square filled"
+                *ngIf="row.checked"
+                (click)="selectUser(false, row)">
+                <p>x</p>
+              </div>
+            </ng-container>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="logo">
+          <th width="10%" mat-header-cell *matHeaderCellDef> </th>
+          <td width="10%" mat-cell *matCellDef="let row">
+            <img class="logo" [src]="row.imageUrl ? row.imageUrl : './assets/img/user-image-placeholder.png'" />
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th width="25%" mat-sort-header="name" mat-header-cell *matHeaderCellDef> Nome do Usuário </th>
+          <td width="25%" mat-cell *matCellDef="let row" (click)="viewUserDetails(row)" >
+            {{ row.name }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="registerId">
+          <th width="25%" mat-header-cell *matHeaderCellDef> Cidade </th>
+          <td width="25%" mat-cell *matCellDef="let row" (click)="viewUserDetails(row)" >
+            {{ row.address ? row.address.city : '-' }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="responsible">
+          <th width="20%" mat-header-cell *matHeaderCellDef> Data de Nascimento </th>
+          <td width="20%" mat-cell *matCellDef="let row" (click)="viewUserDetails(row)" >
+            {{ row.dateBorn ? (row.dateBorn | date : 'dd/MM/yyyy') : '-' }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="favorite">
+          <th width="5%" mat-header-cell *matHeaderCellDef></th>
+          <td width="5%" mat-cell *matCellDef="let row" >
+            <img class="favorite-heart"
+              *ngIf="row.isFavorite"
+              src="./assets/img/full-heart.png" 
+            />
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="arrow">
+          <th width="5%" mat-header-cell *matHeaderCellDef></th>
+          <td width="5%" mat-cell *matCellDef="let row" (click)="viewUserDetails(row)" >
+            <i class="icon-seta_esquerda" style="color: rgba(0, 0, 0, 0.54);"></i>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
+      </table>
+
+      <app-pagination *ngIf="usersCount"
+        [setPagination]="{
+          'itemsCount': usersCount,
+          'pageSize': pageSize
+        }"
+        (goToPage)="goToPage($event)"
+      ></app-pagination>
+    </div>
+  </div>
+</div>
+  

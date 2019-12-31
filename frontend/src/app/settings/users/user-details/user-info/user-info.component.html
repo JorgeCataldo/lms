@@ -1,0 +1,53 @@
+<div class="user-info" *ngIf="user" >
+  <div *ngIf="user.linkedIn" >
+    <h4>LinkedIn</h4>
+    <a [href]="user.linkedIn" target="_blank" >
+      {{ user.linkedIn }}
+    </a>
+  </div>
+
+  <div>
+    <h4>CPF</h4>
+    <p>{{ user.cpf || '--' }}</p>
+  </div>
+  
+  <div>
+    <h4>E-mail</h4>
+    <p>{{ user.email || '--' }}</p>
+  </div>
+  
+  <div *ngIf="user.address" >
+    <h4>Endereço</h4>
+    <p>
+      {{ user.address.street }}{{ user.address.address2 ? ', ' + user.address.address2 : '' }}<br>
+      {{ user.address.district }}<br>
+      {{ user.address.city + (user.address.state ? ', ' + user.address.state : '') }}
+    </p>
+  </div>
+  
+  <div *ngIf="user.phone || user.phone2" >
+    <h4>Contato</h4>
+    <p>{{ user.phone }}</p><br>
+    <p>{{ user.phone2 }}</p>
+  </div>
+
+  <div *ngIf="user.documentNumber" >
+    <h4>Documento</h4>
+    <p *ngIf="!user.document">
+      --
+    </p>
+    <p *ngIf="user.document">
+      <span *ngIf="user.document && documentType[user.document]">{{ documentType[user.document] }}</span><br>
+      <span *ngIf="user.documentNumber">{{ user.documentNumber }}</span><br>
+      <span *ngIf="user.documentEmitter">{{ user.documentEmitter }}</span><br>
+      <span *ngIf="user.emitDate">Emitido em: {{ user.emitDate | date: 'dd/MM/yyyy' }}</span><br>
+      <span *ngIf="user.expirationDate">Válido até: {{ user.expirationDate | date: 'dd/MM/yyyy' }}</span>
+    </p>
+  </div>
+</div>
+<br>
+<!--div style="margin: 10px;" *ngIf="!userCalendar">
+  <app-track-overview-calendar 
+    [setEvents]="user?.calendarEvents"
+  ></app-track-overview-calendar>
+</div-->

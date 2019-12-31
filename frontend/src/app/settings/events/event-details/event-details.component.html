@@ -1,0 +1,88 @@
+<div class="inner-content" >
+  <nav>
+    <a href="javascript:history.back()" >
+        <i class="logo icon-seta_direita" style="font-size: 26px;"></i>
+      Voltar
+    </a>
+    <h2>{{ event?.title }}</h2>
+    <a></a>
+  </nav>
+
+  <app-classroom-lesson-header
+    [setEvent]="event"
+    [isManagement]="true"
+  ></app-classroom-lesson-header>
+
+  <div class="content" >
+    <div>
+      <ng-container *ngIf="nextSchedules && nextSchedules.length > 0">
+        <h3>PRÓXIMAS EDIÇÕES</h3>
+        <div class="schedules" >
+          <app-settings-next-event-card
+            *ngFor="let schedule of nextSchedules"
+            [schedule]="schedule"
+            (manageDate)="goEditEvent()"
+            (manageApplications)="goManageApplications($event)"
+          ></app-settings-next-event-card>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="currentSchedules && currentSchedules.length > 0">
+        <br>
+        <h3>EDIÇÕES CORRENTES</h3>
+        <div class="schedules" >
+          <app-settings-past-event-card
+            *ngFor="let schedule of currentSchedules"
+            [schedule]="schedule"
+            (manageApplications)="goManageApplicationsGrades($event)"
+            (viewResults)="viewResults($event)"
+          ></app-settings-past-event-card>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="pastSchedules && pastSchedules.length > 0">
+        <br>
+        <h3>EDIÇÕES PASSADAS</h3>
+        <div class="schedules" >
+          <app-settings-past-event-card
+            *ngFor="let schedule of pastSchedules"
+            [schedule]="schedule"
+            [finished]="true"
+            (manageApplications)="goManageApplicationsGrades($event)"
+            (viewResults)="viewResults($event)"
+          ></app-settings-past-event-card>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="event?.requirements && event?.requirements.length > 0">
+        <br>
+        <h3>PRÉ-REQUISITOS DESTE EVENTO</h3>
+        <div class="requirements" >
+          <app-event-required-module
+            *ngFor="let requirement of event.requirements; let last = last"
+            [requirement]="requirement"
+            [levels]="levelDict"
+            [last]="last"
+            [isManagement]="true"
+          ></app-event-required-module>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="event?.prepQuizQuestionList && event?.prepQuizQuestionList.length > 0">
+        <br>
+        <h3>PERGUNTAS DE PREPARAÇÃO</h3>
+        <div class="questions" >
+          <div class="question" *ngFor="let question of event.prepQuizQuestionList; let index = index" >
+            <p class="index" >{{ index + 1 }}.</p>
+            <p>{{ question.question }}</p>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <app-module-sidebar
+      [module]="event"
+      [isEvent]="true"
+      [hasForum]="false"
+    ></app-module-sidebar>
+  </div>
+</div>

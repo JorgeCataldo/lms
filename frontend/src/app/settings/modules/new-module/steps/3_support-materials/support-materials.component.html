@@ -1,0 +1,68 @@
+<div class="module-info step" >
+  <h2>Materiais de Suporte</h2>
+  <form [formGroup]="formGroup" >
+    <div class="support-material two-columns"
+      *ngFor="let childFormGroup of formGroup.get('materials')['controls']; let i = index"
+      formArrayName="materials"
+    >
+      <ng-container [formGroupName]="i" >
+        <div>
+          <div class="validation-field" >
+            <mat-form-field>
+              <input matInput placeholder="Nome do Material"
+                formControlName="title" required />
+            </mat-form-field>
+            <control-messages [control]="childFormGroup.get('title')"
+            ></control-messages>
+          </div>
+          <mat-form-field>
+            <mat-select placeholder="Tipo de Material" formControlName="type" required >
+              <mat-option [value]="1" >Link</mat-option>
+              <mat-option [value]="2" >Arquivo</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <div class="upload" *ngIf="childFormGroup.get('type').value === 2" >
+            <p class="file-name" *ngIf="!childFormGroup.get('downloadLink').value" >
+              Escolher Arquivo *
+            </p>
+            <a class="file-name" *ngIf="childFormGroup.get('downloadLink').value"
+              target="_blank"
+              [href]="childFormGroup.get('downloadLink').value" >
+              {{ childFormGroup.get('downloadLink').value.split('/module/')[1] }}
+            </a>
+            <button type="button" (click)="openFileUpload(i)" >
+              {{ childFormGroup.get('fileName').value ? 'Editar' : 'Upload' }}
+            </button>
+            <input class="input-file" type="file" id="inputFile{{i}}" hidden
+              (change)="setDocumentFile($event, childFormGroup, true)"
+            />
+          </div>
+
+          <div class="upload" *ngIf="childFormGroup.get('type').value === 1" >
+            <mat-form-field>
+              <input matInput placeholder="Link do Material"
+                formControlName="downloadLink" required />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="description" >
+          <img class="trash"
+            src="./assets/img/trash.png"
+            (click)="removeMaterial(i)"
+          />
+          <mat-form-field class="reduced" >
+            <textarea matInput placeholder="Descrição"
+              formControlName="description" required ></textarea>
+          </mat-form-field>
+          <control-messages [control]="childFormGroup.get('description')"
+          ></control-messages>
+        </div>
+      </ng-container>
+    </div>
+
+    <button class="btn-test add-material" (click)="addMaterial()" >
+      + Adicionar Material
+    </button>
+  </form>
+</div>

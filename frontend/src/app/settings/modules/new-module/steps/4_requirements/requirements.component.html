@@ -1,0 +1,10 @@
+<div class="requirements step" >
+  <h2>Requisitos</h2>
+
+  <app-requirements-config
+    [requirements]="requirements"
+    [currentModule]="module"
+    [levels]="levels"
+    (setRequirements)="updateRequirements($event)"
+  ></app-requirements-config>
+</div>

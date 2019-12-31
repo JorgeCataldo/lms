@@ -1,0 +1,44 @@
+div.warnings {
+  border-radius: 4px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.16);
+
+  p.warnings-title {
+    background: #ff4376;
+    padding: 15px;
+    font-size: 18px;
+    color: white;
+    font-weight: 500;
+    border-radius: 4px 4px 0px 0px;
+  }
+  p.no-warnings {
+    padding: 15px;
+    background: white;
+  }
+  ul {
+    margin: 0;
+
+    li {
+      color: #727272;
+      font-size: 14px;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+
+      &:not(:last-child) {
+        border-bottom: 1px solid #dedede;
+      }
+
+      div {
+        display: flex;
+        align-items: center;
+
+        p.due {
+          font-size: 11px;
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+}

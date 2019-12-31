@@ -1,0 +1,68 @@
+<div class="inner-content" >
+  <h2>EMPENHO E DESEMPENHO</h2>
+
+  <p *ngIf="tracks && tracks.length === 0" >
+    Não há trilhas disponíveis para avaliar.
+  </p>
+
+  <div class="header" *ngIf="tracks && tracks.length > 0">
+    <div class="search" >
+      <i class="logo icon-lupa search-icon"></i>
+      <input type="text" placeholder="Digite o nome da trilha"
+      (keyup)="updateSearch($event.target.value)"
+      />
+    </div>
+  </div>
+
+  <table mat-table matSort class="mat-elevation-z8"
+    *ngIf="tracks && tracks.length > 0"
+    [dataSource]="tracks"
+  >
+    <ng-container matColumnDef="name">
+      <th width="50%" mat-header-cell *matHeaderCellDef> Trilha </th>
+      <td width="50%" mat-cell *matCellDef="let row">
+        {{ row.title }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="modules">
+      <th width="12.5%" class="center-item" mat-header-cell *matHeaderCellDef> Modulos </th>
+      <td width="12.5%" class="center-item" mat-cell *matCellDef="let row">
+        {{ row.moduleCount }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="events">
+      <th width="12.5%" class="center-item" mat-header-cell *matHeaderCellDef> Eventos </th>
+      <td width="12.5%" class="center-item" mat-cell *matCellDef="let row">
+        {{ row.eventCount }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="time">
+      <th width="12.5%" class="center-item" mat-header-cell *matHeaderCellDef> Duração (Horas) </th>
+      <td width="12.5%" class="center-item" mat-cell *matCellDef="let row">
+        {{ getDuration(row) }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="action">
+      <th width="12.5%" class="center-item" mat-header-cell *matHeaderCellDef></th>
+      <td width="12.5%" class="center-item" mat-cell *matCellDef="let row">
+        <img class="icon" src="./assets/img/view.png" (click)="viewDetails(row)"/>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns" ></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+     (click)="goToRecommendation(row)"
+    ></tr>
+  </table>
+
+  <app-pagination *ngIf="tracks && tracks.length > 0"
+    [setPagination]="{
+      'itemsCount': itemsCount,
+      'pageSize': 10
+    }"
+    (goToPage)="goToPage($event)"
+  ></app-pagination>
+</div>

@@ -1,0 +1,63 @@
+<div [formGroup]="formGroup" >
+  <div class="info-box">
+    <div class="card-info" >
+      <p>Título</p>
+      <mat-form-field
+        class="noBorder"
+        floatLabel="never">
+        <input matInput formControlName="title" 
+        placeholder="Título da vaga" required/>
+      </mat-form-field>
+    </div>
+    <div class="card-info">
+      <p>Prazo de conclusão</p>
+      <mat-form-field
+        class="noBorder"
+        floatLabel="never">
+        <input matInput [matDatepicker]="dueTo"
+          formControlName="dueTo"
+          placeholder="Prazo de conclusão"
+          required />
+        <mat-datepicker-toggle matSuffix [for]="dueTo"></mat-datepicker-toggle>
+        <mat-datepicker #dueTo></mat-datepicker>
+      </mat-form-field>
+    </div>  
+    <div class="card-info">
+      <p>Prioridade</p>
+      <mat-form-field
+        class="noBorder"
+        floatLabel="never">
+        <mat-select placeholder="Prioridade" formControlName="priority" required >
+          <mat-option [value]="1">Alta</mat-option>
+          <mat-option [value]="2">Média</mat-option>
+          <mat-option [value]="3">Baixa</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <ng-container formGroupName="record">
+      <div class="card-info" >
+        <p>Cargo/Função</p>
+        <mat-form-field
+          class="noBorder"
+          floatLabel="never">
+          <input matInput formControlName="function" 
+          placeholder="Nome do Cargo/Função"/>
+        </mat-form-field>
+      </div>
+      <div class="two-columns">
+        <div class="card-info" >
+          <p>Tipo de Contrato</p>
+          <mat-form-field 
+            class="noBorder"
+            floatLabel="never">
+            <mat-select class="degree" formControlName="contractType" placeholder="Contrato" >
+              <mat-option [value]="'Estágio'">Estágio</mat-option>
+              <mat-option [value]="'Efetivo'">Efetivo</mat-option>
+              <mat-option [value]="'Summer/Temporário'">Summer/Temporário</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

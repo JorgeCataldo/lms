@@ -1,0 +1,31 @@
+<h1>CONFIRMAÇÃO</h1>
+<h4 class="sub-header">
+    Enviamos um código de confirmação para o e-mail {{email}}<br>
+    Por favor digite-o abaixo:
+</h4>
+
+<form class="cod-form" [formGroup]="formGroup">
+    <div style="width: 50%; margin: 0 auto;">
+        <mat-form-field 
+            style="width: 100%; text-align: center;">
+            <input matInput 
+            style="text-align: center;" 
+            formControlName="code" 
+            placeholder="Código de Confirmação" 
+            mask="00000"
+            required />
+        </mat-form-field>
+    </div>
+    <div class="aligner">
+        <button class="btn-test btn-cancel"
+            (click)="sendNewVerificationCode()"
+            type="button" >
+            Reenviar Código
+        </button>
+        <button class="btn-test"
+            (click)="confirm()"
+            type="button" >
+            Confirmar
+        </button>
+    </div>
+</form>

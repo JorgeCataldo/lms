@@ -1,0 +1,57 @@
+<div class="inner-content" >
+  <!--nav>
+    <a routerLink="home" >
+      <i class="logo icon-seta_direita" style="font-size: 26px;"></i>
+      voltar para home
+    </a>
+  </nav-->
+
+  <div class="content" >
+    <h2>ENTRE EM CONTATO</h2>
+
+    <form [formGroup]="formGroup" >
+      <mat-form-field>
+        <mat-select placeholder="Área de Contato" formControlName="areaId" required >
+          <mat-option *ngFor="let area of areas"
+            [value]="area.id" >
+            {{ area.description }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput required
+          placeholder="Título"
+          formControlName="title"
+          maxlength="50"
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <textarea matInput required
+          placeholder="Mensagem"
+          formControlName="message"
+        ></textarea>
+      </mat-form-field>
+      <div class="upload" >
+        <p class="file-name" *ngIf="!formGroup.get('fileUrl').value" >
+          Arquivo (Opcional. Limite de 10Mb)
+        </p>
+        <a class="file-name" *ngIf="formGroup.get('fileUrl').value"
+          target="_blank"
+          [href]="formGroup.get('fileUrl').value" >
+          {{ formGroup.get('fileName').value }}
+        </a>
+        <button class="btn-test btn-upload" type="button" (click)="openFileUpload()">
+          Upload
+        </button>
+        <input id="inputFile" class="input-file" type="file" 
+          hidden (change)="setDocumentFile($event.target.files)"
+        />
+      </div>
+      <button class="btn-test" type="button"
+        [disabled]="!formGroup.valid"
+        (click)="sendMail()" >
+        Enviar
+      </button>
+    </form>
+  </div>
+</div>

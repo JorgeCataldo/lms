@@ -1,0 +1,59 @@
+.research-card {
+  display: flex;
+  height: 140px;
+  background: #FCFCFC;
+  box-shadow: 0 3px 2px 0 rgba(0, 0, 0, 0.16);
+  border-radius: 6px;
+
+  div.preview {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+
+    h3 {
+      color: var(--primary-color);
+      font-weight: 400;
+      font-size: 16px;
+      margin: 0px 0px 4px 0px;
+
+      small {
+        color: #868686;
+        font-size: 11px;
+      }
+    }
+    p {
+      font-size: 14px;
+      color: #868686;
+      line-height: 20px;
+
+      span.click {
+        cursor: pointer;
+
+        &:hover {
+          color: var(--primary-color);
+        }
+      }
+    }
+  }
+
+  div.edit {
+    align-items: center;
+    padding: 15px;
+    margin: 15px 0px 15px 10px;
+    border-left: 2px solid #D3D3D3;
+
+    img {
+      display: block;
+      width: 24px;
+      cursor: pointer;
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .test-card {
+    margin-bottom: 15px;
+  }
+}

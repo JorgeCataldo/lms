@@ -1,0 +1,64 @@
+<div class="inner-content" >
+  <nav>
+    <a href="javascript:history.back()" >
+      <i class="logo icon-seta_direita" style="font-size: 26px;"></i>
+      voltar para o fórum
+    </a>
+    <h2>PERGUNTA</h2>
+  </nav>
+
+  <div class="question" >
+    <ul class="breadcrumbs" >
+      <li (click)="goToModule()" >
+        <span>{{ moduleName }}</span>
+      </li>
+      <li *ngIf="question?.subjectName && question?.contentName"
+        (click)="goToContent()" >
+        > <span>{{ question?.subjectName }}: {{ question?.contentName }}</span>
+      </li>
+    </ul>
+
+    <h3>{{ question?.title }}</h3>
+    <p class="videoPosition" *ngIf="question != null && question.position != null" >
+      posição no vídeo: {{question.position}}
+    </p>
+    <div class="content" >
+      <img class="userImg" [src]="getUserImg(question)" />
+      <div>
+        <p class="username" >
+          {{ question?.userName }}
+          <span>{{ question?.createdAt | date : 'dd/MM/yyyy' }}</span>
+        </p>
+        <p
+          [innerHTML]="question?.description | MarkdownToHtml"
+        ></p>
+      </div>
+    </div>
+
+    <div id="htmlEditor" ></div>
+    <button class="btn-test" (click)="saveAnswer()" >
+      Enviar Resposta
+    </button>
+  </div>
+
+  <p class="answersCount" >
+    {{ itemsCount }} {{ itemsCount === 1 ? 'Resposta' : 'Respostas' }}
+  </p>
+
+  <app-forum-answer-card
+    *ngFor="let answer of question?.answers"
+    [answer]="answer"
+    [isInstructor]="isInstructor"
+    (manageAnswerLike)="manageAnswerLike($event)"
+    (removeAnswer)="confirmRemoveAnswer($event)"
+  ></app-forum-answer-card>
+
+  <app-pagination *ngIf="question?.answers"
+    [hidden]="itemsCount === 0"
+    [setPagination]="{
+      'itemsCount': itemsCount,
+      'pageSize': 5
+    }"
+    (goToPage)="goToPage($event)"
+  ></app-pagination>
+</div>

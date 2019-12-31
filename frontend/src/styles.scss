@@ -1,0 +1,265 @@
+@import url('https://fonts.googleapis.com/css?family=Khand:400,600');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500, 600,700,800');
+
+
+
+@import '~codemirror/lib/codemirror.css';
+@import '~tui-editor/dist/tui-editor.css';
+@import '~tui-editor/dist/tui-editor-contents.css';
+@import '~highlight.js/styles/github.css';
+@import '~angular-calendar/css/angular-calendar.css';
+@import 'assets/tg4-fonts.css';
+
+body {
+  margin: 0px;
+  background-color: var(--main-background);
+}
+button {
+  border: none;
+}
+button, input {
+  font-family: 'Montserrat';
+  cursor: pointer;
+  outline: none;
+}
+p {
+  margin: 0;
+}
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+body .mat-dialog-container {
+  max-height: 95vh;
+  overflow-y: auto;
+}
+body .mat-stepper-horizontal.no-action .mat-horizontal-stepper-header {
+  pointer-events: none;
+}
+
+body .mat-horizontal-stepper-header {
+  .mat-step-icon span,
+  .mat-step-icon mat-icon,
+  .mat-step-icon-not-touched span
+  // .mat-step-label
+  {
+    display: none;
+  }
+}
+body control-messages p {
+  color: red;
+  font-family: 'Montserrat';
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: -10px;
+  margin-bottom: 15px;
+}
+mat-form-field {
+  &.whiteBorder {
+    color: white !important;
+    .mat-form-field-underline {
+      background-color: white;
+    }
+    .mat-form-field-ripple {
+      background-color: white !important;
+    }
+  }
+  &.noBorder {
+    .mat-form-field-infix {
+      border-top: none;
+    }
+  }
+}
+
+.inner-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0px 15px;
+  overflow: hidden;
+}
+button.btn-test {
+  background: var(--alternate-primary-color);
+  color: white;
+  padding: 8px 24px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+
+  &.primary {
+    background: var(--primary-color);
+  }
+
+  &[disabled] {
+    background: gray;
+  }
+}
+button.btn-outline {
+  background: transparent;
+  color: var(--primary-color);
+  padding: 8px 24px;
+  border-radius: 6px;
+  border: 2px solid var(--primary-color);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* Calendar Styles */
+.cal-header,
+.cal-hour-segment .cal-time {
+  color: #727272;
+  text-transform: uppercase;
+}
+mwl-calendar-event-actions {
+  float: right;
+  text-align: center;
+  margin-bottom: 15px;
+
+  .cal-event-actions .cal-event-action {
+    text-decoration: initial;
+
+    span {
+      color: white;
+      border-radius: 4px;
+      padding: 5px 35px;
+
+      &.red {
+        background: #ff4376;
+      }
+      &.green {
+        background: #06e295;
+      }
+      &.purple {
+        background: #bd62ff;
+      }
+      &.orange {
+        background: #ffa500;
+      }
+    }
+  }
+}
+.cal-month-view  {
+  .cal-day-badge {
+    background-color: var(--primary-color);
+  }
+  .cal-open-day-events {
+    background-color: rgb(232, 232, 232);
+    box-shadow: initial;
+    color: #727272;
+
+    > div {
+      display: flex;
+      justify-content: space-between;
+
+      mwl-calendar-event-title {
+        flex-grow: 1;
+      }
+    }
+    > div:not(:last-child) {
+      margin-bottom: 12px;
+    }
+  }
+  .cal-event {
+    width: 13px;
+    height: 13px;
+    margin-right: 7px;
+  }
+  .cal-event-title {
+    font-weight: 700;
+    font-size: 18px;
+
+    &:hover {
+      text-decoration: initial;
+    }
+  }
+}
+.cal-week-view {
+  .cal-event {
+    .cal-event-title {
+      color: rgb(10, 10, 10);
+    }
+  }
+  .cal-day-column {
+    .cal-event {
+      display: flex;
+      flex-direction: column-reverse;
+      justify-content: space-between;
+      font-weight: 600;
+      white-space: initial;
+      line-height: 15px;
+      padding-top: 5px;
+    }
+  }
+}
+.cal-day-view {
+  .cal-event {
+    padding: 12px;
+
+    .cal-event-title {
+      color: rgb(10, 10, 10);
+    }
+  }
+  .cal-event-container {
+    width: 90%!important;
+
+    mwl-calendar-day-view-event {
+      .cal-event {
+        span {
+          font-weight: 600;
+        }
+      }
+    }
+  }
+  .cal-hour-rows {
+    overflow-x: hidden;
+  }
+}
+div.calendar-views {
+  display: flex;
+  justify-content: space-around;
+
+  div {
+    flex: 1;
+    border-bottom: 3px solid;
+    font-weight: 600;
+    text-align: center;
+    padding-bottom: 5px;
+    color: rgb(200, 200, 200);
+    cursor: pointer;
+
+    &.active {
+      color: var(--primary-color);
+    }
+  }
+}
+div.calendar-content {
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+
+  div.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 8px;
+    border-bottom: 1px solid rgb(225, 225, 225);
+
+    div {
+      width: 24px;
+      background: var(--primary-color);
+      border-radius: 100%;
+      padding: 5px 12px 4px 4px;
+      font-size: 23px;
+      cursor: pointer;
+
+      // &:last-child {
+      //   transform: rotate(180deg);
+      // }
+    }
+    h3 {
+      text-transform: uppercase;
+      font-size: 21px;
+      color: #727272;
+    }
+  }
+}

@@ -1,0 +1,27 @@
+<div class="step" >
+  <h2>Perguntas de Preparação</h2>
+  <div class="form" >
+    <div class="question"
+      *ngFor="let item of questions; let i = index; trackBy: trackByFunc"
+    >
+      <img class="trash"
+        src="./assets/img/trash.png"
+        (click)="confirmRemoveQuestion(i)"
+      />
+      <mat-form-field>
+        <textarea matInput required name="question"
+          [(ngModel)]="item.question"
+          [placeholder]="'Pergunta ' + (i + 1)"
+        ></textarea>
+      </mat-form-field>
+      <div class="checkbox">
+        <p>Esta pergunta terá um arquivo como resposta?</p>
+          <mat-checkbox class="example-margin" [(ngModel)]="item.fileAsAnswer">Sim</mat-checkbox>
+      </div>
+    </div>
+
+    <button class="btn-test add-material" (click)="addQuestion()" >
+      + Adicionar Pergunta
+    </button>
+  </div>
+</div>

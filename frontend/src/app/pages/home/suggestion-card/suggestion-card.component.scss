@@ -1,0 +1,188 @@
+.suggested-module {
+  background: #fcfcfc;
+  color: #4a4a4a;
+  height: 250px;
+  box-shadow: 1px 2px 6px 0px rgba(180, 180, 180, 1);
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+
+  img.course-img {
+    width: 100%;
+    height: 145px;
+  }
+
+  .gradient-bar {
+    width: 100.5%;
+    position: absolute;
+    left: 0;
+    top: 100px;
+    transition: all 0.3s ease-in;
+  }
+
+  .requirement-level {
+    position: absolute;
+    left: 65px;
+    width: 50px;
+    height: 25px;
+    z-index: 1;
+    font-size: small;
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .requirement-text {
+    position: absolute;
+    left: calc(100% - 92px);
+    width: 82px;
+    height: 50px;
+    z-index: 1;
+    font-size: x-small;
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .main-image {
+    position: absolute;
+    top: 112px;
+    left: 8px;
+    width: 50px;
+    height: 50px;
+    z-index: 1;
+  }
+
+  .content {
+    background: #f3f3f3;
+    flex-grow: 1;
+    font-weight: 100;
+    position: relative;
+    top: -5px;
+    margin-bottom: 10px;
+    margin-top: -30px;
+    padding-top: 55px;
+    height: 50%;
+
+    p {
+      margin: 0;
+      padding: 0px 8px;
+    }
+
+    p.title {
+      font-weight: 400;
+      text-transform: uppercase;
+      height: 135px;
+      line-height: 22px;
+
+      small {
+        text-transform: initial;
+      }
+    }
+  }
+
+  .progress-bar {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+  }
+
+  &:not(.list) {
+    .requirement-level {
+      transition: visibility 0s, opacity 0.5s linear;
+    }
+
+    .requirement-text {
+      transition: visibility 0s, opacity 0.5s linear;
+    }
+
+    .main-image {
+      transition: top 300ms cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    .content {
+      transform: skewY(-10deg);
+      transition: all 300ms cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    p {
+      transform: skewY(10deg);
+      transition: transform 300ms cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .top-decoration {
+      background: rgb(121, 200, 210);
+      background: linear-gradient(
+        90deg,
+        rgba(121, 200, 210, 1) 0%,
+        rgba(249, 249, 249, 1) 100%
+      );
+      height: 8px;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      &.completed {        
+        background: rgb(30, 212, 60);
+        background: linear-gradient(
+          90deg,
+          rgba(30, 212, 60, 1) 0%,
+          rgba(249, 249, 249, 1) 100%
+        );
+      }
+    }
+  }
+
+  &:hover {
+    .requirement-level {
+      top: 30px;
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .requirement-text {
+      top: 15px;
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .main-image {
+      top: 15px;
+    }
+
+    .content {
+      margin-top: -145px;
+      padding-top: 75px;
+      transform: skewY(0deg);
+      height: calc(50% + 95px);
+
+      p {
+        transform: skewY(0deg);
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 960px) {
+  .suggested-module {
+    .gradient-bar,
+    .triangle {
+      display: none;
+    }
+    &.list {
+      .content {
+        p.level {
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 678px) {
+  .suggested-module {
+    &.list {
+      flex-direction: column;
+      height: initial;
+
+      img.course-img {
+        width: 100%;
+      }
+    }
+  }
+}

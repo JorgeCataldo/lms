@@ -1,0 +1,55 @@
+<table mat-table matSort [dataSource]="applications" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="remove">
+      <th width="8%" mat-header-cell *matHeaderCellDef> Excluir </th>
+      <td width="8%" mat-cell *matCellDef="let row">
+        <img class="icon border-right" src="./assets/img/trash.png" (click)="removeUser(row)"/>
+      </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="name">
+      <th width="30%" mat-header-cell *matHeaderCellDef> Nome do Candidato </th>
+      <td width="30%" mat-cell *matCellDef="let row">
+        <img class="logo" [src]="row?.imageUrl ? row.imageUrl : './assets/img/user-image-placeholder.png'" />
+        <span class="name" >{{ row?.userName }}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="date">
+      <th width="12%" mat-header-cell *matHeaderCellDef> Adicionado em </th>
+      <td width="12%" mat-cell *matCellDef="let row">
+        {{ row?.createdAt | date: 'dd/MM/yyyy' }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="card">
+      <th width="10%" mat-header-cell *matHeaderCellDef class="text-center"> Visualizar Card </th>
+      <td width="10%" mat-cell *matCellDef="let row" class="text-center">
+        <img class="icon view" src="./assets/img/view.png" (click)="goToUserRecommendationCard(row.userId)"/>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th width="20%" mat-header-cell *matHeaderCellDef class="text-right"> Reprovar / Aprovar </th>
+      <td width="20%" mat-cell *matCellDef="let row" class="text-right">
+        <img class="grade border-right"
+          [src]="getApprovalImgSrc(row, false)"
+          (click)="manageUserApproval(row, false)"
+        />
+        <img class="grade"
+          [src]="getApprovalImgSrc(row, true)"
+          (click)="manageUserApproval(row, true)"
+        />
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
+  </table>
+
+  <app-pagination *ngIf="applicationsCount"
+    [setPagination]="{
+      'itemsCount': applicationsCount,
+      'pageSize': pageSize
+    }"
+  ></app-pagination>

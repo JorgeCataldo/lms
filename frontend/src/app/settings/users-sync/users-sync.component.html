@@ -1,0 +1,90 @@
+<div class="inner-content" >
+  <h2>CADASTRO DE USUÁRIOS</h2>
+
+  <div class="upper" >
+    <app-date-range-picker
+      (rangeSelected)="filterByDateRange($event)"
+    ></app-date-range-picker>
+    <button class="btn-test" style="margin-left: 20px;" (click)="file.click()">
+      NOVA SINCRONIA
+    </button>
+    <input class="input-file" type="file" accept=".csv" hidden
+      (change)="setDocumentFile($event.target.files)" #file/>
+  </div>
+
+  <table mat-table matSort [dataSource]="processes" (matSortChange)="sortData($event)" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="status">
+      <th width="8%" mat-header-cell *matHeaderCellDef> Status </th>
+      <td width="8%" mat-cell *matCellDef="let row">
+        <img
+          *ngIf="row.importStatus == 1"
+          src="./assets/img/status-success.png"
+        />
+        <img
+          *ngIf="row.importStatus == 0"
+          style="cursor: pointer;"
+          (click)="openErrorsDialog(row)"
+          src="./assets/img/status-error.png"
+        />
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="date">
+      <th width="24%" mat-sort-header="createdAt" mat-header-cell *matHeaderCellDef> Data </th>
+      <td width="24%" mat-cell *matCellDef="let row">
+        {{ row.createdAt | date : 'dd/MM/yyyy':'+0000' }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="usersCount">
+      <th width="20%" mat-sort-header="totalUsers" mat-header-cell *matHeaderCellDef> Total de Usuários </th>
+      <td width="20%" mat-cell *matCellDef="let row">
+        {{ row.totalUsers }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="newUsersCount">
+      <th width="20%" mat-sort-header="newUsers.quantity" mat-header-cell *matHeaderCellDef> Novos Usuários </th>
+      <td width="20%" mat-cell *matCellDef="let row">
+        {{ row.newUsers.quantity }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="updatedUsers">
+      <th width="20%" mat-sort-header="updatedUsers.quantity" mat-header-cell *matHeaderCellDef> Usuários Atualizados </th>
+      <td width="20%" mat-cell *matCellDef="let row">
+        {{ row.updatedUsers.quantity }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="blockedUsers">
+      <th width="8%" mat-sort-header="blockedUsers.quantity" mat-header-cell *matHeaderCellDef> Usuários Bloqueados </th>
+      <td width="8%" mat-cell *matCellDef="let row">
+        {{ row.blockedUsers.quantity }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th width="8%" mat-header-cell *matHeaderCellDef> Detalhes </th>
+      <td width="8%" mat-cell *matCellDef="let row">
+        <img class="icon"
+          src="./assets/img/view.png"
+          (click)="viewDetails(row)"
+        />
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
+  </table>
+
+  <app-pagination *ngIf="processesCount"
+    [setPagination]="{
+      'itemsCount': processesCount,
+      'pageSize': pageSize
+    }"
+    (goToPage)="goToPage($event)"
+  ></app-pagination>
+</div>
+  
