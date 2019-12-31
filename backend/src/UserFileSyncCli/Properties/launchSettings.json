@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "UserFileSyncCli": {
-      "commandName": "Project",
-      "commandLineArgs": "\"G:\\My Drive\\tg4it\\Clientes\\Proseek\\ASF\\CargaUsuarios\\cargaPessoas_2019-03-25-small.csv\" b7e48b1a-8890-4117-be2e-19b98b276ffe http://dev.academia.staging.api.tg4.com.br"
-    }
-  }
-}
