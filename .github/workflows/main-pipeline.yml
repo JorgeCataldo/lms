@@ -47,7 +47,7 @@ jobs:
         options: "--exclude 'wwwroot*'"
         ssh_options: ''
         src: './backend/src/Api/backend/src/Api/dist/'
-        dest: 'ubuntu@107.21.157.253:///var/aspnetcore/academia-api'
+        dest: 'ubuntu@academia.proseek.com.br:///var/aspnetcore/academia-api'
         
     - name: Display status from deploy
       run: echo "${{ steps.deploy.outputs.status }}"
@@ -80,6 +80,6 @@ jobs:
         options: "--exclude 'wwwroot*'"
         ssh_options: ''
         src: './frontend/dist/frontend/'
-        dest: ' ubuntu@107.21.157.253://var/www/academia/site/'
+        dest: 'ubuntu@academia.proseek.com.br://var/www/academia/mirror/'
         
 
