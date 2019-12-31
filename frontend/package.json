@@ -9,7 +9,7 @@
     "build:hmg": "ng build --prod",
     "build:staging": "node --max_old_space_size=5048 node_modules/@angular/cli/bin/ng build -c staging",
     "build:b2b-hmg": "node --max_old_space_size=5048 node_modules/@angular/cli/bin/ng build -c b2b-hmg",
-    "build:mirror": "ng build -c mirror",
+    "build:mirror": "node --max_old_space_size=5048 node_modules/@angular/cli/bin/ng build -c mirror",
     "build:charlie": "ng build -c charlie",
     "build:prodpub": "ng build --prod",
     "test": "ng test",
