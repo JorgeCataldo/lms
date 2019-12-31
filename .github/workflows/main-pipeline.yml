@@ -23,21 +23,12 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 2.1.700
-        
-
-        
- #   - name: Build Server
- #    run:  |
- #       dotnet build ./backend/src/Api --configuration Release --output ./output
-        
+                
     - name: dotnet publish 
       run: |
         dotnet publish ./backend/src/Api -c Release -o ./backend/src/Api/dist
-        
-    - name: Display status from deploy
-      run: echo "Deploy 6"
-        
-    - name: Deploy to server
+                
+    - name: Deploy backend to server
       id: deployBackend
       uses: Pendect/action-rsyncer@v1.1.0
       env:
@@ -48,16 +39,6 @@ jobs:
         ssh_options: ''
         src: './backend/src/Api/backend/src/Api/dist/'
         dest: 'ubuntu@academia.proseek.com.br:///var/aspnetcore/academia-api'
-        
-    - name: Display status from deploy
-      run: echo "${{ steps.deploy.outputs.status }}"
-          
-  #  - name: dotnet deploy 
-  #    run: |
-  #      - sudo apt-get update
-     #   - sudo apt-get install -y rsync
-      #  - rsync -rvP --del --exclude 'wwwroot*' ./backend/src/Api/dist/ ubuntu@107.21.157.253:///var/aspnetcore/academia-api        
-
             
     - name: Set Node Version
       uses: actions/setup-node@v1
@@ -68,9 +49,9 @@ jobs:
       run: |
         cd frontend
         npm install
-        npm run build:staging
+        npm run build:mirror
 
-    - name: Deploy to server
+    - name: Deploy frontend to server
       id: deployFrontend
       uses: Pendect/action-rsyncer@v1.1.0
       env:
