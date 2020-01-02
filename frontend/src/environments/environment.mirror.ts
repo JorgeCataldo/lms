@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: '//api.academia.proseek.com.br',
+  apiUrl: '//api.academia.staging.proseek.com.br',
   logo: 'proseek',
   linkedInRedirect: 'https://academia.proseek.com.br',
   linkedInId: '789ldtqyaq94n7',
