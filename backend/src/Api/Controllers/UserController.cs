@@ -198,7 +198,7 @@ namespace Api.Controllers
         [HttpPost("testemails")]
         public async Task<IActionResult> TestEmails([FromBody] TestEmailsCommand.Contract request)
         {
-            
+            var email = "";
             var role = this.GetUserRole();
             if (role != "Admin")
                 return this.Unauthorized();
