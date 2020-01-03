@@ -38,7 +38,7 @@ jobs:
         options: "--exclude 'wwwroot*'"
         ssh_options: ''
         src: './backend/src/Api/backend/src/Api/dist/'
-        dest: 'ubuntu@academia.staging.proseek.com.br:///var/aspnetcore/academia-api'
+        dest: 'ubuntu@academia.proseek.com.br:///var/aspnetcore/academia-api'
             
     - name: Set Node Version
       uses: actions/setup-node@v1
@@ -61,6 +61,6 @@ jobs:
         options: "--exclude 'wwwroot*'"
         ssh_options: ''
         src: './frontend/dist/frontend/'
-        dest: 'ubuntu@academia.staging.proseek.com.br://var/www/academia/mirror/'
+        dest: 'ubuntu@academia.proseek.com.br://var/www/academia/mirror/'
         
 
