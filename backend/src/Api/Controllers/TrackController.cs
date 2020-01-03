@@ -221,5 +221,15 @@ namespace Api.Controllers
             return RestResult.CreateHttpResponse(result);
         }
 
+        [HttpPost("getNotRecommendedTracks")]
+        public async Task<IActionResult> GetNotRecommendedTracks([FromBody]GetNotRecommendedTrackQuery.Contract request)
+        {
+
+            request.UserId = this.GetUserId();
+            request.UserRole = this.GetUserRole();
+            var result = await this.Send(request);
+            return RestResult.CreateHttpResponse(result);
+        }
+
     }
 }

@@ -61,6 +61,7 @@ export class UrlService extends BaseUrlService {
       ['getQuestionsList', 'api/question/getAllQuestions'],
       ['validateModuleQuestions', 'api/question/validateModuleQuestions'],
       ['getPagedFilteredTracksList', 'api/track/filtered'],
+      ['getNotRecommendedTracks', 'api/track/getNotRecommendedTracks'],
       ['getPagedFilteredMyCoursesTracksList', 'api/track/filtered/mycourses'],
       ['getPagedFilteredEffortPerformancesTracksList', 'api/track/filtered/effortPerformance'],
       ['getTrackById', 'api/track'],

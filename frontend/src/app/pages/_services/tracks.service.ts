@@ -30,6 +30,22 @@ export class ContentTracksService {
     });
   }
 
+  public getNotRecommendedTracks(
+    page: number = 1, pageSize: number = 10, searchValue: string = '',
+    tags: Array<string> = [], published: boolean = true, attending: boolean = null
+  ): Observable<any> {
+    return this._httpService.post('getNotRecommendedTracks', {
+      'page': page,
+      'pageSize': pageSize,
+      'filters': {
+        'term': searchValue,
+        'tags': tags,
+        'published': published,
+        'attending': attending
+      }
+    });
+  }
+
   public getAllFilteredTracksList(
     searchValue: string = '',
     tags: Array<string> = [], published: boolean = true

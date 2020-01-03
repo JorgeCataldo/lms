@@ -307,8 +307,10 @@ export class HomeComponent extends NotificationClass implements OnInit {
   }
 
   private _loadTracks(): void {
-    this._tracksService.getPagedFilteredTracksList().subscribe((response) => {
-      const tracksRecommened = response.data.tracks.filter(x => !x.recommended);
+    this._tracksService.getNotRecommendedTracks().subscribe((response) => {
+      console.log('response.data.tracks -> ', response.data.tracks);
+      // const tracksRecommened = response.data.tracks.filter(x => !x.recommended);
+      const tracksRecommened = response.data.tracks;
       const limitTrackRecommened = tracksRecommened.slice(0, 3);
       this.tracks = limitTrackRecommened.sort(function(a, b) {
         return a.title > b.title ? 1 : -1;
