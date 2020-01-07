@@ -78,7 +78,8 @@ namespace Domain.Aggregates.UserProgressHistory.Commands
                         //    return Result.Fail<QuestionInfo>("Não há a possibilidade de progredir no nivel atual. Você já alcançou o máximo de erros possíveis.");
 
                         //Buscado a nova lista de respostas
-                        var newQuestionList = await this.GetUserQuestionList(moduleId, subjectId, cancellationToken, progress);
+                        //var newQuestionList = await this.GetUserQuestionList(moduleId, subjectId, cancellationToken, progress);
+                        var newQuestionList = await this.GetUserQuestionList(moduleId, subjectId, cancellationToken);
                         newQuestionList = newQuestionList.Shuffle();
 
                         // Retirando as perguntas não respondidas que não existem mais
@@ -109,7 +110,8 @@ namespace Domain.Aggregates.UserProgressHistory.Commands
                     else
                     {
                         progress = UserSubjectProgress.Create(moduleId, subjectId, userId);
-                        progress.Questions = await this.GetUserQuestionList(moduleId, subjectId, cancellationToken, null);
+                        //progress.Questions = await this.GetUserQuestionList(moduleId, subjectId, cancellationToken, null);
+                        progress.Questions = await this.GetUserQuestionList(moduleId, subjectId, cancellationToken);
 
                         //Atualiza no banco de dados
                         await _db.UserSubjectProgressCollection.InsertOneAsync(progress,
@@ -149,8 +151,8 @@ namespace Domain.Aggregates.UserProgressHistory.Commands
                     //Se não encontrou nenhuma é pq acabou o BDQ e tem que resetar as perguntas que ele respondeu errado
                     foreach (var userQuestion in progress.Questions.Where(x => x.Level == applicableQuestionLevel).ToList())
                     {
-                        //if (!userQuestion.Answered || userQuestion.HasAnsweredCorrectly) continue;
-                        if (!userQuestion.Answered || userQuestion.HasAnsweredCorrectly || userQuestion.AnsweredCount > 99) continue;
+                        if (!userQuestion.Answered || userQuestion.HasAnsweredCorrectly) continue;
+                        //if (!userQuestion.Answered || userQuestion.HasAnsweredCorrectly || userQuestion.AnsweredCount > 99) continue;
 
                         userQuestion.Answered = false;
                         if (nextQuestion == null)
@@ -201,7 +203,7 @@ namespace Domain.Aggregates.UserProgressHistory.Commands
                 return Result.Ok(response);
             }
 
-            private async Task<List<UserQuestion>> GetUserQuestionList(ObjectId moduleId, ObjectId subjectId, CancellationToken cancellationToken, UserSubjectProgress progress)
+            private async Task<List<UserQuestion>> GetUserQuestionList(ObjectId moduleId, ObjectId subjectId, CancellationToken cancellationToken)
             {
                 /*
                 - Ordena as perguntas 
@@ -210,7 +212,8 @@ namespace Domain.Aggregates.UserProgressHistory.Commands
                 */
                 var dbQuestions = await _db.QuestionCollection
                     .AsQueryable()
-                    .Where(x => x.ModuleId == moduleId)
+                    .Where(x => x.ModuleId == moduleId &&
+                                x.SubjectId == subjectId)
                     .ToListAsync(cancellationToken);
 
                 var badConfigCheck = dbQuestions.Count(x => x.Answers.All(q => q.Points != 2));
@@ -219,123 +222,19 @@ namespace Domain.Aggregates.UserProgressHistory.Commands
                     throw new Exception("Existem perguntas sem uma resposta certa");
                 }
 
-                var currentLevel = progress != null ? progress.Level : 0;
-                var currentLevelQuestions = dbQuestions.Where(x => x.Level == currentLevel).ToList();
-
-                var moduleSubjects = await _db.ModuleCollection
-                    .AsQueryable()
-                    .Where(x => x.Id == moduleId)
-                    .Select(x => x.Subjects)
-                    .FirstOrDefaultAsync(cancellationToken);
-
-                var indexCurrentSubject = 0;
-
-                for (int ind = 0; ind < moduleSubjects.Count; ind++)
-                {
-                    if (moduleSubjects[ind].Id == subjectId)
-                    {
-                        indexCurrentSubject = ind;
-                        break;
-                    }
-                }
-
-                var questions = new List<UserQuestion>();
-                var mixedListQuestion = new List<Question>();
-                var currentSubjectQuestions = currentLevelQuestions.Where(x => x.SubjectId == subjectId).ToList().Shuffle();
-                var otherSubjectsQuestions = dbQuestions.Where(x => x.SubjectId != subjectId).ToList().Shuffle();
-                var windowQuestions = currentSubjectQuestions.Count;
-                var currentSubjectInQuestionsQt = (int)Math.Round(windowQuestions * 0.8);
-                var otherSubjectsInQuestionsQt = windowQuestions - currentSubjectInQuestionsQt;
-
-                if (progress == null)
-                {
-                    
-                    mixedListQuestion.AddRange(currentLevelQuestions.Take(currentSubjectInQuestionsQt));
-                    if (otherSubjectsQuestions.Count > otherSubjectsInQuestionsQt)
-                    {
-                        mixedListQuestion.AddRange(otherSubjectsQuestions.Take(otherSubjectsInQuestionsQt));
-                    }
-                    else if (otherSubjectsQuestions.Count > 0 && otherSubjectsQuestions.Count < otherSubjectsInQuestionsQt)
-                    {
-                        mixedListQuestion.AddRange(otherSubjectsQuestions);
-                        var windowLeft = windowQuestions - otherSubjectsQuestions.Count;
-                        mixedListQuestion.AddRange(currentLevelQuestions.TakeLast(windowLeft));
-                    }
-                    else
-                    {
-                        mixedListQuestion.AddRange(currentLevelQuestions.TakeLast(otherSubjectsInQuestionsQt));
-                    }
-                   
-                    questions = mixedListQuestion
+                var questions = dbQuestions
+                    .OrderBy(x => x.Level)
+                    .ThenBy(x => x.Concepts.Count)
                     .Select(x => new UserQuestion()
                     {
                         Answered = false,
                         HasAnsweredCorrectly = false,
                         Level = x.Level,
                         QuestionId = x.Id,
-                        AnsweredCount = 0,
+                        // AnsweredCount = 0,
                         CorrectAnswerId = x.Answers.First(q => q.Points == 2).Id
                     })
                     .ToList();
-                }
-                else
-                {
-                    var correctedAns = progress.Questions.Where(x => x.HasAnsweredCorrectly).ToList();
-                    var correctedAnsQIds = correctedAns.Select(x => x.QuestionId).ToList();
-                    currentSubjectQuestions = currentSubjectQuestions.Where(x => !correctedAnsQIds.Contains(x.Id)).ToList();
-
-                    if (currentSubjectQuestions.Count > currentSubjectInQuestionsQt)
-                    {
-                        mixedListQuestion.AddRange(currentSubjectQuestions.Take(currentSubjectInQuestionsQt));
-                    }
-                    else
-                    {
-                        mixedListQuestion.AddRange(currentSubjectQuestions);
-                    }
-
-                    var windowLeft = windowQuestions - mixedListQuestion.Count;
-
-                    if (windowLeft > otherSubjectsInQuestionsQt)
-                    {
-                        if (otherSubjectsQuestions.Count > 0)
-                        {
-                            if (otherSubjectsQuestions.Count > windowLeft)
-                            {
-                                mixedListQuestion.AddRange(otherSubjectsQuestions.Take(windowLeft));
-                            }
-                            else
-                            {
-                                mixedListQuestion.AddRange(otherSubjectsQuestions);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if (otherSubjectsQuestions.Count > 0)
-                        {
-                            if (otherSubjectsQuestions.Count > windowLeft)
-                            {
-                                mixedListQuestion.AddRange(otherSubjectsQuestions.Take(windowLeft));
-                            }
-                            else
-                            {
-                                mixedListQuestion.AddRange(otherSubjectsQuestions);
-                            }
-                        }
-                    }
-
-                    questions = mixedListQuestion
-                    .Select(x => new UserQuestion()
-                    {
-                        Answered = false,
-                        HasAnsweredCorrectly = false,
-                        Level = x.Level,
-                        QuestionId = x.Id,
-                        AnsweredCount = 0,
-                        CorrectAnswerId = x.Answers.First(q => q.Points == 2).Id
-                    })
-                    .ToList();
-                }
 
                 var i = 0;
                 foreach (var userQuestion in questions)
@@ -343,8 +242,153 @@ namespace Domain.Aggregates.UserProgressHistory.Commands
                     userQuestion.Order = i++;
                 }
 
-                return questions.Shuffle();
+                return questions;
             }
+
+            //private async Task<List<UserQuestion>> GetUserQuestionList(ObjectId moduleId, ObjectId subjectId, CancellationToken cancellationToken, UserSubjectProgress progress)
+            //{
+            //    /*
+            //    - Ordena as perguntas 
+            //       1 - pela qunatidade de conceitos abordados, do maior para o menor
+            //       2 - randomicamente (fica pra depois. Ver a necessidade)
+            //    */
+            //    var dbQuestions = await _db.QuestionCollection
+            //        .AsQueryable()
+            //        .Where(x => x.ModuleId == moduleId)
+            //        .ToListAsync(cancellationToken);
+
+            //    var badConfigCheck = dbQuestions.Count(x => x.Answers.All(q => q.Points != 2));
+            //    if (badConfigCheck > 0)
+            //    {
+            //        throw new Exception("Existem perguntas sem uma resposta certa");
+            //    }
+
+            //    var currentLevel = progress != null ? progress.Level : 0;
+            //    var currentLevelQuestions = dbQuestions.Where(x => x.Level == currentLevel).ToList();
+
+            //    var moduleSubjects = await _db.ModuleCollection
+            //        .AsQueryable()
+            //        .Where(x => x.Id == moduleId)
+            //        .Select(x => x.Subjects)
+            //        .FirstOrDefaultAsync(cancellationToken);
+
+            //    var indexCurrentSubject = 0;
+
+            //    for (int ind = 0; ind < moduleSubjects.Count; ind++)
+            //    {
+            //        if (moduleSubjects[ind].Id == subjectId)
+            //        {
+            //            indexCurrentSubject = ind;
+            //            break;
+            //        }
+            //    }
+
+            //    var questions = new List<UserQuestion>();
+            //    var mixedListQuestion = new List<Question>();
+            //    var currentSubjectQuestions = currentLevelQuestions.Where(x => x.SubjectId == subjectId).ToList().Shuffle();
+            //    var otherSubjectsQuestions = dbQuestions.Where(x => x.SubjectId != subjectId).ToList().Shuffle();
+            //    var windowQuestions = currentSubjectQuestions.Count;
+            //    var currentSubjectInQuestionsQt = (int)Math.Round(windowQuestions * 0.8);
+            //    var otherSubjectsInQuestionsQt = windowQuestions - currentSubjectInQuestionsQt;
+
+            //    if (progress == null)
+            //    {
+
+            //        mixedListQuestion.AddRange(currentLevelQuestions.Take(currentSubjectInQuestionsQt));
+            //        if (otherSubjectsQuestions.Count > otherSubjectsInQuestionsQt)
+            //        {
+            //            mixedListQuestion.AddRange(otherSubjectsQuestions.Take(otherSubjectsInQuestionsQt));
+            //        }
+            //        else if (otherSubjectsQuestions.Count > 0 && otherSubjectsQuestions.Count < otherSubjectsInQuestionsQt)
+            //        {
+            //            mixedListQuestion.AddRange(otherSubjectsQuestions);
+            //            var windowLeft = windowQuestions - otherSubjectsQuestions.Count;
+            //            mixedListQuestion.AddRange(currentLevelQuestions.TakeLast(windowLeft));
+            //        }
+            //        else
+            //        {
+            //            mixedListQuestion.AddRange(currentLevelQuestions.TakeLast(otherSubjectsInQuestionsQt));
+            //        }
+
+            //        questions = mixedListQuestion
+            //        .Select(x => new UserQuestion()
+            //        {
+            //            Answered = false,
+            //            HasAnsweredCorrectly = false,
+            //            Level = x.Level,
+            //            QuestionId = x.Id,
+            //            AnsweredCount = 0,
+            //            CorrectAnswerId = x.Answers.First(q => q.Points == 2).Id
+            //        })
+            //        .ToList();
+            //    }
+            //    else
+            //    {
+            //        var correctedAns = progress.Questions.Where(x => x.HasAnsweredCorrectly).ToList();
+            //        var correctedAnsQIds = correctedAns.Select(x => x.QuestionId).ToList();
+            //        currentSubjectQuestions = currentSubjectQuestions.Where(x => !correctedAnsQIds.Contains(x.Id)).ToList();
+
+            //        if (currentSubjectQuestions.Count > currentSubjectInQuestionsQt)
+            //        {
+            //            mixedListQuestion.AddRange(currentSubjectQuestions.Take(currentSubjectInQuestionsQt));
+            //        }
+            //        else
+            //        {
+            //            mixedListQuestion.AddRange(currentSubjectQuestions);
+            //        }
+
+            //        var windowLeft = windowQuestions - mixedListQuestion.Count;
+
+            //        if (windowLeft > otherSubjectsInQuestionsQt)
+            //        {
+            //            if (otherSubjectsQuestions.Count > 0)
+            //            {
+            //                if (otherSubjectsQuestions.Count > windowLeft)
+            //                {
+            //                    mixedListQuestion.AddRange(otherSubjectsQuestions.Take(windowLeft));
+            //                }
+            //                else
+            //                {
+            //                    mixedListQuestion.AddRange(otherSubjectsQuestions);
+            //                }
+            //            }
+            //        }
+            //        else
+            //        {
+            //            if (otherSubjectsQuestions.Count > 0)
+            //            {
+            //                if (otherSubjectsQuestions.Count > windowLeft)
+            //                {
+            //                    mixedListQuestion.AddRange(otherSubjectsQuestions.Take(windowLeft));
+            //                }
+            //                else
+            //                {
+            //                    mixedListQuestion.AddRange(otherSubjectsQuestions);
+            //                }
+            //            }
+            //        }
+
+            //        questions = mixedListQuestion
+            //        .Select(x => new UserQuestion()
+            //        {
+            //            Answered = false,
+            //            HasAnsweredCorrectly = false,
+            //            Level = x.Level,
+            //            QuestionId = x.Id,
+            //            AnsweredCount = 0,
+            //            CorrectAnswerId = x.Answers.First(q => q.Points == 2).Id
+            //        })
+            //        .ToList();
+            //    }
+
+            //    var i = 0;
+            //    foreach (var userQuestion in questions)
+            //    {
+            //        userQuestion.Order = i++;
+            //    }
+
+            //    return questions.Shuffle();
+            //}
         }
     }
 }
