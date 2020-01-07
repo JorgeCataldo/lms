@@ -187,6 +187,9 @@ namespace Domain.Aggregates.Tracks.Queries
                     builder.Eq(x => x.DeletedAt, DateTimeOffset.MinValue)
                 );
 
+                //filters = filters & (
+                //    builder.Eq(x => x.Published, true));
+
                 if (request.Filters == null) return filters;
 
                 if (!String.IsNullOrEmpty(request.Filters.Term))
@@ -194,28 +197,11 @@ namespace Domain.Aggregates.Tracks.Queries
                                   new BsonRegularExpression("/" + request.Filters.Term + "/is"));
 
 
-                filters = filters & (
-                    builder.Eq(x => x.Blocked, false) |
-                    builder.Eq(x => x.Blocked, null)
-                );
-                if (request.Filters.Published.HasValue)
-                {
-                    if (request.Filters.Published.Value)
-                    {
-                        filters = filters & (
-                            builder.Eq(x => x.Published, true) |
-                            builder.Nin(x => x.Id, specialTrackIds)
-                        );
-                    }
-                    else
-                    {
-                        filters = filters & (
-                            builder.Eq(x => x.Published, false) |
-                            builder.Eq(x => x.Published, null)
-                        );
-                    }
-                }
-
+                //filters = filters & (
+                //    builder.Eq(x => x.Blocked, false) |
+                //    builder.Eq(x => x.Blocked, null)
+                //);
+                
 
                 return filters;
             }

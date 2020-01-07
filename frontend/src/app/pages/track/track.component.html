@@ -52,7 +52,7 @@
       [module]="module"
       [progress]="moduleProgress[module.id]"
       [levels]="levelDict"
-      [completed]="trackProgress?.modulesCompleted.includes(module.id)"
+      [completed]="trackProgress?.modulesCompleted ? trackProgress?.modulesCompleted.includes(module.id) : 0"
     ></app-module-card>
   </div>
 </div>

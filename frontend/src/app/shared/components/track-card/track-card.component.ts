@@ -46,7 +46,7 @@ import { TrackHeightChangeEnum } from 'src/app/models/enums/track-height-change.
           *ngIf="showText" >
           {{ track.title }}
         </p>
-        <div class="modules">
+        <div class="modules" *ngIf="showModule || showEvents">
           <div class="all-track">
             <div class="showModule" *ngIf="showModule">
               <p>{{ track.moduleCount }}</p>

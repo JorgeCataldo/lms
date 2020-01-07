@@ -63,7 +63,7 @@ import { ContentModulesService } from 'src/app/pages/_services/modules.service';
             <div class="content content-item"
               *ngFor="let content of subject.contents; let contentIndex = index"
               [ngClass]="{ 'active': contentIndex === currentIndex, 'no-border': contentIndex === subject.contents.length - 1 }"
-              (click)="goToNewContent($event, moduleId, subject.id, index)">
+              (click)="goToNewContent($event, moduleId, subject.id, contentIndex)">
               <div class="content-title">
                 <mat-checkbox
                   [(ngModel)]="content.watched"

@@ -123,6 +123,11 @@ export class ContentComponent extends NotificationClass implements OnInit, OnDes
   }
 
   public goToContent(data: any): void {
+
+    if(!this.contents[data.index] || this.contents[data.index] === undefined){
+      console.log('this.contents[data.index] -> ', this.contents[data.index]);
+      console.log('[data] -> ', data);
+    }
     const contentStr = localStorage.getItem('contents');
     const allContentStr = localStorage.getItem('allContents');
 

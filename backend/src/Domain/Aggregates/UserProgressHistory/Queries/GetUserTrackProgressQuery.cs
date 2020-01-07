@@ -63,15 +63,15 @@ namespace Domain.Aggregates.UserProgressHistory.Queries
 
                 if (trackProgress == null)
                 {
-                    var published = await _db
-                    .TrackCollection
-                    .AsQueryable()
-                    .Where(x => x.Id == trackId)
-                    .Select(x => x.Published)
-                    .FirstOrDefaultAsync();
+                    //var published = await _db
+                    //.TrackCollection
+                    //.AsQueryable()
+                    //.Where(x => x.Id == trackId)
+                    //.Select(x => x.Published)
+                    //.FirstOrDefaultAsync();
 
-                    if (published)
-                    {
+                    //if (published)
+                    //{
                         var newTrackProgress = new UserTrackProgress(trackId, userId, 0, 0);
                         await _db.UserTrackProgressCollection.InsertOneAsync(
                             newTrackProgress,
@@ -84,7 +84,7 @@ namespace Domain.Aggregates.UserProgressHistory.Queries
                             Progress = newTrackProgress.Progress,
                             ModulesCompleted = newTrackProgress.ModulesCompleted
                         });
-                    }
+                    //}
                 }
                     
                 return Result.Ok(trackProgress);

@@ -48,6 +48,7 @@ export class SentryErrorHandler implements ErrorHandler {
   ) { }
 
   handleError(error) {
+    console.log('client error 1 -> ', error);
     if (error instanceof HttpErrorResponse) { // Server Error
       if (!navigator.onLine)
         return this._errorsService.notify('Sem conexão com a internet');
@@ -60,10 +61,12 @@ export class SentryErrorHandler implements ErrorHandler {
       );
 
     } else { // Client Error
+      console.log('client error 2 -> ', error);
       if (environment.production) {
+        console.log('client error 3 -> ', error);
         Sentry.captureException((error as any).originalError || error);
         const errorRoute = '/erro?url=' + window.location.href;
-        window.location.href = window.location.protocol + '//' + window.location.host + errorRoute;
+        //window.location.href = window.location.protocol + '//' + window.location.host + errorRoute;
       } else {
         console.error(error);
       }
